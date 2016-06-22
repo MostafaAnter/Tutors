@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">توترز</string>
+    <string name="about_app">عن التطبيق</string>
+    <string name="contact_us">اتصل بنا</string>
+    <string name="home">الرئيسية</string>
+    <string name="login">تسجيل دخول</string>
+    <string name="register_student_membership">تسجيل عضوية طالب</string>
+    <string name="register_teacher_membership">تسجيل عضوية معلم</string>
+    <string name="search_about_teacher">بحث عن معلم</string>
+</resources>

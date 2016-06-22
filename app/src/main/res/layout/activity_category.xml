@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="perfect_apps.tutors.activities.CategoryActivity">
+
+    <ImageView
+        android:id="@+id/splash_image_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:contentDescription="@null"
+        android:paddingLeft="@dimen/logo_padding1"
+        android:paddingTop="@dimen/logo_padding2"
+        android:paddingRight="@dimen/logo_padding1"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#2d92c0"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="77dp"
+                android:layout_height="77dp"
+                android:background="@drawable/teacher_category_background"
+                android:onClick="cateIsTeacher" />
+
+            <TextView
+                android:id="@+id/text1"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="مدرس"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#3aa3d3" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="77dp"
+                android:layout_height="77dp"
+                android:background="@drawable/student_category_background"
+                android:onClick="CateIsStudent" />
+
+            <TextView
+                android:id="@+id/text2"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="طالب"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

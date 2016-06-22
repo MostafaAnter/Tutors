@@ -13,6 +13,7 @@
     tools:context="perfect_apps.tutors.activities.SplashActivity">
 
     <ImageView
+        android:contentDescription="@null"
         android:id="@+id/splash_image_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

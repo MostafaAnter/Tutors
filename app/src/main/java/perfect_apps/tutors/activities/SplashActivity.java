@@ -41,7 +41,7 @@ public class SplashActivity extends LocalizationActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this, HomeActivity.class)
+                startActivity(new Intent(SplashActivity.this, CategoryActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             }
