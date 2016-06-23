@@ -15,5 +15,10 @@
     <string name="about_app">عن التطبيق</string>
     <string name="contact_us">اتصل بنا</string>
     <string name="title_activity_category">CategoryActivity</string>
+    <string name="title_activity_register_teacher_membership">RegisterTeacherMembershipActivity
+    </string>
+    <string name="login_now"><u>سجل دخولك الان</u></string>
+    <string name="fill_this_data">قم بتعبئة البيانات التاليه لتسجيل عضوية جديدة :</string>
+    <string name="if_you_have">إذا كانت لديك عضوية مسبقا ؟</string>
 
 </resources>

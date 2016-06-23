@@ -1,5 +1,6 @@
 package perfect_apps.tutors.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,6 +37,9 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void cateIsTeacher(View view) {
+        Intent intent = new Intent(this, RegisterTeacherMembershipActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
 
     }
 }
