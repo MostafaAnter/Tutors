@@ -27,5 +27,7 @@
     <string name="password">كلمة المرور</string>
     <string name="email">البريد الإلكتروني</string>
     <string name="cost_of_hour">سعر الساعة بالعملة المحلية</string>
+    <string name="register">تسجيل عضوية</string>
+    <string name="register_moders">تسجيل عضوية مدرس</string>
 
 </resources>

@@ -132,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/full_name"
                 android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
                 android:padding="5dp"
                 android:inputType="textMultiLine"
                 android:background="#00000000"
@@ -175,7 +176,7 @@
                     android:background="#f8f8f8"
                     android:layout_alignParentRight="true"
                     android:layout_height="match_parent"
-                    android:src="@drawable/name_ico"/>
+                    android:src="@drawable/place_ico"/>
 
                 <Spinner
                     android:id="@+id/spinner2"
@@ -216,7 +217,7 @@
                     android:background="#f8f8f8"
                     android:layout_alignParentRight="true"
                     android:layout_height="match_parent"
-                    android:src="@drawable/name_ico"/>
+                    android:src="@drawable/place_ico"/>
 
                 <Spinner
                     android:id="@+id/spinner1"
@@ -256,7 +257,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/name_ico"/>
+                android:src="@drawable/school_ico"/>
 
             <Spinner
                 android:id="@+id/spinner3"
@@ -295,7 +296,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/name_ico"/>
+                android:src="@drawable/schooll_icon"/>
 
             <Spinner
                 android:id="@+id/spinner4"
@@ -323,8 +324,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/full_name"
+                android:hint="@string/school_subjects"
                 android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
                 android:padding="5dp"
                 android:inputType="textMultiLine"
                 android:background="#00000000"
@@ -336,7 +338,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/name_ico"/>
+                android:src="@drawable/school_ico"/>
         </LinearLayout>
 
         <LinearLayout
@@ -352,8 +354,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/full_name"
+                android:hint="@string/cost_of_hour"
                 android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
                 android:padding="5dp"
                 android:inputType="textMultiLine"
                 android:background="#00000000"
@@ -365,7 +368,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/name_ico"/>
+                android:src="@drawable/cur_ico"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -392,7 +395,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/name_ico"/>
+                android:src="@drawable/serv_ico"/>
 
             <Spinner
                 android:id="@+id/spinner5"
@@ -407,5 +410,134 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"
+                android:padding="8dp"
+                android:src="@drawable/down_arrow" />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="30dp"
+                android:padding="3dp"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:layout_alignParentRight="true"
+                android:layout_height="match_parent"
+                android:src="@drawable/sex_ico"/>
+
+            <Spinner
+                android:id="@+id/spinner6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown" />
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:inputType="textMultiLine"
+                android:background="#00000000"
+                android:gravity="top" />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="30dp"
+                android:padding="3dp"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:layout_height="match_parent"
+                android:src="@drawable/mail_ico"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:inputType="textMultiLine"
+                android:background="#00000000"
+                android:gravity="top" />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="30dp"
+                android:padding="3dp"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:layout_height="match_parent"
+                android:src="@drawable/pass_ico"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape_blue"
+            android:orientation="horizontal"
+            android:onClick="registerNewUser">
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/register"
+                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                style="?android:attr/textAppearanceMedium"
+                android:background="#00000000" />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="48dp"
+                android:padding="8dp"
+                android:layout_margin="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_height="match_parent"
+                android:src="@drawable/reg_new_ico"/>
+        </LinearLayout>
+
+    </LinearLayout>
 </ScrollView>

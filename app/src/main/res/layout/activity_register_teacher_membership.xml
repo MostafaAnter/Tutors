@@ -23,7 +23,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/register_teacher_membership"
+            android:text="@string/register_moders"
             android:textColor="#FFFFFF"
             android:layout_marginRight="10dp"
             style="?android:attr/textAppearanceMedium" />

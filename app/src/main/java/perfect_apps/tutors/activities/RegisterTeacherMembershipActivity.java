@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -33,8 +34,21 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     @Bind(R.id.text3) TextView textView3;
     @Bind(R.id.editText1) EditText editText1;
     @Bind(R.id.editText2) EditText editText2;
+    @Bind(R.id.editText3) EditText editText3;
+    @Bind(R.id.editText4) EditText editText4;
+    @Bind(R.id.editText5) EditText editText5;
+    @Bind(R.id.editText6) EditText editText6;
     @Bind(R.id.button1) Button button1;
+    @Bind(R.id.button2) Button button2;
     @Bind(R.id.image1) ImageView imageView1;
+
+
+    @Bind(R.id.spinner1) Spinner spinner1;
+    @Bind(R.id.spinner2) Spinner spinner2;
+    @Bind(R.id.spinner3) Spinner spinner3;
+    @Bind(R.id.spinner4) Spinner spinner4;
+    @Bind(R.id.spinner5) Spinner spinner5;
+    @Bind(R.id.spinner6) Spinner spinner6;
 
     private static final int REQUEST_CODE = 1;
     @Override
@@ -43,6 +57,11 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         setContentView(R.layout.activity_register_teacher_membership);
         ButterKnife.bind(this);
         setToolbar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         changeTextFont();
     }
 
@@ -91,7 +110,12 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         textView2.setTypeface(font);
         editText1.setTypeface(font);
         editText2.setTypeface(font);
+        editText3.setTypeface(font);
+        editText4.setTypeface(font);
+        editText5.setTypeface(font);
+        editText6.setTypeface(font);
         button1.setTypeface(font);
+        button2.setTypeface(font);
         textView3.setTypeface(fontBold);
     }
 
@@ -128,5 +152,8 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 .placeholder(R.drawable.__picker_ic_photo_black_48dp)
                 .error(R.drawable.__picker_ic_broken_image_black_48dp)
                 .into(imageView1);
+    }
+
+    public void registerNewUser(View view) {
     }
 }

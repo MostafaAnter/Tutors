@@ -427,7 +427,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/serv_ico"/>
+                android:src="@drawable/sex_ico"/>
 
             <Spinner
                 android:id="@+id/spinner6"
@@ -468,7 +468,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/cur_ico"/>
+                android:src="@drawable/mail_ico"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -498,7 +498,38 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/cur_ico"/>
+                android:src="@drawable/pass_ico"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape_blue"
+            android:orientation="horizontal"
+            android:onClick="registerNewUser">
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/register"
+                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                style="?android:attr/textAppearanceMedium"
+                android:background="#00000000" />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="48dp"
+                android:padding="8dp"
+                android:layout_margin="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_height="match_parent"
+                android:src="@drawable/reg_new_ico"/>
         </LinearLayout>
 
     </LinearLayout>
