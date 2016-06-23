@@ -1,5 +1,6 @@
 package perfect_apps.tutors.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -85,4 +86,10 @@ public class LoginTeacherActivity extends LocalizationActivity {
         button1.setTypeface(fontBold);
     }
 
+    public void loginTeacher(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        finish();
+    }
 }
