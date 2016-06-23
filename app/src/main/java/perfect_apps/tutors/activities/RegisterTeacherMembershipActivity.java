@@ -123,6 +123,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         Intent intent = new Intent(this, LoginTeacherActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+
     }
 
     public void pickPhoto(View view) {
