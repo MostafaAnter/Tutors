@@ -20,5 +20,7 @@
     <string name="login_now"><u>سجل دخولك الان</u></string>
     <string name="fill_this_data">قم بتعبئة البيانات التاليه لتسجيل عضوية جديدة :</string>
     <string name="if_you_have">إذا كانت لديك عضوية مسبقا ؟</string>
+    <string name="write_about_you">اكتب نبذه مختصره عنك سوف تظهر فى عضويتك اسفل صورتك...</string>
+    <string name="addPhoto">أضف صورتي</string>
 
 </resources>

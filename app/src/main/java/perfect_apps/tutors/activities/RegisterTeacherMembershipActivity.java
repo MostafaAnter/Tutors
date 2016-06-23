@@ -8,6 +8,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -20,6 +22,8 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     @Bind(R.id.text1) TextView textView1;
     @Bind(R.id.text2) TextView textView2;
     @Bind(R.id.text3) TextView textView3;
+    @Bind(R.id.editText1) EditText editText1;
+    @Bind(R.id.button1) Button button1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +76,8 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         Typeface fontBold = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
         textView1.setTypeface(font);
         textView2.setTypeface(font);
+        editText1.setTypeface(font);
+        button1.setTypeface(font);
         textView3.setTypeface(fontBold);
     }
 
