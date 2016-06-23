@@ -32,6 +32,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     @Bind(R.id.text2) TextView textView2;
     @Bind(R.id.text3) TextView textView3;
     @Bind(R.id.editText1) EditText editText1;
+    @Bind(R.id.editText2) EditText editText2;
     @Bind(R.id.button1) Button button1;
     @Bind(R.id.image1) ImageView imageView1;
 
@@ -89,6 +90,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         textView1.setTypeface(font);
         textView2.setTypeface(font);
         editText1.setTypeface(font);
+        editText2.setTypeface(font);
         button1.setTypeface(font);
         textView3.setTypeface(fontBold);
     }
