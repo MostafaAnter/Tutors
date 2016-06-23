@@ -40,6 +40,5 @@ public class CategoryActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterTeacherMembershipActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
-
     }
 }

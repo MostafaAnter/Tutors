@@ -29,5 +29,7 @@
     <string name="cost_of_hour">سعر الساعة بالعملة المحلية</string>
     <string name="register">تسجيل عضوية</string>
     <string name="register_moders">تسجيل عضوية مدرس</string>
+    <string name="title_activity_login_teacher">LoginTeacherActivity</string>
+    <string name="login_teacher">تسجيل دخول</string>
 
 </resources>
