@@ -69,6 +69,7 @@
                 android:background="@drawable/border_shape"
                 android:hint="@string/write_about_you"
                 android:textSize="12sp"
+                android:imeOptions="actionUnspecified"
                 android:padding="5dp"
                 android:layout_marginRight="10dp"
                 android:inputType="textMultiLine"
@@ -126,8 +127,10 @@
                 android:hint="@string/full_name"
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
                 android:padding="5dp"
-                android:inputType="textMultiLine"
+                android:inputType="text"
                 android:background="#00000000"
                 android:gravity="top" />
             <ImageView
@@ -321,9 +324,11 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
-                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
                 android:background="#00000000"
-                android:gravity="top" />
+                android:gravity="right" />
             <ImageView
                 android:contentDescription="@null"
                 android:layout_width="30dp"
@@ -351,7 +356,9 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
-                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
                 android:background="#00000000"
                 android:gravity="top" />
             <ImageView
@@ -458,7 +465,9 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
-                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textEmailAddress"
                 android:background="#00000000"
                 android:gravity="top" />
             <ImageView
@@ -488,9 +497,11 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
-                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
                 android:background="#00000000"
-                android:gravity="top" />
+                android:gravity="right" />
             <ImageView
                 android:contentDescription="@null"
                 android:layout_width="30dp"

@@ -115,7 +115,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         editText5.setTypeface(font);
         editText6.setTypeface(font);
         button1.setTypeface(font);
-        button2.setTypeface(font);
+        button2.setTypeface(fontBold);
         textView3.setTypeface(fontBold);
     }
 
