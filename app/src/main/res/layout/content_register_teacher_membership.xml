@@ -86,7 +86,8 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@drawable/border_shape"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:onClick="pickPhoto">
 
                 <FrameLayout
                     android:layout_width="match_parent"

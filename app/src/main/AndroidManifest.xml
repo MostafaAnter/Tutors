@@ -44,6 +44,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="perfect_apps.tutors.activities.CategoryActivity" />
         </activity>
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
