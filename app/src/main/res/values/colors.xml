@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#1e7faa</color>
     <color name="colorAccent">#2d92c0</color>
     <color name="green">#8cbf46</color>
+
+    <!-- swipe colors -->
+    <color name="swipe_color_1">#bf3026</color>
+    <color name="swipe_color_2">#99CC00</color>
+    <color name="swipe_color_3">#0a80d1</color>
+    <color name="swipe_color_4">#7CAF00</color>
 </resources>

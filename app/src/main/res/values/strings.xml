@@ -31,5 +31,6 @@
     <string name="register_moders">تسجيل عضوية مدرس</string>
     <string name="title_activity_login_teacher">LoginTeacherActivity</string>
     <string name="login_teacher">تسجيل دخول</string>
+    <string name="rate">التقييم</string>
 
 </resources>

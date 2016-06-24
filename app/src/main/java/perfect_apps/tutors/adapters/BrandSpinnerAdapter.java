@@ -26,7 +26,7 @@ public class BrandSpinnerAdapter extends ArrayAdapter {
     private List<String> mDataset;
     LayoutInflater inflater;
 
-    /*************  CustomAdapter Constructor *****************/
+    /*************  TeachersListAdapter Constructor *****************/
     public BrandSpinnerAdapter(
             Context mContext,
             int textViewResourceId,
