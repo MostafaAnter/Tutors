@@ -13,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
+import perfect_apps.tutors.models.TeacherItem;
 
 /**
  * Created by mostafa on 24/06/16.
@@ -34,7 +37,7 @@ public class TeachersHomeList extends Fragment {
     protected RecyclerView mRecyclerView;
     protected TeachersListAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    protected String[] mDataset;
+    protected List<TeacherItem> mDataset;
 
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -65,7 +68,7 @@ public class TeachersHomeList extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new TeachersListAdapter(mDataset);
+        mAdapter = new TeachersListAdapter(getActivity(), mDataset);
         // Set TeachersListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 
