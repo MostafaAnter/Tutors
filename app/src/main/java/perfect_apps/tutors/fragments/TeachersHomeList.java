@@ -33,6 +33,7 @@ import perfect_apps.tutors.adapters.TeachersListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.utils.DividerItemDecoration;
 
 /**
  * Created by mostafa on 24/06/16.
@@ -76,6 +77,10 @@ public class TeachersHomeList extends Fragment {
 
         // manipulate recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
         mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         if (savedInstanceState != null) {

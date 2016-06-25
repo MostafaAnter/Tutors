@@ -14,23 +14,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
+
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.fragments.TeachersHomeList;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
 
-public class HomeActivity extends AppCompatActivity
+public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static boolean mTwoPane;
 
     private static NavigationView navigationView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

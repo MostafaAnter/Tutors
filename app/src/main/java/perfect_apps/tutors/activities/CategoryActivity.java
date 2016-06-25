@@ -10,16 +10,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends LocalizationActivity {
     @Bind(R.id.text1) TextView textView1;
     @Bind(R.id.text2) TextView textView2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         ButterKnife.bind(this);
