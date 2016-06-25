@@ -45,7 +45,7 @@
                 android:contentDescription="@null"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/log_in_icon"
+                android:src="@drawable/ic_action_log_in_icon"
                 android:padding="10dp" />
 
         </LinearLayout>
@@ -147,7 +147,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/name_ico"/>
+                android:src="@drawable/ic_action_name_ico"/>
         </LinearLayout>
 
         <LinearLayout
@@ -179,7 +179,7 @@
                     android:background="#f8f8f8"
                     android:layout_alignParentRight="true"
                     android:layout_height="match_parent"
-                    android:src="@drawable/place_ico"/>
+                    android:src="@drawable/ic_action_place_ico"/>
 
                 <Spinner
                     android:id="@+id/spinner2"
@@ -220,7 +220,7 @@
                     android:background="#f8f8f8"
                     android:layout_alignParentRight="true"
                     android:layout_height="match_parent"
-                    android:src="@drawable/place_ico"/>
+                    android:src="@drawable/ic_action_place_ico"/>
 
                 <Spinner
                     android:id="@+id/spinner1"
@@ -260,7 +260,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/school_ico"/>
+                android:src="@drawable/ic_action_school_ico"/>
 
             <Spinner
                 android:id="@+id/spinner3"
@@ -299,7 +299,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/schooll_icon"/>
+                android:src="@drawable/ic_action_schooll_icon"/>
 
             <Spinner
                 android:id="@+id/spinner4"
@@ -343,7 +343,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/school_ico"/>
+                android:src="@drawable/ic_action_school_ico"/>
         </LinearLayout>
 
         <LinearLayout
@@ -375,7 +375,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/cur_ico"/>
+                android:src="@drawable/ic_action_cur_ico"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -402,7 +402,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/serv_ico"/>
+                android:src="@drawable/ic_action_serv_ico"/>
 
             <Spinner
                 android:id="@+id/spinner5"
@@ -441,7 +441,7 @@
                 android:background="#f8f8f8"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
-                android:src="@drawable/sex_ico"/>
+                android:src="@drawable/ic_action_sex_ico"/>
 
             <Spinner
                 android:id="@+id/spinner6"
@@ -484,7 +484,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/mail_ico"/>
+                android:src="@drawable/ic_action_mail_ico"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -516,7 +516,7 @@
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
                 android:layout_height="match_parent"
-                android:src="@drawable/pass_ico"/>
+                android:src="@drawable/ic_action_pass_ico"/>
         </LinearLayout>
 
         <LinearLayout

@@ -13,11 +13,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Cache;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
+import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
+import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
+import perfect_apps.tutors.parse.JsonParser;
 
 /**
  * Created by mostafa on 24/06/16.
@@ -49,6 +64,8 @@ public class TeachersHomeList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mDataset = new ArrayList<>();
     }
 
     @Nullable
@@ -172,6 +189,90 @@ public class TeachersHomeList extends Fragment {
 
 
     private void makeNewsRequest(){
-        onRefreshComplete();
+        /**
+         * this section for fetch Brands
+         */
+        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST;
+        // We first check for cached request
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(urlBrands);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // do some thing
+                mDataset.clear();
+                mDataset.addAll(0, JsonParser.parseTeachers(data));
+                mAdapter.notifyDataSetChanged();
+                onRefreshComplete();
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // making fresh volley request and getting json
+            StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                    urlBrands, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    mDataset.clear();
+                    mDataset.addAll(0, JsonParser.parseTeachers(response));
+                    mAdapter.notifyDataSetChanged();
+                    Log.d(TAG, response.toString());
+                    onRefreshComplete();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    onRefreshComplete();
+                }
+            }){
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    try {
+                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+                        if (cacheEntry == null) {
+                            cacheEntry = new Cache.Entry();
+                        }
+                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+                        long now = System.currentTimeMillis();
+                        final long softExpire = now + cacheHitButRefreshed;
+                        final long ttl = now + cacheExpired;
+                        cacheEntry.data = response.data;
+                        cacheEntry.softTtl = softExpire;
+                        cacheEntry.ttl = ttl;
+                        String headerValue;
+                        headerValue = response.headers.get("Date");
+                        if (headerValue != null) {
+                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        headerValue = response.headers.get("Last-Modified");
+                        if (headerValue != null) {
+                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        cacheEntry.responseHeaders = response.headers;
+                        final String jsonString = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers));
+                        return Response.success(jsonString, cacheEntry);
+                    } catch (UnsupportedEncodingException e) {
+                        return Response.error(new ParseError(e));
+                    }
+                }
+
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+            };
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReq);
+        }
     }
 }

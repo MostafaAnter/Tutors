@@ -15,10 +15,12 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.fragments.TeachersHomeList;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static boolean mTwoPane;
 
     private static NavigationView navigationView;
     @Override
@@ -45,6 +47,30 @@ public class HomeActivity extends AppCompatActivity
 //            navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_user);
 //            changeFontOfNavigation();
 //        }
+
+
+
+        // to check running device is tablet or phone if it is tablet os automatic read w900dp file
+        if (findViewById(R.id.item_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+        }
+
+        if (savedInstanceState == null) {
+            // Create a new Fragment to be placed in the activity layout
+            TeachersHomeList teachersListFragment = new TeachersHomeList();
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            teachersListFragment.setArguments(getIntent().getExtras());
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, teachersListFragment).commit();
+        }
     }
 
     @Override
