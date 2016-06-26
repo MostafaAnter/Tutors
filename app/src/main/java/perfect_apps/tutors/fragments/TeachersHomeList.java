@@ -291,6 +291,9 @@ public class TeachersHomeList extends Fragment {
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
 
+        profileIc.setVisibility(View.VISIBLE);
+        chatIc.setVisibility(View.VISIBLE);
+
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

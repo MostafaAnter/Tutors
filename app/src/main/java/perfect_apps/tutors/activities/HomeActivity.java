@@ -1,5 +1,6 @@
 package perfect_apps.tutors.activities;
 
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,8 @@ import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
@@ -35,6 +38,14 @@ public class HomeActivity extends LocalizationActivity
         //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+
+        ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
+        ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
+        ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
+
+        searchIc.setVisibility(View.GONE);
+        profileIc.setVisibility(View.GONE);
+        chatIc.setVisibility(View.GONE);
 
 
 
