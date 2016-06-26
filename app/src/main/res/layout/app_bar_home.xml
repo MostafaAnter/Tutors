@@ -19,30 +19,27 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
             <ImageView
-                android:id="@+id/search"
+                android:id="@+id/chat"
                 android:contentDescription="@null"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="end"
                 android:padding="5dp"
-                android:src="@drawable/ic_action_search_ico" />
+                android:src="@drawable/ic_action_chat_ico" />
             <ImageView
                 android:id="@+id/profile"
                 android:contentDescription="@null"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="end"
                 android:padding="5dp"
                 android:src="@drawable/ic_action_profile_ico" />
             <ImageView
-                android:id="@+id/chat"
+                android:id="@+id/search"
                 android:contentDescription="@null"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="end"
                 android:padding="5dp"
-                android:src="@drawable/ic_action_chat_ico" />
-            </android.support.v7.widget.Toolbar>
+                android:src="@drawable/ic_action_search_ico" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
