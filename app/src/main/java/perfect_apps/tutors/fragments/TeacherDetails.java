@@ -84,4 +84,9 @@ public class TeacherDetails extends Fragment {
         textView20.setTypeface(font);
         textView21.setTypeface(font);
     }
+
+    @Override
+    public void setRetainInstance(boolean retain) {
+        super.setRetainInstance(true);
+    }
 }

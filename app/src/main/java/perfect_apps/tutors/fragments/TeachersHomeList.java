@@ -322,4 +322,9 @@ public class TeachersHomeList extends Fragment {
             }
         });
     }
+
+    @Override
+    public void setRetainInstance(boolean retain) {
+        super.setRetainInstance(true);
+    }
 }
