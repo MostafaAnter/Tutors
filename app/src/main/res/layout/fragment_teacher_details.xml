@@ -341,6 +341,7 @@
             android:id="@+id/text21"
             android:layout_width="match_parent"
             android:padding="3dp"
+            android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:text="@string/rates"
             style="?android:attr/textAppearanceMedium"/>
