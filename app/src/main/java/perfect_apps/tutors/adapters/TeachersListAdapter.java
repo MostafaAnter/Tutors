@@ -44,6 +44,12 @@ public class TeachersListAdapter extends RecyclerView.Adapter<TeachersListAdapte
         @Bind(R.id.ratingBar)RatingBar ratingBar;
         @Bind(R.id.desc) TextView describtion;
         @Bind(R.id.costPerHour) TextView costPerHour;
+
+        public TextView getHour() {
+            return hour;
+        }
+
+        @Bind(R.id.hour) TextView hour;
         @Bind(R.id.avatar) ImageView userAvatar;
 
         public TextView getRateStatic1() {
@@ -124,13 +130,13 @@ public class TeachersListAdapter extends RecyclerView.Adapter<TeachersListAdapte
 
         viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
         viewHolder.getDescribtion().setTypeface(font);
+        viewHolder.getHour().setTypeface(font);
 
         // populate mainImage
         Glide.with(mContext)
                 .load(mDataSet.get(position).getImage_full_path())
-                .centerCrop()
                 .thumbnail(0.1f)
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.drawable.login_user_ico)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.getUserAvatar());
 

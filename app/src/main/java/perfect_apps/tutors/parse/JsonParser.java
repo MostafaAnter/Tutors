@@ -26,6 +26,8 @@ public class JsonParser {
                 String desc = jsonObject.optString("desc");
                 String image_full_path = jsonObject.optString("image_full_path");
                 float rating_per_5 = Float.valueOf(jsonObject.optString("rating_per_5"));
+                if (rating_per_5 != 0)
+                    rating_per_5 = rating_per_5 / 5;
                 String hour_price = jsonObject.optString("hour_price");
                 teacherItems.add(new TeacherItem(id, name, desc, image_full_path, rating_per_5, hour_price));
             }
