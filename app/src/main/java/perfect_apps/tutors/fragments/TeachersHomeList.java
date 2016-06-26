@@ -3,15 +3,18 @@ package perfect_apps.tutors.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
@@ -65,7 +68,6 @@ public class TeachersHomeList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mDataset = new ArrayList<>();
     }
 
@@ -108,6 +110,8 @@ public class TeachersHomeList extends Fragment {
                         24,
                         getResources().getDisplayMetrics()));
 
+        setActionsOfToolBarIcons();
+
         return view;
     }
 
@@ -149,6 +153,7 @@ public class TeachersHomeList extends Fragment {
         savedInstanceState.putSerializable(KEY_LAYOUT_MANAGER, mCurrentLayoutManagerType);
         super.onSaveInstanceState(savedInstanceState);
     }
+
     // called immediately after onViewCreate
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -164,7 +169,6 @@ public class TeachersHomeList extends Fragment {
         });
 
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -191,7 +195,6 @@ public class TeachersHomeList extends Fragment {
 
 
     }
-
 
     private void makeNewsRequest(){
         /**
@@ -279,5 +282,44 @@ public class TeachersHomeList extends Fragment {
             // Adding request to volley request queue
             AppController.getInstance().addToRequestQueue(jsonReq);
         }
+    }
+
+
+    private void setActionsOfToolBarIcons() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
+        ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
+        ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
+
+        profileIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeacherDetails mSpecialGroupFragment =
+                        new TeacherDetails();
+                FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, mSpecialGroupFragment);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                // to add to back stack
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+
+            }
+        });
+
+        searchIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        chatIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }
