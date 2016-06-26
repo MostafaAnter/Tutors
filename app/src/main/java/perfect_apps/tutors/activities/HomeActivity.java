@@ -1,22 +1,25 @@
 package perfect_apps.tutors.activities;
 
+import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.fragments.TeacherDetails;
 import perfect_apps.tutors.fragments.TeachersHomeList;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
 
@@ -24,6 +27,11 @@ public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static NavigationView navigationView;
+    // toolBar icons
+    private static ImageView searchIc;
+    private static ImageView profileIc;
+    private static ImageView chatIc;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +44,37 @@ public class HomeActivity extends LocalizationActivity
         toolbar.setTitle("");
         toolbar.setSubtitle("");
         // setAction of toolBarIcons
+        searchIc = (ImageView) toolbar.findViewById(R.id.search);
+        profileIc = (ImageView) toolbar.findViewById(R.id.profile);
+        chatIc = (ImageView) toolbar.findViewById(R.id.chat);
+        searchIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        profileIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeacherDetails mSpecialGroupFragment =
+                        new TeacherDetails();
+                FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, mSpecialGroupFragment);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
 
+            }
+        });
+        chatIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
