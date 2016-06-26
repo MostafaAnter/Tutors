@@ -38,12 +38,14 @@
                     android:src="@drawable/ic_action_place_ico" />
 
                 <TextView
+                    android:id="@+id/text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="?android:attr/textAppearanceMedium"
                     android:text="الدولة  :  " />
 
                 <TextView
+                    android:id="@+id/text2"
                     style="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"
                     android:layout_width="wrap_content"
@@ -64,12 +66,14 @@
                     android:src="@drawable/ic_action_place_ico" />
 
                 <TextView
+                    android:id="@+id/text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="المدينة  :  "
                     style="?android:attr/textAppearanceMedium"/>
 
                 <TextView
+                    android:id="@+id/text4"
                     style="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorPrimary"
                     android:layout_width="wrap_content"
@@ -93,12 +97,14 @@
                 android:src="@drawable/ic_action_school_ico" />
 
             <TextView
+                android:id="@+id/text5"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="المرحلة الدراسية  :  " />
 
             <TextView
+                android:id="@+id/text6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/textAppearanceMedium"
@@ -120,12 +126,14 @@
                 android:src="@drawable/ic_action_schooll_icon" />
 
             <TextView
+                android:id="@+id/text7"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="التخصص  :  " />
 
             <TextView
+                android:id="@+id/text8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/textAppearanceMedium"
@@ -147,12 +155,14 @@
                 android:src="@drawable/ic_action_school_ico" />
 
             <TextView
+                android:id="@+id/text9"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="المواد الدراسية  :  " />
 
             <TextView
+                android:id="@+id/text10"
                 style="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
@@ -174,12 +184,14 @@
                 android:src="@drawable/ic_action_serv_ico" />
 
             <TextView
+                android:id="@+id/text11"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="كيفية تقديم الخدمة  :  " />
 
             <TextView
+                android:id="@+id/text12"
                 style="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
@@ -201,17 +213,78 @@
                 android:src="@drawable/ic_action_sex_ico" />
 
             <TextView
+                android:id="@+id/text13"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="الجنس  :  " />
 
             <TextView
+                android:id="@+id/text14"
                 style="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ذكر" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_edu_ico" />
+
+            <TextView
+                android:id="@+id/text15"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="المؤهل الدراسي  :  " />
+
+            <TextView
+                android:id="@+id/text16"
+                style="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ماجستير" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_exp_ico" />
+
+            <TextView
+                android:id="@+id/text17"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="عدد سنوات الخبره  :  " />
+
+            <TextView
+                android:id="@+id/text18"
+                style="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 سنوات" />
+
 
         </LinearLayout>
 
@@ -225,9 +298,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/text19"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -245,6 +320,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/darker_gray"/>
             <TextView
+                android:id="@+id/text20"
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:padding="3dp"
@@ -255,12 +331,14 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text21"
             android:layout_width="match_parent"
             android:padding="3dp"
             android:layout_height="wrap_content"
             android:text="@string/rates"
             style="?android:attr/textAppearanceMedium"/>
         <LinearLayout
+            android:id="@+id/viewForStudent"
             android:layout_marginTop="?android:attr/listPreferredItemHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -271,7 +349,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_shape_blue"
                 android:orientation="horizontal"
-                android:onClick="registerNewUser">
+                android:onClick="sendMessageToTeacher">
                 <ImageView
                     android:contentDescription="@null"
                     android:layout_width="48dp"
@@ -279,15 +357,17 @@
                     android:layout_margin="1dp"
                     android:background="@color/colorPrimary"
                     android:layout_height="match_parent"
-                    android:src="@drawable/reg_new_ico"/>
+                    android:src="@drawable/ic_action_chat_ico"/>
                 <Button
+                    android:id="@+id/button1"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="@string/register"
+                    android:text="مراسلة المعلم"
                     android:textColorHint="@color/colorPrimary"
                     android:textColor="@color/colorPrimary"
                     android:padding="5dp"
+                    android:onClick="sendMessageToTeacher"
                     android:background="#00000000" />
             </LinearLayout>
             <View
@@ -299,7 +379,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_shape_green"
                 android:orientation="horizontal"
-                android:onClick="registerNewUser">
+                android:onClick="rateTeacher">
                 <ImageView
                     android:contentDescription="@null"
                     android:layout_width="48dp"
@@ -310,24 +390,27 @@
                     android:src="@drawable/ratingbar_staroff"
                     android:tint="#FFFFFF"/>
                 <Button
+                    android:id="@+id/button2"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="@string/register"
+                    android:text="تقييم المعلم"
                     android:textColorHint="#7cb034"
                     android:textColor="#7cb034"
                     android:padding="5dp"
+                    android:onClick="rateTeacher"
                     android:background="#00000000" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewForTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?android:attr/listPreferredItemHeight"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_blue"
             android:orientation="horizontal"
-            android:onClick="registerNewUser">
+            android:onClick="editTeacherData">
             <ImageView
                 android:contentDescription="@null"
                 android:layout_width="48dp"
@@ -335,16 +418,17 @@
                 android:layout_margin="1dp"
                 android:background="@color/colorPrimary"
                 android:layout_height="match_parent"
-                android:src="@drawable/reg_new_ico"/>
+                android:src="@drawable/ic_action_edit_btn_ico"/>
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/register"
+                android:text="تعديل بيناتي"
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
+                android:onClick="editTeacherData"
                 style="?android:attr/textAppearanceMedium"
                 android:background="#00000000" />
         </LinearLayout>

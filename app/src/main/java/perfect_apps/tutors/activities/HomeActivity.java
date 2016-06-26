@@ -22,7 +22,6 @@ import perfect_apps.tutors.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static boolean mTwoPane;
 
     private static NavigationView navigationView;
     @Override
@@ -53,16 +52,6 @@ public class HomeActivity extends LocalizationActivity
 //            changeFontOfNavigation();
 //        }
 
-
-
-        // to check running device is tablet or phone if it is tablet os automatic read w900dp file
-        if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
 
         if (savedInstanceState == null) {
             // Create a new Fragment to be placed in the activity layout
