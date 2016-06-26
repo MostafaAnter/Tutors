@@ -32,5 +32,7 @@
     <string name="title_activity_login_teacher">LoginTeacherActivity</string>
     <string name="login_teacher">تسجيل دخول</string>
     <string name="rate">التقييم</string>
+    <string name="who_r_me">من أنا</string>
+    <string name="rates">التقييمات</string>
 
 </resources>
