@@ -117,17 +117,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_place_ico" />
+                android:src="@drawable/ic_action_schooll_icon" />
+
+            <TextView
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="التخصص  :  " />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الدولة  :  " />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="السعودية" />
+                style="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:text="الرياضيات" />
 
         </LinearLayout>
 
@@ -141,17 +144,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_place_ico" />
+                android:src="@drawable/ic_action_school_ico" />
 
             <TextView
+                style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الدولة  :  " />
+                android:text="المواد الدراسية  :  " />
 
             <TextView
+                style="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="السعودية" />
+                android:text="التفاضل والتكامل" />
 
         </LinearLayout>
 
@@ -165,17 +171,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_place_ico" />
+                android:src="@drawable/ic_action_serv_ico" />
 
             <TextView
+                style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الدولة  :  " />
+                android:text="كيفية تقديم الخدمة  :  " />
 
             <TextView
+                style="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="السعودية" />
+                android:text="شخصى" />
 
         </LinearLayout>
 
@@ -189,42 +198,24 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_place_ico" />
+                android:src="@drawable/ic_action_sex_ico" />
 
             <TextView
+                style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الدولة  :  " />
+                android:text="الجنس  :  " />
 
             <TextView
+                style="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="السعودية" />
+                android:text="ذكر" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_place_ico" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="الدولة  :  " />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="السعودية" />
-
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -281,6 +272,14 @@
                 android:background="@drawable/border_shape_blue"
                 android:orientation="horizontal"
                 android:onClick="registerNewUser">
+                <ImageView
+                    android:contentDescription="@null"
+                    android:layout_width="48dp"
+                    android:padding="8dp"
+                    android:layout_margin="1dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/reg_new_ico"/>
                 <Button
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -290,14 +289,6 @@
                     android:textColor="@color/colorPrimary"
                     android:padding="5dp"
                     android:background="#00000000" />
-                <ImageView
-                    android:contentDescription="@null"
-                    android:layout_width="48dp"
-                    android:padding="8dp"
-                    android:layout_margin="1dp"
-                    android:background="@color/colorPrimary"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/reg_new_ico"/>
             </LinearLayout>
             <View
                 android:layout_width="@dimen/activity_horizontal_margin"
@@ -309,15 +300,6 @@
                 android:background="@drawable/border_shape_green"
                 android:orientation="horizontal"
                 android:onClick="registerNewUser">
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/register"
-                    android:textColorHint="#7cb034"
-                    android:textColor="#7cb034"
-                    android:padding="5dp"
-                    android:background="#00000000" />
                 <ImageView
                     android:contentDescription="@null"
                     android:layout_width="48dp"
@@ -327,6 +309,15 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ratingbar_staroff"
                     android:tint="#FFFFFF"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register"
+                    android:textColorHint="#7cb034"
+                    android:textColor="#7cb034"
+                    android:padding="5dp"
+                    android:background="#00000000" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -337,6 +328,14 @@
             android:background="@drawable/border_shape_blue"
             android:orientation="horizontal"
             android:onClick="registerNewUser">
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="48dp"
+                android:padding="8dp"
+                android:layout_margin="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_height="match_parent"
+                android:src="@drawable/reg_new_ico"/>
             <Button
                 android:id="@+id/button2"
                 android:layout_width="0dp"
@@ -348,14 +347,6 @@
                 android:padding="5dp"
                 style="?android:attr/textAppearanceMedium"
                 android:background="#00000000" />
-            <ImageView
-                android:contentDescription="@null"
-                android:layout_width="48dp"
-                android:padding="8dp"
-                android:layout_margin="1dp"
-                android:background="@color/colorPrimary"
-                android:layout_height="match_parent"
-                android:src="@drawable/reg_new_ico"/>
         </LinearLayout>
     </LinearLayout>
 
