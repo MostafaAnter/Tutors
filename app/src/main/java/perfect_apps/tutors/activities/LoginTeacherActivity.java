@@ -18,6 +18,7 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.utils.Constants;
 
 public class LoginTeacherActivity extends LocalizationActivity {
 
@@ -88,6 +89,7 @@ public class LoginTeacherActivity extends LocalizationActivity {
 
     public void loginTeacher(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_LOGIN_PAGE);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         finish();

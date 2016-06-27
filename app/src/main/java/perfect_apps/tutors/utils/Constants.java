@@ -7,6 +7,7 @@ package perfect_apps.tutors.utils;
 public class Constants {
     //check where you come from
     public static final String COMMING_FROM = "comingFrom";
+    public static final String TEACHER_LOGIN_PAGE = "teacherLoginPage";
 
 
     /**

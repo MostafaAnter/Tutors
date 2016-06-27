@@ -18,6 +18,8 @@ import perfect_apps.tutors.R;
  * Created by mostafa on 26/06/16.
  */
 public class TeacherDetails extends Fragment {
+    public static final String TAG = "TeacherDetails";
+
     @Bind(R.id.text1) TextView textView1;
     @Bind(R.id.text2) TextView textView2;
     @Bind(R.id.text3) TextView textView3;
