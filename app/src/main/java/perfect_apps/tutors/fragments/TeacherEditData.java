@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import butterknife.ButterKnife;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.utils.Constants;
 
 /**
  * Created by mostafa on 28/06/16.
@@ -68,6 +72,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         changeTextFont();
         linearLayout.setOnClickListener(this);
 
+        setActionsOfToolBarIcons();
         return view;
     }
 
@@ -126,5 +131,72 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 pickPhoto();
                 break;
         }
+    }
+
+    private void setActionsOfToolBarIcons() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+
+
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
+
+        TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        title.setText("تعديل بياناتي");
+        title.setTypeface(font);
+
+        ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
+        ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
+        ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
+
+        profileIc.setVisibility(View.VISIBLE);
+        chatIc.setVisibility(View.VISIBLE);
+
+        profileIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (addTeacherDetailToBackstack()) {
+                    TeacherDetails teacherDetails =
+                            new TeacherDetails();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+
+                    teacherDetails.setArguments(b);
+
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(TeacherDetails.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
+
+            }
+        });
+
+        searchIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        chatIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private boolean addTeacherDetailToBackstack(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0){
+            return true;
+        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            return false;
+        }
+        return true;
     }
 }
