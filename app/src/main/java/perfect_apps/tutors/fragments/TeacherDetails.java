@@ -4,11 +4,14 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +23,7 @@ import perfect_apps.tutors.utils.Constants;
 /**
  * Created by mostafa on 26/06/16.
  */
-public class TeacherDetails extends Fragment {
+public class TeacherDetails extends Fragment implements View.OnClickListener {
     public static final String TAG = "TeacherDetails";
 
     @Bind(R.id.text1) TextView textView1;
@@ -81,6 +84,10 @@ public class TeacherDetails extends Fragment {
                 viewThatShowForStudent.setVisibility(View.GONE);
             }
         }
+        viewThatShowForTeacher.setOnClickListener(this);
+        button3.setOnClickListener(this);
+
+
         return view;
     }
 
@@ -123,5 +130,46 @@ public class TeacherDetails extends Fragment {
     @Override
     public void setRetainInstance(boolean retain) {
         super.setRetainInstance(true);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.viewForTeacher:
+                TeacherEditData teacherDetails =
+                        new TeacherEditData();
+                Bundle b = new Bundle();
+                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+
+                teacherDetails.setArguments(b);
+
+                FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(TeacherDetails.TAG);
+                transaction.commit();
+                // to add to back stack
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+                break;
+            case R.id.button3:
+                TeacherEditData teacherEditData =
+                        new TeacherEditData();
+                Bundle bb = new Bundle();
+                bb.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+
+                teacherEditData.setArguments(bb);
+
+                FragmentTransaction transaction1 = getFragmentManager()
+                        .beginTransaction();
+                transaction1.replace(R.id.fragment_container, teacherEditData);
+                transaction1.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction1.addToBackStack(TeacherDetails.TAG);
+                transaction1.commit();
+                // to add to back stack
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+                break;
+        }
+
     }
 }

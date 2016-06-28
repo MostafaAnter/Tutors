@@ -389,8 +389,7 @@
             android:layout_marginTop="?android:attr/listPreferredItemHeight"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_blue"
-            android:orientation="horizontal"
-            android:onClick="editTeacherData">
+            android:orientation="horizontal">
             <ImageView
                 android:contentDescription="@null"
                 android:layout_width="48dp"
@@ -408,7 +407,6 @@
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
-                android:onClick="editTeacherData"
                 style="?android:attr/textAppearanceMedium"
                 android:background="#00000000" />
         </LinearLayout>
