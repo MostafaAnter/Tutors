@@ -8,11 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.utils.Constants;
 
 /**
  * Created by mostafa on 26/06/16.
@@ -41,6 +44,19 @@ public class TeacherDetails extends Fragment {
     @Bind(R.id.text19) TextView textView19;
     @Bind(R.id.text20) TextView textView20;
     @Bind(R.id.text21) TextView textView21;
+    @Bind(R.id.name) TextView textView22;
+    @Bind(R.id.rate) TextView textView23;
+    @Bind(R.id.rateStatic1) TextView textView24;
+    @Bind(R.id.rateStatic2) TextView textView25;
+    @Bind(R.id.desc) TextView textView26;
+    @Bind(R.id.hour) TextView textView27;
+
+    @Bind(R.id.button1)Button button1;
+    @Bind(R.id.button2)Button button2;
+    @Bind(R.id.button3)Button button3;
+
+    @Bind(R.id.viewForStudent) LinearLayout viewThatShowForStudent;
+    @Bind(R.id.viewForTeacher) LinearLayout viewThatShowForTeacher;
 
     public TeacherDetails(){
 
@@ -57,6 +73,14 @@ public class TeacherDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_teacher_details, container, false);
         ButterKnife.bind(this, view);
         setTypeFace();
+
+
+        // hide some view to suitable with context
+        if (getArguments().containsKey(Constants.COMMING_FROM)) {
+            if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)){
+                viewThatShowForStudent.setVisibility(View.GONE);
+            }
+        }
         return view;
     }
 
@@ -85,6 +109,15 @@ public class TeacherDetails extends Fragment {
         textView19.setTypeface(fontBold);
         textView20.setTypeface(font);
         textView21.setTypeface(font);
+        textView22.setTypeface(font);
+        textView23.setTypeface(font);
+        textView24.setTypeface(font);
+        textView25.setTypeface(font);
+        textView26.setTypeface(font);
+        textView27.setTypeface(font);
+        button1.setTypeface(fontBold);
+        button2.setTypeface(fontBold);
+        button3.setTypeface(fontBold);
     }
 
     @Override

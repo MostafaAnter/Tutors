@@ -37,6 +37,7 @@ import perfect_apps.tutors.adapters.TeachersListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
 
 /**
@@ -299,11 +300,16 @@ public class TeachersHomeList extends Fragment {
             @Override
             public void onClick(View v) {
                 if (addTeacherDetailToBackstack()) {
-                    TeacherDetails mSpecialGroupFragment =
+                    TeacherDetails teacherDetails =
                             new TeacherDetails();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+
+                    teacherDetails.setArguments(b);
+
                     FragmentTransaction transaction = getFragmentManager()
                             .beginTransaction();
-                    transaction.replace(R.id.fragment_container, mSpecialGroupFragment);
+                    transaction.replace(R.id.fragment_container, teacherDetails);
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     transaction.addToBackStack(TeacherDetails.TAG);
                     transaction.commit();

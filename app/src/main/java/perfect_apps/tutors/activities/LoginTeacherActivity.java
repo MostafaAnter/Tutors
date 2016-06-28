@@ -89,7 +89,7 @@ public class LoginTeacherActivity extends LocalizationActivity {
 
     public void loginTeacher(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_LOGIN_PAGE);
+        intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         finish();
