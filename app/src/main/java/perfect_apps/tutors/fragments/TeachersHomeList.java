@@ -298,8 +298,7 @@ public class TeachersHomeList extends Fragment {
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                if (fm.getBackStackEntryCount()<1) {
+                if (addTeacherDetailToBackstack()) {
                     TeacherDetails mSpecialGroupFragment =
                             new TeacherDetails();
                     FragmentTransaction transaction = getFragmentManager()
@@ -333,5 +332,15 @@ public class TeachersHomeList extends Fragment {
     @Override
     public void setRetainInstance(boolean retain) {
         super.setRetainInstance(true);
+    }
+
+    private boolean addTeacherDetailToBackstack(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0){
+            return true;
+        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            return false;
+        }
+        return true;
     }
 }
