@@ -43,6 +43,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     @Bind(R.id.editText9) EditText editText9;
     @Bind(R.id.button1) Button button1;
     @Bind(R.id.button2) Button button2;
+    @Bind(R.id.button3) Button button3;
     @Bind(R.id.image1) ImageView imageView1;
 
     @Bind(R.id.pickPhoto) LinearLayout linearLayout;
@@ -84,6 +85,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         editText9.setTypeface(font);
         button1.setTypeface(font);
         button2.setTypeface(fontBold);
+        button3.setTypeface(fontBold);
     }
 
     public void pickPhoto() {
