@@ -18,6 +18,7 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 
 public class LoginTeacherActivity extends LocalizationActivity {
@@ -88,6 +89,9 @@ public class LoginTeacherActivity extends LocalizationActivity {
     }
 
     public void loginTeacher(View view) {
+
+
+        new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.AUTHENTICATION_STATE, Constants.TEACHER);
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
         startActivity(intent);

@@ -15,6 +15,7 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 
 public class CategoryActivity extends LocalizationActivity {
@@ -36,11 +37,15 @@ public class CategoryActivity extends LocalizationActivity {
     }
 
     public void CateIsStudent(View view) {
+        if (new TutorsPrefStore(CategoryActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)){
+            new TutorsPrefStore(CategoryActivity.this).addPreference(Constants.AUTHENTICATION_STATE, "");
+        }
+
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-        finish();
     }
 
     public void cateIsTeacher(View view) {

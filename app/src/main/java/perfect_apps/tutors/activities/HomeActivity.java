@@ -1,6 +1,5 @@
 package perfect_apps.tutors.activities;
 
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -21,6 +20,7 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.TeachersHomeList;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
 
@@ -60,12 +60,18 @@ public class HomeActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
-        // if user is authenticated change menu :)
-//        if (isAuthenticated()) {
-//            navigationView.getMenu().clear(); //clear old inflated items.
-//            navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_user);
-//            changeFontOfNavigation();
-//        }
+         // if user is authenticated as teacher or student change menu :)
+        if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)) {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_teacher);
+            changeFontOfNavigation();
+        }else if(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.STUDENT)){
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_student);
+            changeFontOfNavigation();
+        }
 
 
         if (savedInstanceState == null) {
@@ -113,6 +119,24 @@ public class HomeActivity extends LocalizationActivity
         } else if (id == R.id.about_app) {
 
         }else if (id == R.id.contact_us) {
+
+        }else if (id == R.id.studentHome) {
+
+        }else if (id == R.id.studentMessages) {
+
+        }else if (id == R.id.studentMyData) {
+
+        }else if (id == R.id.studentSearchAboutTeacher) {
+
+        }else if (id == R.id.studentSignOut) {
+
+        }else if (id == R.id.teacherHome) {
+
+        }else if (id == R.id.teacherMessages) {
+
+        }else if (id == R.id.teacherMyData) {
+
+        }else if (id == R.id.teacherSignOut) {
 
         }
 

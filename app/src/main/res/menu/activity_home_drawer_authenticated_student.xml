@@ -3,27 +3,27 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/my_profile"
-            android:title="" />
+            android:id="@+id/studentHome"
+            android:title="الرئيسية" />
         <item
-            android:id="@+id/inbox"
-            android:title="" />
+            android:id="@+id/studentMessages"
+            android:title="رسائلي" />
         <item
-            android:id="@+id/sent_mail"
-            android:title="" />
+            android:id="@+id/studentMyData"
+            android:title="بياناتي الشخصية" />
         <item
-            android:id="@+id/sign_out"
-            android:title="" />
+            android:id="@+id/studentSearchAboutTeacher"
+            android:title="بحث عن معلم" />
         <item
-            android:id="@+id/about"
-            android:title="" />
+            android:id="@+id/about_app"
+            android:title="عن التطبيق" />
 
         <item
-            android:id="@+id/contact"
-            android:title="" />
+            android:id="@+id/contact_us"
+            android:title="أتصل بنا" />
         <item
-            android:id="@+id/favorite"
-            android:title="" />
+            android:id="@+id/studentSignOut"
+            android:title="تسجيل خروج" />
     </group>
 
 </menu>

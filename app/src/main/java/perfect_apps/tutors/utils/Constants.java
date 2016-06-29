@@ -10,6 +10,10 @@ public class Constants {
     public static final String TEACHER_PAGE = "teacherLoginPage";
     public static final String STUDENT_PAGE = "studentPage";
 
+    // authenticated state to change navigation drawer
+    public static final String AUTHENTICATION_STATE = "authenticationState";
+    public static final String STUDENT = "student";
+    public static final String TEACHER = "teacher";
 
 
 
