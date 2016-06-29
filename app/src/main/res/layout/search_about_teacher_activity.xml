@@ -10,6 +10,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="perfect_apps.tutors.activities.RegisterTeacherMembershipActivity"
     android:scrollbarStyle="insideOverlay"
+    android:background="@drawable/bg"
     android:scrollbars="none">
     <LinearLayout
         android:id="@+id/email_login_form"
@@ -17,6 +18,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="@dimen/activity_vertical_margin">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/search_screen_ico"/>
+
+        <TextView
+            android:id="@id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#7CB034"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_gravity="center_horizontal"
+            android:text="إبحث عن مدرس"/>
+        <TextView
+            android:id="@id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="?android:attr/listPreferredItemHeightSmall"
+            android:text="عزيزي الطالب . ابحث الان عن مدرس بكل سهولة ويسر"/>
 
         <LinearLayout
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -276,11 +299,11 @@
             android:orientation="horizontal"
             android:onClick="registerNewUser">
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/register"
+                android:hint="بحث"
                 android:textColorHint="#7CB034"
                 android:textColor="#7CB034"
                 android:padding="5dp"

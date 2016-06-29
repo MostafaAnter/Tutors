@@ -19,7 +19,9 @@ import android.widget.ImageView;
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.TeachersHomeList;
+import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends LocalizationActivity
@@ -67,16 +69,18 @@ public class HomeActivity extends LocalizationActivity
 
 
         if (savedInstanceState == null) {
-            // Create a new Fragment to be placed in the activity layout
-            TeachersHomeList teachersListFragment = new TeachersHomeList();
-
-            // In case this activity was started with special instructions from an
-            // Intent, pass the Intent's extras to the fragment as arguments
-            teachersListFragment.setArguments(getIntent().getExtras());
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, teachersListFragment).commit();
+            if (getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
+                TeachersHomeList teachersListFragment = new TeachersHomeList();
+                teachersListFragment.setArguments(getIntent().getExtras());
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, teachersListFragment).commit();
+            } else {
+                SearchAboutTeacherFragment teachersListFragment =
+                        new SearchAboutTeacherFragment();
+                teachersListFragment.setArguments(getIntent().getExtras());
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, teachersListFragment).commit();
+            }
         }
     }
 

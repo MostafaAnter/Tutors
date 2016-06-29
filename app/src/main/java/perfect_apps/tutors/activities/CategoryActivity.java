@@ -15,6 +15,7 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.utils.Constants;
 
 public class CategoryActivity extends LocalizationActivity {
     @Bind(R.id.text1) TextView textView1;
@@ -35,7 +36,11 @@ public class CategoryActivity extends LocalizationActivity {
     }
 
     public void CateIsStudent(View view) {
-
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        finish();
     }
 
     public void cateIsTeacher(View view) {
