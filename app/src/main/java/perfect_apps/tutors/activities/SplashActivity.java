@@ -52,12 +52,4 @@ public class SplashActivity extends LocalizationActivity {
             }
         });
     }
-
-    private int checkFirstTimeOpenApp(){
-        return new TutorsPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE);
-    }
-
-    private void changeFirstTimeOpenAppState(){
-        new TutorsPrefStore(this).addPreference(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE, 1);
-    }
 }

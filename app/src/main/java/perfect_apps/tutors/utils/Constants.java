@@ -11,14 +11,6 @@ public class Constants {
     public static final String STUDENT_PAGE = "studentPage";
 
 
-    /**
-    * this section belong user preference
-    */
-    public static final String PREFERENCE_USER_EMAIL =  "email";
-    public static final String PREFERENCE_USER_NAME =  "name";
-    public static final String PREFERENCE_USER_IMAGE_URL = "image";
-    public static final String PREFERENCE_USER_AUTHENTICATION_STATE = "authenticated";
-    public static final String PREFERENCE_FIRST_TIME_OPEN_APP_STATE = "firstTimeState";
 
 
 
