@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/label"
+    android:id="@+id/label1"
     android:gravity="center"
     android:typeface="monospace"
     android:layout_height="?android:attr/listPreferredItemHeightSmall"
-    android:textColor="@color/colorPrimary">
+    android:textColor="#7CB034">
 </TextView>

@@ -21,6 +21,14 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'API_BASE_URL', '"http://services-apps.net/tutors"'
         it.buildConfigField 'String', 'API_SHOW_TEACHER_LIST', '"/api/show/teacher"'
+
+        it.buildConfigField 'String', 'API_APPLY_SERVICES', '"http://services-apps.net/tutors/api/registration/lists/apply_services"'
+        it.buildConfigField 'String', 'API_CITIES', '"http://services-apps.net/tutors/api/registration/lists/cities?country="'
+        it.buildConfigField 'String', 'API_COUNTRIES', '"http://services-apps.net/tutors/api/registration/lists/countries"'
+        it.buildConfigField 'String', 'API_GENDERS', '"http://services-apps.net/tutors/api/registration/lists/genders"'
+        it.buildConfigField 'String', 'API_MAJORS', '"http://services-apps.net/tutors/api/registration/lists/majors"'
+        it.buildConfigField 'String', 'API_STAGES', '"http://services-apps.net/tutors/api/registration/lists/stages"'
+
     }
 }
 

@@ -9,24 +9,44 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
+import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.adapters.CitiesSpinnerAdapter;
+import perfect_apps.tutors.adapters.CountriesSpinnerAdapter;
+import perfect_apps.tutors.app.AppController;
+import perfect_apps.tutors.models.SpinnerItem;
+import perfect_apps.tutors.parse.JsonParser;
 
 public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     @Bind(R.id.text1) TextView textView1;
@@ -63,6 +83,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     protected void onStart() {
         super.onStart();
         changeTextFont();
+        fetchData();
     }
 
     private void setToolbar() {
@@ -160,5 +181,217 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     }
 
     public void registerNewUser(View view) {
+    }
+
+    private void populateSpinner1(List<SpinnerItem> mlist) {
+
+        CountriesSpinnerAdapter spinnerArrayAdapter = new CountriesSpinnerAdapter(RegisterTeacherMembershipActivity.this, R.layout.spinner_item, mlist);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner1.setAdapter(spinnerArrayAdapter);
+
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //String selectedItemText = (String) parent.getItemAtPosition(position);
+                SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
+                if (position > 0) {
+                    // doSome things
+                    String urlCities = BuildConfig.API_CITIES + selectedItem.getId();
+                    fetchCitiesData(urlCities);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void populateSpinner2(List<SpinnerItem> mlist) {
+
+    CitiesSpinnerAdapter spinnerArrayAdapter = new CitiesSpinnerAdapter(RegisterTeacherMembershipActivity.this, R.layout.spinner_item, mlist);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner2.setAdapter(spinnerArrayAdapter);
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //String selectedItemText = (String) parent.getItemAtPosition(position);
+                SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
+                if (position > 0) {
+                    // doSome things
+                    selectedItem.getId();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void fetchData(){
+        /**
+         * this section for fetch Brands
+         */
+        String urlBrands = BuildConfig.API_COUNTRIES;
+        // We first check for cached request
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(urlBrands);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // do some thing
+                populateSpinner1(JsonParser.parseCountriesFeed(data));
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // making fresh volley request and getting json
+            StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                    urlBrands, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    populateSpinner1(JsonParser.parseCountriesFeed(response));
+                    Log.d("response", response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("response", "Error: " + error.getMessage());
+                }
+            }){
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    try {
+                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+                        if (cacheEntry == null) {
+                            cacheEntry = new Cache.Entry();
+                        }
+                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+                        long now = System.currentTimeMillis();
+                        final long softExpire = now + cacheHitButRefreshed;
+                        final long ttl = now + cacheExpired;
+                        cacheEntry.data = response.data;
+                        cacheEntry.softTtl = softExpire;
+                        cacheEntry.ttl = ttl;
+                        String headerValue;
+                        headerValue = response.headers.get("Date");
+                        if (headerValue != null) {
+                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        headerValue = response.headers.get("Last-Modified");
+                        if (headerValue != null) {
+                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        cacheEntry.responseHeaders = response.headers;
+                        final String jsonString = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers));
+                        return Response.success(jsonString, cacheEntry);
+                    } catch (UnsupportedEncodingException e) {
+                        return Response.error(new ParseError(e));
+                    }
+                }
+
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+            };
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReq);
+        }
+    }
+
+    private void fetchCitiesData(String urlCities){
+
+        // We first check for cached request
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(urlCities);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // do some thing
+                populateSpinner2(JsonParser.parseCitiesFeed(data));
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // making fresh volley request and getting json
+            StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                    urlCities, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    populateSpinner2(JsonParser.parseCitiesFeed(response));
+                    Log.d("response", response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("response", "Error: " + error.getMessage());
+                }
+            }){
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    try {
+                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+                        if (cacheEntry == null) {
+                            cacheEntry = new Cache.Entry();
+                        }
+                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+                        long now = System.currentTimeMillis();
+                        final long softExpire = now + cacheHitButRefreshed;
+                        final long ttl = now + cacheExpired;
+                        cacheEntry.data = response.data;
+                        cacheEntry.softTtl = softExpire;
+                        cacheEntry.ttl = ttl;
+                        String headerValue;
+                        headerValue = response.headers.get("Date");
+                        if (headerValue != null) {
+                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        headerValue = response.headers.get("Last-Modified");
+                        if (headerValue != null) {
+                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        cacheEntry.responseHeaders = response.headers;
+                        final String jsonString = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers));
+                        return Response.success(jsonString, cacheEntry);
+                    } catch (UnsupportedEncodingException e) {
+                        return Response.error(new ParseError(e));
+                    }
+                }
+
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+            };
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReq);
+        }
     }
 }

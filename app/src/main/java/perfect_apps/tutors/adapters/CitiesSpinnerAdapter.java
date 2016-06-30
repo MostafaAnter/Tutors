@@ -1,36 +1,33 @@
 package perfect_apps.tutors.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import java.util.List;
 
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.models.SpinnerItem;
 
 
 /**
  * Created by mostafa on 20/06/16.
  */
-public class BrandSpinnerAdapter extends ArrayAdapter {
+public class CitiesSpinnerAdapter extends ArrayAdapter {
 
     private Context mContext;
-    private List<String> mDataset;
+    private List<SpinnerItem> mDataset;
     LayoutInflater inflater;
 
     /*************  TeachersListAdapter Constructor *****************/
-    public BrandSpinnerAdapter(
+    public CitiesSpinnerAdapter(
             Context mContext,
             int textViewResourceId,
-            List<String> mDataset
+            List<SpinnerItem> mDataset
     )
     {
         super(mContext, textViewResourceId, mDataset);
@@ -61,25 +58,18 @@ public class BrandSpinnerAdapter extends ArrayAdapter {
         View row = inflater.inflate(R.layout.spinner_item, parent, false);
 
         TextView label = (TextView)row.findViewById(R.id.label);
-        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/thin.ttf");
+        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
         label.setTypeface(font);
 
 
         if(position==0){
 
             // Default selected Spinner item
-//            label.setText(mContext.getResources().getString(R.string.brand));
-            label.setTextColor(Color.parseColor("#727272"));
+            label.setText("المدينة");
         }
         else
         {
-            if (((LocalizationActivity)mContext).getLanguage().equalsIgnoreCase("en")) {
-                // Set values for spinner each row
-                //label.setText(mDataset.get(position).getEnName());
-            } else {
-             //   label.setText(mDataset.get(position).getArName());
-            }
-
+            label.setText(mDataset.get(position).getName());
         }
 
         return row;

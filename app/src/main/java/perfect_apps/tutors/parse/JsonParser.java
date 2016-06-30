@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.models.TeacherItem;
 
 /**
@@ -32,6 +33,48 @@ public class JsonParser {
                 teacherItems.add(new TeacherItem(id, name, desc, image_full_path, rating_per_5, hour_price));
             }
             return teacherItems;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<SpinnerItem> parseCountriesFeed(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("countries");
+            List<SpinnerItem> brandList = new ArrayList<>();
+            brandList.add(null);
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String name = jsonObject.optString("name");
+                brandList.add(new SpinnerItem(id, name));
+            }
+            return brandList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<SpinnerItem> parseCitiesFeed(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("cities");
+            List<SpinnerItem> brandList = new ArrayList<>();
+            brandList.add(null);
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String name = jsonObject.optString("name");
+                brandList.add(new SpinnerItem(id, name));
+            }
+            return brandList;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
