@@ -137,6 +137,7 @@
                 android:maxLines="1"
                 android:imeOptions="actionUnspecified"
                 android:padding="5dp"
+                style="?android:attr/textAppearanceSmall"
                 android:inputType="text"
                 android:background="#00000000"
                 android:gravity="top" />
@@ -327,6 +328,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                style="?android:attr/textAppearanceSmall"
                 android:hint="@string/school_subjects"
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorPrimary"
@@ -358,6 +360,7 @@
                 android:id="@+id/editText4"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                style="?android:attr/textAppearanceSmall"
                 android:layout_height="wrap_content"
                 android:hint="@string/cost_of_hour"
                 android:textColorHint="@color/colorPrimary"
@@ -465,6 +468,7 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/editText5"
+                style="?android:attr/textAppearanceSmall"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -499,6 +503,7 @@
                 android:id="@+id/editText6"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                style="?android:attr/textAppearanceSmall"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:textColorHint="@color/colorPrimary"

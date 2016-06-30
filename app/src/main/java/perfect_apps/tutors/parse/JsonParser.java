@@ -82,4 +82,89 @@ public class JsonParser {
 
 
     }
+
+    public static List<SpinnerItem> parseStageFeed(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("stages");
+            List<SpinnerItem> brandList = new ArrayList<>();
+            brandList.add(null);
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String name = jsonObject.optString("name");
+                brandList.add(new SpinnerItem(id, name));
+            }
+            return brandList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<SpinnerItem> parseMajorsFeed(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("majors");
+            List<SpinnerItem> brandList = new ArrayList<>();
+            brandList.add(null);
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String name = jsonObject.optString("name");
+                brandList.add(new SpinnerItem(id, name));
+            }
+            return brandList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<SpinnerItem> parseApplyServicesFeed(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("apply_services");
+            List<SpinnerItem> brandList = new ArrayList<>();
+            brandList.add(null);
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String name = jsonObject.optString("name");
+                brandList.add(new SpinnerItem(id, name));
+            }
+            return brandList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<SpinnerItem> parseSexFeed(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("genders");
+            List<SpinnerItem> brandList = new ArrayList<>();
+            brandList.add(null);
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String name = jsonObject.optString("name");
+                brandList.add(new SpinnerItem(id, name));
+            }
+            return brandList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
 }
