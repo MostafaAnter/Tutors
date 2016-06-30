@@ -1,6 +1,8 @@
 package perfect_apps.tutors.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,22 +25,30 @@ import android.widget.Toast;
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.BuildConfig;
@@ -52,8 +62,30 @@ import perfect_apps.tutors.adapters.StageSpinnerAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.utils.Utils;
+import perfect_apps.tutors.utils.VolleyMultipartRequest;
 
 public class RegisterTeacherMembershipActivity extends LocalizationActivity {
+    // vars that i will post to service
+
+    private static String name;
+    private static String email;
+    private static String password;
+    private static String password_confirmation;
+    private static String country_id;
+    private static String city_id ;
+    private static String major_id ;
+    private static String stage_id ;
+    private static String subjects ;
+    private static String hour_price ;
+    private static String apply_service_id;
+    private static String gender_id;
+    private static Uri image;
+    private static String desc;
+
+
+
+
     @Bind(R.id.text1) TextView textView1;
     @Bind(R.id.text2) TextView textView2;
     @Bind(R.id.text3) TextView textView3;
@@ -170,6 +202,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 ArrayList<String> photos =
                         data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
+                image = uri;
                 setSelectedPhotoInsideCircleShap(uri);
             }
         }
@@ -186,6 +219,8 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     }
 
     public void registerNewUser(View view) {
+        registerTeacher();
+
     }
 
     private void populateSpinner1(List<SpinnerItem> mlist) {
@@ -201,6 +236,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
+                    country_id = selectedItem.getId();
                     String urlCities = BuildConfig.API_CITIES + selectedItem.getId();
                     fetchCitiesData(urlCities);
                 }
@@ -228,7 +264,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-                    selectedItem.getId();
+                    city_id = selectedItem.getId();
                 }
             }
 
@@ -254,7 +290,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-                   selectedItem.getId();
+                   stage_id = selectedItem.getId();
                 }
             }
 
@@ -280,7 +316,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-                    selectedItem.getId();
+                    major_id = selectedItem.getId();
                 }
             }
 
@@ -306,7 +342,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-                    selectedItem.getId();
+                    apply_service_id = selectedItem.getId();
                 }
             }
 
@@ -332,7 +368,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-                    selectedItem.getId();
+                    gender_id = selectedItem.getId();
                 }
             }
 
@@ -355,6 +391,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         getMagor();
         getService();
         getSex();
+        getApplyService();
 
     }
 
@@ -614,7 +651,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
             try {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
-                populateSpinner4(JsonParser.parseMajorsFeed(data));
+                populateSpinner5(JsonParser.parseApplyServicesFeed(data));
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -627,7 +664,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner4(JsonParser.parseMajorsFeed(response));
+                    populateSpinner5(JsonParser.parseApplyServicesFeed(response));
                     Log.d("response", response.toString());
 
                 }
@@ -923,4 +960,187 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
             AppController.getInstance().addToRequestQueue(jsonReq);
         }
     }
+
+    private void registerTeacher(){
+        // check on required data
+        if (attempRegister()) {
+            if (Utils.isOnline(RegisterTeacherMembershipActivity.this)) {
+
+                // make request
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("جارى انشاء الحساب...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                String tag_string_req = "string_req";
+                String url = BuildConfig.API_BASE_URL + "/api/register/teacher";
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        pDialog.dismissWithAnimation();
+                        String resultResponse = new String(response.data);
+                        try {
+                            JSONObject result = new JSONObject(resultResponse);
+                            /*String status = result.getString("status");
+                            String message = result.getString("message");*/
+
+                            Log.d("response", resultResponse);
+                            //parseFeed2(resultResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        // show error message
+                        new SweetAlertDialog(RegisterTeacherMembershipActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("نأسف!")
+                                .setContentText("حدث خطأ حاول مره اخري")
+                                .show();
+
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message + " Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message + " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message + " Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        if(name != null)
+                        params.put("name", name);
+                        if(email != null)
+                        params.put("email", email);
+                        if(password != null)
+                        params.put("password", password);
+                        if(password_confirmation != null)
+                        params.put("password_confirmation", password_confirmation);
+                        if(country_id != null)
+                        params.put("country_id", country_id);
+                        if(city_id != null)
+                        params.put("city_id", city_id);
+                        if(major_id != null)
+                        params.put("major_id", major_id);
+                        if(stage_id != null)
+                        params.put("stage_id", stage_id);
+                        if(subjects != null)
+                        params.put("subjects", subjects);
+                        if(hour_price != null)
+                        params.put("hour_price", hour_price);
+                        if(apply_service_id != null)
+                        params.put("apply_service_id", apply_service_id);
+                        if(gender_id != null)
+                        params.put("gender_id", gender_id);
+                        if(desc != null)
+                        params.put("desc", desc);
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+
+                        if (image != null)
+                        params.put("image", new DataPart("file_avatar.jpg", Utils.getFileDataFromDrawable(RegisterTeacherMembershipActivity.this,
+                                image), "image/jpeg"));
+
+                        return params;
+                    }
+                };
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
+
+
+            }else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("ناسف...")
+                        .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                        .show();
+            }
+        }
+    }
+
+    private boolean attempRegister(){
+        desc = editText1.getText().toString().trim();
+        name = editText2.getText().toString().trim();
+        subjects = editText3.getText().toString().trim();
+        hour_price = editText4.getText().toString().trim();
+        email = editText5.getText().toString().trim();
+        password = editText6.getText().toString().trim();
+        password_confirmation = editText6.getText().toString().trim();
+
+        // first check mail format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("البريد الالكترونى غير صالح")
+                    .show();
+            return false;
+        }
+
+
+        if (name != null && !name.trim().isEmpty()
+                && subjects != null && !subjects.trim().isEmpty()
+                && hour_price != null && !hour_price.trim().isEmpty()
+                && email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()
+                && country_id != null && !country_id.trim().isEmpty()
+                && city_id != null && !city_id.trim().isEmpty()
+                && major_id != null && !major_id.trim().isEmpty()
+                && stage_id != null && !stage_id.trim().isEmpty()
+                && gender_id != null && !gender_id.trim().isEmpty()
+                && apply_service_id != null && !apply_service_id.trim().isEmpty()){
+
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("قم بإكمال تسجيل البيانات")
+                    .show();
+            return false;
+        }
+
+
+    }
+
 }
+

@@ -79,7 +79,6 @@
                 android:imeOptions="actionUnspecified"
                 android:padding="5dp"
                 android:layout_marginRight="10dp"
-                android:inputType="textMultiLine"
                 android:gravity="top" >
             </EditText>
             <LinearLayout
@@ -138,7 +137,6 @@
                 android:imeOptions="actionUnspecified"
                 android:padding="5dp"
                 style="?android:attr/textAppearanceSmall"
-                android:inputType="text"
                 android:background="#00000000"
                 android:gravity="top" />
             <ImageView
@@ -335,7 +333,6 @@
                 android:padding="5dp"
                 android:maxLines="1"
                 android:imeOptions="actionUnspecified"
-                android:inputType="text"
                 android:background="#00000000"
                 android:gravity="right" />
             <ImageView
@@ -368,7 +365,7 @@
                 android:padding="5dp"
                 android:maxLines="1"
                 android:imeOptions="actionUnspecified"
-                android:inputType="text"
+                android:inputType="number"
                 android:background="#00000000"
                 android:gravity="top" />
             <ImageView
@@ -544,7 +541,8 @@
                 android:textColor="@color/colorPrimary"
                 android:padding="5dp"
                 style="?android:attr/textAppearanceMedium"
-                android:background="#00000000" />
+                android:background="#00000000"
+                android:onClick="registerNewUser"/>
             <ImageView
                 android:contentDescription="@null"
                 android:layout_width="48dp"
