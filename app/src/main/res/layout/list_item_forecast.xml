@@ -99,8 +99,8 @@
             android:background="@color/colorPrimary"
             android:textColor="#FFFFFF"
             android:text="الساعة"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+
             android:layout_weight="1"/>
     </LinearLayout>
 
