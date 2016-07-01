@@ -49,8 +49,16 @@ public class CategoryActivity extends LocalizationActivity {
     }
 
     public void cateIsTeacher(View view) {
-        Intent intent = new Intent(this, RegisterTeacherMembershipActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+        if(new TutorsPrefStore(CategoryActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE).equalsIgnoreCase(Constants.TEACHER)){
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        }else {
+
+            Intent intent = new Intent(this, RegisterTeacherMembershipActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+        }
     }
 }

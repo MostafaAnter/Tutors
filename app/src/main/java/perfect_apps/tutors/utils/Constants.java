@@ -17,8 +17,11 @@ public class Constants {
 
 
     // user main data
-    public static final String USER_ID = "id";
-    public static final String USER_IMAGE_FULL_PATH = "image_path";
+    public static final String STUDENT_ID = "student_id";
+    public static final String STUDENT_IMAGE_FULL_PATH = "student_image_path";
+
+    public static final String TEACHER_ID = "teacher_id";
+    public static final String TEACHER_IMAGE_FULL_PATH = "teacher_image_path";
 
 
 
