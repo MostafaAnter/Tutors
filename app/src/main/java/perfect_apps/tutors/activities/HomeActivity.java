@@ -1,5 +1,6 @@
 package perfect_apps.tutors.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -109,10 +110,18 @@ public class HomeActivity extends LocalizationActivity
         if (id == R.id.home) {
             // Handle the camera action
         } else if (id == R.id.login) {
+            // login student page
+            startActivity(new Intent(HomeActivity.this, LoginStudentActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.register_teacher_membership) {
+            startActivity(new Intent(HomeActivity.this, RegisterTeacherMembershipActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.register_student_membership) {
+            startActivity(new Intent(HomeActivity.this, RegisterStudentMembershipActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.search_about_teacher) {
 
@@ -129,6 +138,10 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.studentSearchAboutTeacher) {
 
         }else if (id == R.id.studentSignOut) {
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.AUTHENTICATION_STATE, "");
+            startActivity(new Intent(HomeActivity.this, CategoryActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         }else if (id == R.id.teacherHome) {
 
@@ -137,6 +150,10 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.teacherMyData) {
 
         }else if (id == R.id.teacherSignOut) {
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.AUTHENTICATION_STATE, "");
+            startActivity(new Intent(HomeActivity.this, CategoryActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         }
 

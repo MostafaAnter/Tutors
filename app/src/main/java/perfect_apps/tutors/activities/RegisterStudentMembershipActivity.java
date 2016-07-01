@@ -1,6 +1,7 @@
 package perfect_apps.tutors.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,18 +19,42 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
+import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.app.AppController;
+import perfect_apps.tutors.utils.Utils;
+import perfect_apps.tutors.utils.VolleyMultipartRequest;
 
 public class RegisterStudentMembershipActivity extends LocalizationActivity {
+    private static String name;
+    private static String email;
+    private static String password;
+    private static String password_confirmation;
+    private static Uri image;
+
+
+
     @Bind(R.id.text1) TextView textView1;
     @Bind(R.id.text2) TextView textView2;
     @Bind(R.id.text3) TextView textView3;
@@ -135,6 +161,7 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                 ArrayList<String> photos =
                         data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
+                image = uri;
                 setSelectedPhotoInsideCircleShap(uri);
             }
         }
@@ -151,5 +178,158 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
     }
 
     public void registerNewUser(View view) {
+        registerStudent();
+    }
+
+    private void registerStudent(){
+        // check on required data
+        if (attempRegister()) {
+            if (Utils.isOnline(RegisterStudentMembershipActivity.this)) {
+
+                // make request
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("جارى انشاء الحساب...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                String tag_string_req = "string_req";
+                String url = BuildConfig.API_BASE_URL + "/api/register/student";
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        pDialog.dismissWithAnimation();
+                        String resultResponse = new String(response.data);
+                        try {
+                            JSONObject result = new JSONObject(resultResponse);
+                            Log.d("response", resultResponse);
+                            startActivity(new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        // show error message
+                        new SweetAlertDialog(RegisterStudentMembershipActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("نأسف!")
+                                .setContentText("حدث خطأ حاول مره اخري")
+                                .show();
+
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message + " Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message + " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message + " Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        if(name != null)
+                            params.put("name", name);
+                        if(email != null)
+                            params.put("email", email);
+                        if(password != null)
+                            params.put("password", password);
+                        if(password_confirmation != null)
+                            params.put("password_confirmation", password_confirmation);
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+
+                        if (image != null)
+                            params.put("image", new DataPart("file_avatar.jpg", Utils.getFileDataFromDrawable(RegisterStudentMembershipActivity.this,
+                                    image), "image/jpeg"));
+
+                        return params;
+                    }
+                };
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
+
+
+            }else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("ناسف...")
+                        .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                        .show();
+            }
+        }
+    }
+
+    private boolean attempRegister(){
+        name = editText1.getText().toString().trim();
+        email = editText2.getText().toString().trim();
+        password = editText3.getText().toString().trim();
+        password_confirmation = editText3.getText().toString().trim();
+
+        // first check mail format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("البريد الالكترونى غير صالح")
+                    .show();
+            return false;
+        }
+
+
+        if (name != null && !name.trim().isEmpty()
+                && email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()){
+
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("قم بإكمال تسجيل البيانات")
+                    .show();
+            return false;
+        }
+
+
     }
 }
