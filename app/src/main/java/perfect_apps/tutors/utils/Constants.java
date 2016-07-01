@@ -16,6 +16,11 @@ public class Constants {
     public static final String TEACHER = "teacher";
 
 
+    // user main data
+    public static final String USER_ID = "id";
+    public static final String USER_IMAGE_FULL_PATH = "image_path";
+
+
 
 
 }
