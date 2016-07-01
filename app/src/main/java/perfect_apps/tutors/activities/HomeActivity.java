@@ -111,8 +111,7 @@ public class HomeActivity extends LocalizationActivity
             // Handle the camera action
         } else if (id == R.id.login) {
             // login student page
-            startActivity(new Intent(HomeActivity.this, LoginStudentActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            startActivity(new Intent(HomeActivity.this, LoginStudentActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.register_teacher_membership) {

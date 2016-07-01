@@ -983,8 +983,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            startActivity(new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class)
-                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class));
                             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
                         } catch (JSONException e) {

@@ -203,8 +203,7 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            startActivity(new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class)
-                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class));
                             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
                         } catch (JSONException e) {
@@ -267,6 +266,7 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                             params.put("password", password);
                         if(password_confirmation != null)
                             params.put("password_confirmation", password_confirmation);
+                        params.put("desc", null);
                         return params;
                     }
 
