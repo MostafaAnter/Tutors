@@ -7,10 +7,10 @@
     
     <ImageView
         android:id="@+id/avatar"
-        android:scaleType="fitXY"
         android:contentDescription="@null"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:padding="5dp"
         android:minHeight="?android:attr/listPreferredItemHeightLarge"
         android:layout_height="match_parent"
         android:src="@drawable/login_user_ico"/>
@@ -90,8 +90,8 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:layout_weight="3"
-            style="?android:attr/textAppearanceLarge"
-            android:text="122"/>
+            style="?android:attr/textAppearanceSmall"
+            android:text=""/>
         <TextView
             android:id="@+id/hour"
             android:layout_width="match_parent"

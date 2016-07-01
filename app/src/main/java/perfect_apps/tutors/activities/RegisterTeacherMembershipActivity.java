@@ -982,11 +982,11 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                         String resultResponse = new String(response.data);
                         try {
                             JSONObject result = new JSONObject(resultResponse);
-                            /*String status = result.getString("status");
-                            String message = result.getString("message");*/
-
                             Log.d("response", resultResponse);
-                            //parseFeed2(resultResponse);
+                            startActivity(new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
