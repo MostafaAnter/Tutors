@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -49,6 +50,7 @@ import perfect_apps.tutors.utils.DividerItemDecoration;
 public class TeachersSearchResultList extends Fragment {
 
     @Bind(R.id.button1)Button button1;
+    @Bind(R.id.makNewSearch)LinearLayout makeNewSearch;
 
     // for manipulate recyclerView
     public static final String TAG = "TeachersSearchResult";
@@ -127,6 +129,7 @@ public class TeachersSearchResultList extends Fragment {
         return view;
     }
 
+
     private void changeTextFont(){
         //Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
@@ -183,6 +186,20 @@ public class TeachersSearchResultList extends Fragment {
                 Log.i("swip", "onRefresh called from SwipeRefreshLayout");
 
                 initiateRefresh();
+            }
+        });
+
+        makeNewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 

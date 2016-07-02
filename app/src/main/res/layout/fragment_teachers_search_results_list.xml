@@ -28,8 +28,7 @@
         android:background="@drawable/border_shape_blue"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:id="@+id/makNewSearch"
-        android:onClick="newSearch">
+        android:id="@+id/makNewSearch">
         <ImageView
             android:contentDescription="@null"
             android:layout_width="48dp"
