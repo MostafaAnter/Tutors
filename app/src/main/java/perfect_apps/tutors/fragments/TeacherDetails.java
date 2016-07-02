@@ -50,45 +50,79 @@ import perfect_apps.tutors.utils.Utils;
 public class TeacherDetails extends Fragment implements View.OnClickListener {
     public static final String TAG = "TeacherDetails";
 
-    @Bind(R.id.text1) TextView textView1;
-    @Bind(R.id.text2) TextView textView2;
-    @Bind(R.id.text3) TextView textView3;
-    @Bind(R.id.text4) TextView textView4;
-    @Bind(R.id.text5) TextView textView5;
-    @Bind(R.id.text6) TextView textView6;
-    @Bind(R.id.text7) TextView textView7;
-    @Bind(R.id.text8) TextView textView8;
-    @Bind(R.id.text9) TextView textView9;
-    @Bind(R.id.text10) TextView textView10;
-    @Bind(R.id.text11) TextView textView11;
-    @Bind(R.id.text12) TextView textView12;
-    @Bind(R.id.text13) TextView textView13;
-    @Bind(R.id.text14) TextView textView14;
-    @Bind(R.id.text15) TextView textView15;
-    @Bind(R.id.text16) TextView textView16;
-    @Bind(R.id.text17) TextView textView17;
-    @Bind(R.id.text18) TextView textView18;
-    @Bind(R.id.text19) TextView textView19;
-    @Bind(R.id.text20) TextView textView20;
-    @Bind(R.id.text21) TextView textView21;
-    @Bind(R.id.name) TextView textView22;
-    @Bind(R.id.rate) TextView textView23;
-    @Bind(R.id.rateStatic1) TextView textView24;
-    @Bind(R.id.rateStatic2) TextView textView25;
-    @Bind(R.id.desc) TextView textView26;
-    @Bind(R.id.hour) TextView textView27;
-    @Bind(R.id.costPerHour) TextView textView28;
+    @Bind(R.id.text1)
+    TextView textView1;
+    @Bind(R.id.text2)
+    TextView textView2;
+    @Bind(R.id.text3)
+    TextView textView3;
+    @Bind(R.id.text4)
+    TextView textView4;
+    @Bind(R.id.text5)
+    TextView textView5;
+    @Bind(R.id.text6)
+    TextView textView6;
+    @Bind(R.id.text7)
+    TextView textView7;
+    @Bind(R.id.text8)
+    TextView textView8;
+    @Bind(R.id.text9)
+    TextView textView9;
+    @Bind(R.id.text10)
+    TextView textView10;
+    @Bind(R.id.text11)
+    TextView textView11;
+    @Bind(R.id.text12)
+    TextView textView12;
+    @Bind(R.id.text13)
+    TextView textView13;
+    @Bind(R.id.text14)
+    TextView textView14;
+    @Bind(R.id.text15)
+    TextView textView15;
+    @Bind(R.id.text16)
+    TextView textView16;
+    @Bind(R.id.text17)
+    TextView textView17;
+    @Bind(R.id.text18)
+    TextView textView18;
+    @Bind(R.id.text19)
+    TextView textView19;
+    @Bind(R.id.text20)
+    TextView textView20;
+    @Bind(R.id.text21)
+    TextView textView21;
+    @Bind(R.id.name)
+    TextView textView22;
+    @Bind(R.id.rate)
+    TextView textView23;
+    @Bind(R.id.rateStatic1)
+    TextView textView24;
+    @Bind(R.id.rateStatic2)
+    TextView textView25;
+    @Bind(R.id.desc)
+    TextView textView26;
+    @Bind(R.id.hour)
+    TextView textView27;
+    @Bind(R.id.costPerHour)
+    TextView textView28;
 
-    @Bind(R.id.button1)Button button1;
-    @Bind(R.id.button2)Button button2;
-    @Bind(R.id.button3)Button button3;
+    @Bind(R.id.button1)
+    Button button1;
+    @Bind(R.id.button2)
+    Button button2;
+    @Bind(R.id.button3)
+    Button button3;
 
-    @Bind(R.id.viewForStudent) LinearLayout viewThatShowForStudent;
-    @Bind(R.id.viewForTeacher) LinearLayout viewThatShowForTeacher;
+    @Bind(R.id.viewForStudent)
+    LinearLayout viewThatShowForStudent;
+    @Bind(R.id.viewForTeacher)
+    LinearLayout viewThatShowForTeacher;
 
-    @Bind(R.id.avatar)ImageView imageAvatar;
+    @Bind(R.id.avatar)
+    ImageView imageAvatar;
 
-    public TeacherDetails(){
+    public TeacherDetails() {
 
     }
 
@@ -106,11 +140,13 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
 
         // hide some view to suitable with context
-        if (getArguments().containsKey(Constants.COMMING_FROM)) {
-            if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)){
-                viewThatShowForStudent.setVisibility(View.GONE);
-            }
+
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
+            viewThatShowForStudent.setVisibility(View.GONE);
+        } else {
+            viewThatShowForTeacher.setVisibility(View.GONE);
         }
+
         viewThatShowForTeacher.setOnClickListener(this);
         button3.setOnClickListener(this);
 
@@ -125,7 +161,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         fetchData();
     }
 
-    private void setTypeFace(){
+    private void setTypeFace() {
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
 
@@ -169,7 +205,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.viewForTeacher:
                 TeacherEditData teacherDetails =
                         new TeacherEditData();
@@ -212,19 +248,26 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
 
-
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
-
-        TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        title.setText("بياناتي الشخصية");
-        title.setTypeface(font);
 
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
 
-        profileIc.setVisibility(View.VISIBLE);
-        chatIc.setVisibility(View.VISIBLE);
+
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
+            profileIc.setVisibility(View.VISIBLE);
+            chatIc.setVisibility(View.VISIBLE);
+            TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+            title.setText("بياناتي الشخصية");
+            title.setTypeface(font);
+        } else {
+            searchIc.setVisibility(View.VISIBLE);
+            TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+            title.setText("بيانات المدرس");
+            title.setTypeface(font);
+        }
+
 
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,18 +308,18 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         });
     }
 
-    private boolean addTeacherDetailToBackstack(){
+    private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
             return false;
         }
         return true;
     }
 
 
-    private void fetchData(){
+    private void fetchData() {
         if (Utils.isOnline(getActivity())) {
             // Set up a progress dialog
             final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
@@ -338,7 +381,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     }
 
-    private void parseFeed(String response){
+    private void parseFeed(String response) {
         try {
             JSONObject jsonRootObject = new JSONObject(response);
             JSONObject itemObject = jsonRootObject.optJSONObject("item");
@@ -367,7 +410,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             JSONObject stageObject = teacherInfoObject.optJSONObject("stage");
             textView6.setText(stageObject.optString("name"));
 
-            JSONObject majorObject  = teacherInfoObject.optJSONObject("major");
+            JSONObject majorObject = teacherInfoObject.optJSONObject("major");
             textView8.setText(majorObject.optString("name"));
 
             JSONObject applyServiceObject = teacherInfoObject.optJSONObject("apply_service");
@@ -375,10 +418,6 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
             JSONObject genderObject = teacherInfoObject.optJSONObject("gender");
             textView14.setText(genderObject.optString("name"));
-
-
-
-
 
 
         } catch (JSONException e) {

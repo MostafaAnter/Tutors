@@ -101,6 +101,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                     Bundle arguments = new Bundle();
                     arguments.putString(Constants.DETAIL_USER_ID, mDataSet.get(getPosition()).getId());
+                    arguments.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
                     TeacherDetails fragment = new TeacherDetails();
                     fragment.setArguments(arguments);
                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
