@@ -41,6 +41,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -1015,9 +1016,13 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     }
 
     private boolean attempRegister(){
-        desc = editText1.getText().toString().trim();
-        name = editText2.getText().toString().trim();
-        subjects = editText3.getText().toString().trim();
+        try {
+            desc = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
+            name = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
+            subjects = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         hour_price = editText4.getText().toString().trim();
         email = editText5.getText().toString().trim();
         password = editText6.getText().toString().trim();

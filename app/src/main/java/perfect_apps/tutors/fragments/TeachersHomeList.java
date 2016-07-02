@@ -29,6 +29,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -211,6 +212,7 @@ public class TeachersHomeList extends Fragment {
             // fetch the data from cache
             try {
                 String data = new String(entry.data, "UTF-8");
+                data = URLDecoder.decode(data, "UTF-8");
                 // do some thing
                 mDataset.clear();
                 mDataset.addAll(0, JsonParser.parseTeachers(data));
@@ -228,6 +230,11 @@ public class TeachersHomeList extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
+                    try {
+                        response = URLDecoder.decode(response, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     mDataset.clear();
                     mDataset.addAll(0, JsonParser.parseTeachers(response));
                     mAdapter.notifyDataSetChanged();
