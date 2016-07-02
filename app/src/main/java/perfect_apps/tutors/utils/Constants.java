@@ -24,6 +24,14 @@ public class Constants {
     public static final String TEACHER_ID = "teacher_id";
     public static final String TEACHER_IMAGE_FULL_PATH = "teacher_image_path";
 
+    // extras pass to search
+    public static String COUNTRY_ID = "country_id";
+    public static String CITY_ID = "city_id";
+    public static String MAJOR_ID = "major_id";
+    public static String STAGE_ID = "stage_id";
+    public static String APPLY_SERVICE_ID = "apply_service_id";
+    public static String GENDER_ID = "gender_id";
+
 
 
 

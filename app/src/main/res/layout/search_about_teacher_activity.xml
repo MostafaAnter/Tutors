@@ -297,7 +297,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_green"
             android:orientation="horizontal"
-            android:onClick="registerNewUser">
+            android:id="@+id/searchTeachers">
             <Button
                 android:id="@+id/button1"
                 android:layout_width="0dp"
