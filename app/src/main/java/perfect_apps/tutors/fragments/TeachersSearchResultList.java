@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
+import perfect_apps.tutors.adapters.TeachersSearchResultsListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.parse.JsonParser;
@@ -64,7 +65,7 @@ public class TeachersSearchResultList extends Fragment {
     protected LayoutManagerType mCurrentLayoutManagerType;
 
     protected RecyclerView mRecyclerView;
-    protected TeachersListAdapter mAdapter;
+    protected TeachersSearchResultsListAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected List<TeacherItem> mDataset;
 
@@ -104,7 +105,7 @@ public class TeachersSearchResultList extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new TeachersListAdapter(getActivity(), mDataset);
+        mAdapter = new TeachersSearchResultsListAdapter(getActivity(), mDataset);
         // Set TeachersListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 
