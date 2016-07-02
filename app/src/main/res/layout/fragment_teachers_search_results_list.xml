@@ -30,6 +30,14 @@
         android:orientation="horizontal"
         android:id="@+id/makNewSearch"
         android:onClick="newSearch">
+        <ImageView
+            android:contentDescription="@null"
+            android:layout_width="48dp"
+            android:padding="8dp"
+            android:layout_margin="1dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_search_ico"/>
         <Button
             android:id="@+id/button1"
             android:layout_width="0dp"
@@ -41,13 +49,5 @@
             android:padding="5dp"
             style="?android:attr/textAppearanceMedium"
             android:background="#00000000" />
-        <ImageView
-            android:contentDescription="@null"
-            android:layout_width="48dp"
-            android:padding="8dp"
-            android:layout_margin="1dp"
-            android:background="@color/colorPrimary"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_search_ico"/>
     </LinearLayout>
 </RelativeLayout>

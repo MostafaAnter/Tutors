@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -213,93 +214,74 @@ public class TeachersSearchResultList extends Fragment {
 
     }
 
-    private void makeNewsRequest(){
+    private void makeNewsRequest() {
         /**
          * this section for fetch Brands
          */
-        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST
-                 + "؟country_id = " + getArguments().getString(Constants.COUNTRY_ID);
-        // We first check for cached request
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(urlBrands);
-        if (entry != null) {
-            // fetch the data from cache
-            try {
-                String data = new String(entry.data, "UTF-8");
-                data = URLDecoder.decode(data, "UTF-8");
-                // do some thing
+        String urlBrands = "http://services-apps.net/tutors/api/show/teacher?country_id=" +
+                getArguments().getString(Constants.COUNTRY_ID) +
+                "&city_id=" +
+                getArguments().getString(Constants.CITY_ID) +
+                "&major_id=" +
+                getArguments().getString(Constants.MAJOR_ID) +
+                "&stage_id=" +
+                getArguments().getString(Constants.STAGE_ID) +
+                "&apply_service_id=" +
+                getArguments().getString(Constants.APPLY_SERVICE_ID) +
+                "&gender_id=" +
+                getArguments().getString(Constants.GENDER_ID) ;
+
+        // making fresh volley request and getting json
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    response = URLDecoder.decode(response, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 mDataset.clear();
-                mDataset.addAll(0, JsonParser.parseTeachers(data));
+                mDataset.addAll(0, JsonParser.parseTeachers(response));
                 mAdapter.notifyDataSetChanged();
+                Log.d(TAG, response.toString());
                 onRefreshComplete();
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
+        }, new Response.ErrorListener() {
 
-        } else {
-            // making fresh volley request and getting json
-            StringRequest jsonReq = new StringRequest(Request.Method.GET,
-                    urlBrands, new Response.Listener<String>() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                onRefreshComplete();
+            }
+        });
+        // disable cache
+        jsonReq.setShouldCache(false);
 
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        response = URLDecoder.decode(response, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    mDataset.clear();
-                    mDataset.addAll(0, JsonParser.parseTeachers(response));
-                    mAdapter.notifyDataSetChanged();
-                    Log.d(TAG, response.toString());
-                    onRefreshComplete();
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
 
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    onRefreshComplete();
-                }
-            });
-
-            // Adding request to volley request queue
-            AppController.getInstance().addToRequestQueue(jsonReq);
-        }
     }
 
 
     private void setActionsOfToolBarIcons() {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
+        TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        title.setText("نتائج البحث عن مدرس");
+        title.setTypeface(font);
+
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
 
-        profileIc.setVisibility(View.VISIBLE);
-        chatIc.setVisibility(View.VISIBLE);
+        searchIc.setVisibility(View.VISIBLE);
 
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (addTeacherDetailToBackstack()) {
-                    TeacherDetails teacherDetails =
-                            new TeacherDetails();
-                    Bundle b = new Bundle();
-                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
-
-                    teacherDetails.setArguments(b);
-
-                    FragmentTransaction transaction = getFragmentManager()
-                            .beginTransaction();
-                    transaction.replace(R.id.fragment_container, teacherDetails);
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    transaction.addToBackStack(TeacherDetails.TAG);
-                    transaction.commit();
-                    // to add to back stack
-                    getActivity().getSupportFragmentManager().executePendingTransactions();
-                }
 
             }
         });
@@ -322,15 +304,5 @@ public class TeachersSearchResultList extends Fragment {
     @Override
     public void setRetainInstance(boolean retain) {
         super.setRetainInstance(true);
-    }
-
-    private boolean addTeacherDetailToBackstack(){
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
-            return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
-            return false;
-        }
-        return true;
     }
 }
