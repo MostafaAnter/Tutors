@@ -62,12 +62,12 @@ public class HomeActivity extends LocalizationActivity
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
          // if user is authenticated as teacher or student change menu :)
-        if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE)
+        if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.TEACHER)) {
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_teacher);
             changeFontOfNavigation();
-        }else if(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE)
+        }else if(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.STUDENT)){
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_student);
@@ -138,7 +138,7 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.studentSearchAboutTeacher) {
 
         }else if (id == R.id.studentSignOut) {
-            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.AUTHENTICATION_STATE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, "");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
@@ -150,7 +150,7 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.teacherMyData) {
 
         }else if (id == R.id.teacherSignOut) {
-            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.AUTHENTICATION_STATE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, "");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);

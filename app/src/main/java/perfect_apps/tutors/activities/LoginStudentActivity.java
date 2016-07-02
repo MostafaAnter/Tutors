@@ -218,7 +218,7 @@ public class LoginStudentActivity extends LocalizationActivity {
                 new TutorsPrefStore(LoginStudentActivity.this).addPreference(Constants.STUDENT_ID, id);
                 new TutorsPrefStore(LoginStudentActivity.this).addPreference(Constants.STUDENT_IMAGE_FULL_PATH, image_full_path);
 
-                new TutorsPrefStore(LoginStudentActivity.this).addPreference(Constants.AUTHENTICATION_STATE, Constants.STUDENT);
+                new TutorsPrefStore(LoginStudentActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, Constants.STUDENT);
                 Intent intent = new Intent(this, HomeActivity.class);
                 intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
                 startActivity(intent);

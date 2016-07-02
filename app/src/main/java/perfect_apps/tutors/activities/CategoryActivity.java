@@ -37,11 +37,6 @@ public class CategoryActivity extends LocalizationActivity {
     }
 
     public void CateIsStudent(View view) {
-        if (new TutorsPrefStore(CategoryActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE)
-                .equalsIgnoreCase(Constants.TEACHER)){
-            new TutorsPrefStore(CategoryActivity.this).addPreference(Constants.AUTHENTICATION_STATE, "");
-        }
-
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
         startActivity(intent);
@@ -49,7 +44,7 @@ public class CategoryActivity extends LocalizationActivity {
     }
 
     public void cateIsTeacher(View view) {
-        if(new TutorsPrefStore(CategoryActivity.this).getPreferenceValue(Constants.AUTHENTICATION_STATE).equalsIgnoreCase(Constants.TEACHER)){
+        if(new TutorsPrefStore(CategoryActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE).equalsIgnoreCase(Constants.TEACHER)){
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
             startActivity(intent);
