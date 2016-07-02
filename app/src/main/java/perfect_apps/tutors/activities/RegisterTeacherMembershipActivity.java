@@ -389,92 +389,11 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         getCountries();
         getStage();
         getMagor();
-        getService();
         getSex();
         getApplyService();
 
     }
 
-    private void getService() {
-        /**
-         * this section for fetch stage
-         */
-        String urlstage = BuildConfig.API_APPLY_SERVICES;
-        // We first check for cached request
-        Cache cache1 = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry1 = cache1.get(urlstage);
-        if (entry1 != null) {
-            // fetch the data from cache
-            try {
-                String data = new String(entry1.data, "UTF-8");
-                // do some thing
-                populateSpinner5(JsonParser.parseApplyServicesFeed(data));
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            // making fresh volley request and getting json
-            StringRequest jsonReq = new StringRequest(Request.Method.GET,
-                    urlstage, new Response.Listener<String>() {
-
-                @Override
-                public void onResponse(String response) {
-                    populateSpinner5(JsonParser.parseApplyServicesFeed(response));
-                    Log.d("response", response.toString());
-
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
-                }
-            }){
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    try {
-                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
-                        if (cacheEntry == null) {
-                            cacheEntry = new Cache.Entry();
-                        }
-                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
-                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
-                        long now = System.currentTimeMillis();
-                        final long softExpire = now + cacheHitButRefreshed;
-                        final long ttl = now + cacheExpired;
-                        cacheEntry.data = response.data;
-                        cacheEntry.softTtl = softExpire;
-                        cacheEntry.ttl = ttl;
-                        String headerValue;
-                        headerValue = response.headers.get("Date");
-                        if (headerValue != null) {
-                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                        }
-                        headerValue = response.headers.get("Last-Modified");
-                        if (headerValue != null) {
-                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                        }
-                        cacheEntry.responseHeaders = response.headers;
-                        final String jsonString = new String(response.data,
-                                HttpHeaderParser.parseCharset(response.headers));
-                        return Response.success(jsonString, cacheEntry);
-                    } catch (UnsupportedEncodingException e) {
-                        return Response.error(new ParseError(e));
-                    }
-                }
-
-                @Override
-                protected void deliverResponse(String response) {
-                    super.deliverResponse(response);
-                }
-            };
-
-            // Adding request to volley request queue
-            AppController.getInstance().addToRequestQueue(jsonReq);
-        }
-    }
 
     private void getSex() {
         /**
@@ -799,7 +718,6 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
             AppController.getInstance().addToRequestQueue(jsonReq);
         }
     }
-
 
     private void getCountries() {
         /**
