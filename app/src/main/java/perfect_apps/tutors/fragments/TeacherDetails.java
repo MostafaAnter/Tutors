@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,10 +17,32 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.app.AppController;
+import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.utils.Constants;
+import perfect_apps.tutors.utils.Utils;
 
 /**
  * Created by mostafa on 26/06/16.
@@ -54,6 +77,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     @Bind(R.id.rateStatic2) TextView textView25;
     @Bind(R.id.desc) TextView textView26;
     @Bind(R.id.hour) TextView textView27;
+    @Bind(R.id.costPerHour) TextView textView28;
 
     @Bind(R.id.button1)Button button1;
     @Bind(R.id.button2)Button button2;
@@ -61,6 +85,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     @Bind(R.id.viewForStudent) LinearLayout viewThatShowForStudent;
     @Bind(R.id.viewForTeacher) LinearLayout viewThatShowForTeacher;
+
+    @Bind(R.id.avatar)ImageView imageAvatar;
 
     public TeacherDetails(){
 
@@ -124,6 +150,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         textView25.setTypeface(font);
         textView26.setTypeface(font);
         textView27.setTypeface(font);
+        textView28.setTypeface(fontBold);
         button1.setTypeface(fontBold);
         button2.setTypeface(fontBold);
         button3.setTypeface(fontBold);
@@ -240,5 +267,116 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             return false;
         }
         return true;
+    }
+
+
+    private void fetchData(){
+        if (Utils.isOnline(getActivity())) {
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("جارى التحميل...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/info/teacher";
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+
+                    pDialog.dismissWithAnimation();
+                    try {
+                        response = URLDecoder.decode(response, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    parseFeed(response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismissWithAnimation();
+                    // show error message
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("خطأ")
+                            .setContentText("حاول مره أخري")
+                            .show();
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("user_id", "");
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        } else {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("خطأ")
+                    .setContentText("تحقق من الأتصال بألأنترنت")
+                    .show();
+        }
+
+    }
+
+    private void parseFeed(String response){
+        try {
+            JSONObject jsonRootObject = new JSONObject(response);
+            JSONObject itemObject = jsonRootObject.optJSONObject("item");
+            textView22.setText(itemObject.optString("name"));
+            textView26.setText(itemObject.optString("desc"));
+            // populate mainImage
+            Glide.with(getActivity())
+                    .load(itemObject.optString("image_full_path"))
+                    .thumbnail(0.1f)
+                    .placeholder(R.drawable.login_user_ico)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageAvatar);
+
+            JSONObject teacherInfoObject = itemObject.optJSONObject("teacher_info");
+            textView28.setText(teacherInfoObject.optString("hour_price"));
+            textView10.setText(teacherInfoObject.optString("subjects"));
+            textView16.setText(teacherInfoObject.optString("qualification"));
+            textView18.setText(teacherInfoObject.optString("experience"));
+
+            JSONObject countryObject = teacherInfoObject.optJSONObject("country");
+            textView2.setText(countryObject.optString("name"));
+
+            JSONObject cityObject = teacherInfoObject.optJSONObject("city");
+            textView4.setText(cityObject.optString("name"));
+
+            JSONObject stageObject = teacherInfoObject.optJSONObject("stage");
+            textView6.setText(stageObject.optString("name"));
+
+            JSONObject majorObject  = teacherInfoObject.optJSONObject("major");
+            textView8.setText(majorObject.optString("name"));
+
+            JSONObject applyServiceObject = teacherInfoObject.optJSONObject("apply_service");
+            textView12.setText(applyServiceObject.optString("name"));
+
+            JSONObject genderObject = teacherInfoObject.optJSONObject("gender");
+            textView14.setText(genderObject.optString("name"));
+
+
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
