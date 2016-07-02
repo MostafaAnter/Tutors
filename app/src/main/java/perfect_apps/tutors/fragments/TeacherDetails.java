@@ -119,6 +119,12 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        fetchData();
+    }
+
     private void setTypeFace(){
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
@@ -315,7 +321,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("user_id", "");
+                    params.put("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     return params;
 
                 }

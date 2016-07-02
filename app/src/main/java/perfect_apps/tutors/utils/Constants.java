@@ -32,6 +32,9 @@ public class Constants {
     public static String APPLY_SERVICE_ID = "apply_service_id";
     public static String GENDER_ID = "gender_id";
 
+    // for detail page
+    public static String DETAIL_USER_ID = "detailForUser";
+
 
 
 

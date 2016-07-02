@@ -39,6 +39,7 @@ import perfect_apps.tutors.adapters.TeachersListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
 
@@ -274,6 +275,7 @@ public class TeachersHomeList extends Fragment {
                             new TeacherDetails();
                     Bundle b = new Bundle();
                     b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                    b.putString(Constants.DETAIL_USER_ID, new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_ID));
 
                     teacherDetails.setArguments(b);
 

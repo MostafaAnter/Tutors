@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="محمد مصطفى عبدالوهاب"
+                    android:text=""
                     android:textColor="@color/colorPrimary" />
 
                 <LinearLayout
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:text="يتم اكتساب القوه عن طريق تبادل المعرفه يتم اكتساب القوه عن طريق تبادل " />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -167,7 +167,7 @@
                     android:id="@+id/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="السعودية"
+                    android:text=""
                     android:textColor="@color/colorPrimary" />
 
             </LinearLayout>
@@ -194,7 +194,7 @@
                     android:id="@+id/text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="السعودية"
+                    android:text=""
                     android:textColor="@color/colorPrimary" />
 
             </LinearLayout>
@@ -222,7 +222,7 @@
                 android:id="@+id/text6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="المرحلة الثانوية"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -248,7 +248,7 @@
                 android:id="@+id/text8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الرياضيات"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -274,7 +274,7 @@
                 android:id="@+id/text10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="التفاضل والتكامل"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -300,7 +300,7 @@
                 android:id="@+id/text12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="شخصى"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -326,7 +326,7 @@
                 android:id="@+id/text14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ذكر"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
 
@@ -353,7 +353,7 @@
                 android:id="@+id/text16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ماجستير"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
 
@@ -380,7 +380,7 @@
                 android:id="@+id/text18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5 سنوات"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
 
@@ -434,7 +434,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="@string/rates"
+            android:text=""
             android:textColor="@color/colorPrimary" />
 
         <LinearLayout
