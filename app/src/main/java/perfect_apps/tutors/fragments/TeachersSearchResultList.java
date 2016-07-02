@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.volley.Cache;
@@ -29,6 +31,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
@@ -42,6 +46,8 @@ import perfect_apps.tutors.utils.DividerItemDecoration;
  * Created by mostafa on 24/06/16.
  */
 public class TeachersSearchResultList extends Fragment {
+
+    @Bind(R.id.button1)Button button1;
 
     // for manipulate recyclerView
     public static final String TAG = "TeachersSearchResult";
@@ -75,8 +81,10 @@ public class TeachersSearchResultList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.fragment_teachers_home_list, container, false);
+        View view  = inflater.inflate(R.layout.fragment_teachers_search_results_list, container, false);
         view.setTag(TAG);
+
+        ButterKnife.bind(this, view);
 
         // manipulate recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -113,7 +121,15 @@ public class TeachersSearchResultList extends Fragment {
 
         setActionsOfToolBarIcons();
 
+        changeTextFont();
+
         return view;
+    }
+
+    private void changeTextFont(){
+        //Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
+        Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
+        button1.setTypeface(fontBold);
     }
 
     /**
@@ -201,7 +217,8 @@ public class TeachersSearchResultList extends Fragment {
         /**
          * this section for fetch Brands
          */
-        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST;
+        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST
+                 + "؟country_id = " + getArguments().getString(Constants.COUNTRY_ID);
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(urlBrands);

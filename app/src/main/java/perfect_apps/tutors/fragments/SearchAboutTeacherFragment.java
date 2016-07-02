@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ import perfect_apps.tutors.utils.Constants;
 /**
  * Created by mostafa on 29/06/16.
  */
-public class SearchAboutTeacherFragment extends Fragment implements View.OnClickListener {
+public class SearchAboutTeacherFragment extends Fragment {
     private static String country_id = "";
     private static String city_id = "";
     private static String major_id = "";
@@ -73,6 +74,8 @@ public class SearchAboutTeacherFragment extends Fragment implements View.OnClick
     @Bind(R.id.spinner5) Spinner spinner5;
     @Bind(R.id.spinner6) Spinner spinner6;
 
+    @Bind(R.id.searchTeachers) LinearLayout searchTeachers;
+
 
     public SearchAboutTeacherFragment(){
 
@@ -87,7 +90,67 @@ public class SearchAboutTeacherFragment extends Fragment implements View.OnClick
         changeTextFont();
 
 
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        searchTeachers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeachersSearchResultList teacherDetails =
+                        new TeachersSearchResultList();
+                Bundle b = new Bundle();
+
+                b.putString(Constants.COUNTRY_ID, country_id);
+                b.putString(Constants.CITY_ID, city_id);
+                b.putString(Constants.MAJOR_ID, major_id);
+                b.putString(Constants.STAGE_ID, stage_id);
+                b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
+                b.putString(Constants.GENDER_ID, gender_id);
+
+                teacherDetails.setArguments(b);
+
+                FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(TeachersSearchResultList.TAG);
+                transaction.commit();
+                // to add to back stack
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeachersSearchResultList teacherDetails =
+                        new TeachersSearchResultList();
+                Bundle b = new Bundle();
+
+                b.putString(Constants.COUNTRY_ID, country_id);
+                b.putString(Constants.CITY_ID, city_id);
+                b.putString(Constants.MAJOR_ID, major_id);
+                b.putString(Constants.STAGE_ID, stage_id);
+                b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
+                b.putString(Constants.GENDER_ID, gender_id);
+
+                teacherDetails.setArguments(b);
+
+                FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(TeachersSearchResultList.TAG);
+                transaction.commit();
+                // to add to back stack
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+            }
+        });
     }
 
     @Override
@@ -793,60 +856,6 @@ public class SearchAboutTeacherFragment extends Fragment implements View.OnClick
 
             // Adding request to volley request queue
             AppController.getInstance().addToRequestQueue(jsonReq);
-        }
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.searchTeachers:
-                TeachersSearchResultList teacherDetails =
-                        new TeachersSearchResultList();
-                Bundle b = new Bundle();
-
-                b.putString(Constants.COUNTRY_ID, country_id);
-                b.putString(Constants.CITY_ID, city_id);
-                b.putString(Constants.MAJOR_ID, major_id);
-                b.putString(Constants.STAGE_ID, stage_id);
-                b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
-                b.putString(Constants.GENDER_ID, gender_id);
-
-                teacherDetails.setArguments(b);
-
-                FragmentTransaction transaction = getFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.fragment_container, teacherDetails);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.addToBackStack(TeachersSearchResultList.TAG);
-                transaction.commit();
-                // to add to back stack
-                getActivity().getSupportFragmentManager().executePendingTransactions();
-
-                break;
-            case R.id.button1:
-                TeachersSearchResultList teacherDetails1 =
-                        new TeachersSearchResultList();
-                Bundle b1 = new Bundle();
-
-                b1.putString(Constants.COUNTRY_ID, country_id);
-                b1.putString(Constants.CITY_ID, city_id);
-                b1.putString(Constants.MAJOR_ID, major_id);
-                b1.putString(Constants.STAGE_ID, stage_id);
-                b1.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
-                b1.putString(Constants.GENDER_ID, gender_id);
-
-                teacherDetails1.setArguments(b1);
-
-                FragmentTransaction transaction1 = getFragmentManager()
-                        .beginTransaction();
-                transaction1.replace(R.id.fragment_container, teacherDetails1);
-                transaction1.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction1.addToBackStack(TeachersSearchResultList.TAG);
-                transaction1.commit();
-                // to add to back stack
-                getActivity().getSupportFragmentManager().executePendingTransactions();
-                break;
         }
     }
 }

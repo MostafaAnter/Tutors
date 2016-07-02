@@ -8,7 +8,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_above="@+id/makNewSearch">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -27,6 +28,7 @@
         android:background="@drawable/border_shape_blue"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:id="@+id/makNewSearch"
         android:onClick="newSearch">
         <Button
             android:id="@+id/button1"
