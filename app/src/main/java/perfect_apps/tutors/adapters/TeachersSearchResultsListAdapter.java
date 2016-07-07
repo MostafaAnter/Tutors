@@ -106,6 +106,8 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
                     fragment.setArguments(arguments);
                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(TeachersSearchResultsListAdapter.TAG)
                             .commit();
                 }
             });
