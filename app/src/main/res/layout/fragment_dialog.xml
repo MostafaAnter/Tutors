@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/close_ico" />
+
+<LinearLayout
     android:orientation="vertical"
     android:layoutDirection="rtl"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -24,7 +34,6 @@
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/textAppearanceLarge"
             android:textColor="#D63D3F"
             android:text="عزيزي .. أنت غير مسجل"/>
     </LinearLayout>
@@ -35,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        style="?android:attr/textAppearanceMedium"
         android:textColor="#000000"
         android:text="يجب عليك تسجيل الدخول حتى تتمكن من مراسلة المعلم او تقييم المعلم."/>
 
@@ -88,9 +96,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="@string/for_log_you_in" />
+            android:text="@string/for_sign_you_in" />
     </LinearLayout>
 
 
 
 </LinearLayout>
+</FrameLayout>

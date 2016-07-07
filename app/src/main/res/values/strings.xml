@@ -38,5 +38,6 @@
     <string name="title_activity_register_student_membership">RegisterStudentMembershipActivity
     </string>
     <string name="for_log_you_in"><u>لتسجيل دخولك</u></string>
+    <string name="for_sign_you_in"><u>لتسجيل عضويتك</u></string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -49,6 +50,7 @@ import perfect_apps.tutors.utils.Utils;
  */
 public class TeacherDetails extends Fragment implements View.OnClickListener {
     public static final String TAG = "TeacherDetails";
+    private static int mStackLevel = 0;
 
     @Bind(R.id.text1)
     TextView textView1;
@@ -119,6 +121,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     @Bind(R.id.viewForTeacher)
     LinearLayout viewThatShowForTeacher;
 
+    @Bind(R.id.linearSentMessageToTeacher) LinearLayout sentMessageToTeacher;
+    @Bind(R.id.linearRateTeacher) LinearLayout rateTeacher;
+
+
     @Bind(R.id.avatar)
     ImageView imageAvatar;
 
@@ -149,6 +155,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
         viewThatShowForTeacher.setOnClickListener(this);
         button3.setOnClickListener(this);
+
+        sentMessageToTeacher.setOnClickListener(this);
+        button1.setOnClickListener(this);
 
 
         setActionsOfToolBarIcons();
@@ -239,6 +248,32 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 transaction1.commit();
                 // to add to back stack
                 getActivity().getSupportFragmentManager().executePendingTransactions();
+                break;
+            case R.id.linearSentMessageToTeacher:
+                mStackLevel++;
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                DialogFragment newFragment = MyDialogFragment.newInstance(mStackLevel);
+                newFragment.show(ft, "dialog");
+                break;
+            case R.id.button1:
+                mStackLevel++;
+                FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                if (prev1 != null) {
+                    ft1.remove(prev1);
+                }
+                ft1.addToBackStack(null);
+
+                // Create and show the dialog.
+                DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
+                newFragment1.show(ft1, "dialog");
                 break;
         }
 

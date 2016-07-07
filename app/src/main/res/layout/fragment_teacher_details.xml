@@ -445,11 +445,11 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/linearSentMessageToTeacher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/border_shape_blue"
-                android:onClick="sendMessageToTeacher"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -467,7 +467,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#00000000"
-                    android:onClick="sendMessageToTeacher"
                     android:padding="5dp"
                     android:text="مراسلة المعلم"
                     android:textColor="@color/colorPrimary"
@@ -479,11 +478,11 @@
                 android:layout_height="match_parent" />
 
             <LinearLayout
+                android:id="@+id/linearRateTeacher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/border_shape_green"
-                android:onClick="rateTeacher"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -502,7 +501,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#00000000"
-                    android:onClick="rateTeacher"
                     android:padding="5dp"
                     android:text="تقييم المعلم"
                     android:textColor="#7cb034"
