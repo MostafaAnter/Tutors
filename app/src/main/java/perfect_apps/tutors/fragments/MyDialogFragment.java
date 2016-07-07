@@ -2,11 +2,12 @@ package perfect_apps.tutors.fragments;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -16,8 +17,9 @@ import perfect_apps.tutors.R;
 /**
  * Created by mostafa on 07/07/16.
  */
-public class MyDialogFragment extends DialogFragment {
+public class MyDialogFragment extends DialogFragment implements View.OnClickListener {
     int mNum;
+
 
     @Bind(R.id.text1)TextView textView1;
     @Bind(R.id.text2)TextView textView2;
@@ -25,6 +27,8 @@ public class MyDialogFragment extends DialogFragment {
     @Bind(R.id.text4)TextView textView4;
     @Bind(R.id.text5)TextView textView5;
     @Bind(R.id.text6)TextView textView6;
+
+    @Bind(R.id.closeDialog) ImageView close;
 
     /**
      * Create a new instance of MyDialogFragment, providing "num"
@@ -44,27 +48,8 @@ public class MyDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNum = getArguments().getInt("num");
-
         // Pick a style based on the num.
-        int style = DialogFragment.STYLE_NO_FRAME, theme = 0;
-        switch ((mNum-1)%6) {
-            case 1: style = DialogFragment.STYLE_NO_TITLE; break;
-            case 2: style = DialogFragment.STYLE_NO_FRAME; break;
-            case 3: style = DialogFragment.STYLE_NO_INPUT; break;
-            case 4: style = DialogFragment.STYLE_NORMAL; break;
-            case 5: style = DialogFragment.STYLE_NORMAL; break;
-            case 6: style = DialogFragment.STYLE_NO_TITLE; break;
-            case 7: style = DialogFragment.STYLE_NO_FRAME; break;
-            case 8: style = DialogFragment.STYLE_NORMAL; break;
-        }
-        switch ((mNum-1)%6) {
-            case 4: theme = android.R.style.Theme_Holo; break;
-            case 5: theme = android.R.style.Theme_Holo_Light_Dialog; break;
-            case 6: theme = android.R.style.Theme_Holo_Light; break;
-            case 7: theme = android.R.style.Theme_Holo_Light_Panel; break;
-            case 8: theme = android.R.style.Theme_Holo_Light; break;
-        }
+        int style = DialogFragment.STYLE_NO_TITLE, theme = android.R.style.Theme_Holo_Light_Dialog;
         setStyle(style, theme);
     }
 
@@ -78,6 +63,12 @@ public class MyDialogFragment extends DialogFragment {
         return v;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        close.setOnClickListener(this);
+    }
+
     private void changeTextFont(){
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
@@ -87,5 +78,14 @@ public class MyDialogFragment extends DialogFragment {
 //        textView4.setTypeface(font);
 //        textView5.setTypeface(font);
 //        textView6.setTypeface(font);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.closeDialog:
+                dismiss();
+                break;
+        }
     }
 }
