@@ -181,6 +181,8 @@ public class SearchAboutTeacherFragment extends Fragment {
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
 
         searchIc.setVisibility(View.VISIBLE);
+        profileIc.setVisibility(View.GONE);
+        chatIc.setVisibility(View.GONE);
 
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -93,6 +94,20 @@ public class HomeActivity extends LocalizationActivity
                 teachersListFragment.setArguments(getIntent().getExtras());
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.fragment_container, teachersListFragment).addToBackStack(SearchAboutTeacherFragment.TAG).commit();
+
+
+                if (getIntent().getExtras().containsKey("user_id")){
+                    Bundle arguments = new Bundle();
+                    arguments.putString(Constants.DETAIL_USER_ID, getIntent().getStringExtra("user_id"));
+                    arguments.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    TeacherDetails fragment = new TeacherDetails();
+                    fragment.setArguments(arguments);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(TeacherDetails.TAG)
+                            .commit();
+                }
             }
         }
     }

@@ -42,6 +42,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.SpinnerItem;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
 
@@ -159,6 +160,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         sentMessageToTeacher.setOnClickListener(this);
         button1.setOnClickListener(this);
 
+        rateTeacher.setOnClickListener(this);
+        button2.setOnClickListener(this);
+
 
         setActionsOfToolBarIcons();
         return view;
@@ -250,30 +254,88 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 getActivity().getSupportFragmentManager().executePendingTransactions();
                 break;
             case R.id.linearSentMessageToTeacher:
-                mStackLevel++;
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
+                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)) {
+                    mStackLevel++;
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
 
-                // Create and show the dialog.
-                DialogFragment newFragment = MyDialogFragment.newInstance(mStackLevel);
-                newFragment.show(ft, "dialog");
+                    // Create and show the dialog.
+                    DialogFragment newFragment = MyDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment.setArguments(bundle1);
+                    newFragment.show(ft, "dialog");
+                }else {
+
+                }
                 break;
             case R.id.button1:
-                mStackLevel++;
-                FragmentTransaction ft1 = getFragmentManager().beginTransaction();
-                Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
-                if (prev1 != null) {
-                    ft1.remove(prev1);
-                }
-                ft1.addToBackStack(null);
+                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)) {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
 
-                // Create and show the dialog.
-                DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
-                newFragment1.show(ft1, "dialog");
+                    // Create and show the dialog.
+                    DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
+                    newFragment1.show(ft1, "dialog");
+                }else {
+
+                }
+                break;
+            case R.id.linearRateTeacher:
+                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)) {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
+                    newFragment1.show(ft1, "dialog");
+                }else {
+
+                }
+                break;
+            case R.id.button2:
+                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)) {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
+                    newFragment1.show(ft1, "dialog");
+                }else {
+
+                }
                 break;
         }
 

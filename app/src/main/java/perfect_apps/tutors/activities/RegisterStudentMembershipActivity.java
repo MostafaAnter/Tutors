@@ -139,10 +139,18 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
     }
 
     public void goToLogin(View view) {
-        Intent intent = new Intent(this, LoginStudentActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
-        finish();
+        if (!getIntent().getExtras().containsKey("user_id")) {
+            Intent intent = new Intent(this, LoginStudentActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+            finish();
+        } else {
+            Intent intent = new Intent(this, LoginStudentActivity.class);
+            intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+            finish();
+        }
 
     }
 
@@ -205,8 +213,18 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            startActivity(new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class));
-                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                            if (!getIntent().getExtras().containsKey("user_id")) {
+                                Intent intent = new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+                                finish();
+                            } else {
+                                Intent intent = new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class);
+                                intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+                                finish();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();

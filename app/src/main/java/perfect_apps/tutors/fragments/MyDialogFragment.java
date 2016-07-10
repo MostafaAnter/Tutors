@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.activities.LoginStudentActivity;
+import perfect_apps.tutors.activities.RegisterStudentMembershipActivity;
 
 /**
  * Created by mostafa on 07/07/16.
@@ -67,6 +71,8 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         close.setOnClickListener(this);
+        textView4.setOnClickListener(this);
+        textView6.setOnClickListener(this);
     }
 
     private void changeTextFont(){
@@ -75,9 +81,9 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         textView1.setTypeface(fontBold);
         textView2.setTypeface(fontBold);
 //        textView3.setTypeface(font);
-//        textView4.setTypeface(font);
+        textView4.setTypeface(font);
 //        textView5.setTypeface(font);
-//        textView6.setTypeface(font);
+        textView6.setTypeface(font);
     }
 
     @Override
@@ -85,6 +91,20 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         switch (v.getId()){
             case R.id.closeDialog:
                 dismiss();
+                break;
+            case R.id.text4:
+                Intent intent1 = new Intent(getActivity(), LoginStudentActivity.class);
+                intent1.putExtra("user_id", getArguments().getString("user_id"));
+                startActivity(intent1);
+                getActivity().overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                getActivity().finish();
+                break;
+            case R.id.text6:
+                Intent intent2 = new Intent(getActivity(), RegisterStudentMembershipActivity.class);
+                intent2.putExtra("user_id", getArguments().getString("user_id"));
+                startActivity(intent2);
+                getActivity().overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                getActivity().finish();
                 break;
         }
     }

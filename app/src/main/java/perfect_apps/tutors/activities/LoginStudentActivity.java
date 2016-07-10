@@ -219,13 +219,20 @@ public class LoginStudentActivity extends LocalizationActivity {
                 new TutorsPrefStore(LoginStudentActivity.this).addPreference(Constants.STUDENT_IMAGE_FULL_PATH, image_full_path);
 
                 new TutorsPrefStore(LoginStudentActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, Constants.STUDENT);
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-                finish();
-
-
+                if (!getIntent().getExtras().containsKey("user_id")) {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                    finish();
+                } else {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                    finish();
+                }
 
 
             } catch (JSONException e) {
