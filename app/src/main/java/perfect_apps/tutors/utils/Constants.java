@@ -19,9 +19,13 @@ public class Constants {
 
     // user main data
     public static final String STUDENT_ID = "student_id";
+    public static final String STUDENT_EMAIL = "student_email";
+    public static final String STUDENT_PASSWORD = "student_password";
     public static final String STUDENT_IMAGE_FULL_PATH = "student_image_path";
 
     public static final String TEACHER_ID = "teacher_id";
+    public static final String TEACHER_EMAIL = "teacher_email";
+    public static final String TEACHER_PASSWORD = "teacher_password";
     public static final String TEACHER_IMAGE_FULL_PATH = "teacher_image_path";
 
     // extras pass to search

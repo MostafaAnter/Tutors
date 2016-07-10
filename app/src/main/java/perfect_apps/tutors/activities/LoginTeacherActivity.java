@@ -212,9 +212,13 @@ public class LoginTeacherActivity extends LocalizationActivity {
             try {
                 JSONObject itemObject = jsonRootObject.getJSONObject("item");
                 String id = itemObject.optString("id");
+                String email = itemObject.optString("email");
+                String password = itemObject.optString("user_password");
                 String image_full_path = itemObject.optString("image_full_path");
 
                 new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_ID, id);
+                new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_EMAIL, email);
+                new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_PASSWORD, password);
                 new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_IMAGE_FULL_PATH, image_full_path);
 
                 new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, Constants.TEACHER);
