@@ -104,6 +104,11 @@ public class HomeActivity extends LocalizationActivity
         } else {
             super.onBackPressed();
         }
+
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            finish();
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -255,4 +260,6 @@ public class HomeActivity extends LocalizationActivity
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
+
+
 }
