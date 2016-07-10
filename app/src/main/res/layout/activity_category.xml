@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_background"
     android:gravity="center"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"

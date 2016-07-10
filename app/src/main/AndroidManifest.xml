@@ -60,6 +60,7 @@
         <activity
             android:name=".activities.LoginTeacherActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/title_activity_login_teacher"
             android:parentActivityName=".activities.RegisterTeacherMembershipActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -70,7 +71,8 @@
         <activity
             android:name=".activities.LoginStudentActivity"
             android:label="@string/title_activity_login_student"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activities.RegisterStudentMembershipActivity"
             android:label="@string/title_activity_register_student_membership"

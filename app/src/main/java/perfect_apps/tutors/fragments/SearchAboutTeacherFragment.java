@@ -56,6 +56,7 @@ import perfect_apps.tutors.utils.Constants;
  * Created by mostafa on 29/06/16.
  */
 public class SearchAboutTeacherFragment extends Fragment {
+    public static final String TAG = "SearchAboutTeacherFragment";
     private static String country_id = "";
     private static String city_id = "";
     private static String major_id = "";

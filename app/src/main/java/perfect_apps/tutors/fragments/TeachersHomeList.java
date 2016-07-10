@@ -47,8 +47,8 @@ import perfect_apps.tutors.utils.DividerItemDecoration;
  * Created by mostafa on 24/06/16.
  */
 public class TeachersHomeList extends Fragment {
+    public static final String TAG = "TeachersHomeList";
     // for manipulate recyclerView
-    private static final String TAG = "RecyclerViewFragment";
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private enum LayoutManagerType {
