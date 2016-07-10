@@ -22,6 +22,7 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
+import perfect_apps.tutors.fragments.StudentDetails;
 import perfect_apps.tutors.fragments.TeacherDetails;
 import perfect_apps.tutors.fragments.TeachersHomeList;
 import perfect_apps.tutors.store.TutorsPrefStore;
@@ -144,6 +145,24 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.studentMessages) {
 
         }else if (id == R.id.studentMyData) {
+            if (addStudentDetailToBackstack()) {
+                // clearBackStack();
+                StudentDetails teacherDetails =
+                        new StudentDetails();
+                Bundle b = new Bundle();
+                b.putString(Constants.COMMING_FROM, getIntent().getStringExtra(Constants.COMMING_FROM));
+                b.putString(Constants.DETAIL_USER_ID, new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_ID));
+                teacherDetails.setArguments(b);
+
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(StudentDetails.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
 
         }else if (id == R.id.studentSearchAboutTeacher) {
 
@@ -206,6 +225,16 @@ public class HomeActivity extends LocalizationActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private boolean addStudentDetailToBackstack(){
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0){
+            return true;
+        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(StudentDetails.TAG)){
+            return false;
+        }
         return true;
     }
 

@@ -1,0 +1,145 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layoutDirection="ltr"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="perfect_apps.tutors.activities.RegisterTeacherMembershipActivity"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="none">
+    <LinearLayout
+        android:id="@+id/email_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_shape"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="fill_parent"
+                android:text= "عزيزي الطالب صورتك الشخصية التى ستظهر في عضويتك"
+                android:textSize="12sp"
+                android:padding="5dp"
+                android:gravity="top" >
+            </TextView>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:clickable="false">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp">
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/avatr"/>
+
+                </FrameLayout>
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_margin="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:background="#7CB034"
+                    android:clickable="false"
+                    android:text="صورتي"
+                    android:textColor="#FFFFFF"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name"
+                android:textColorHint="#7CB034"
+                android:textColor="#7CB034"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
+                android:padding="5dp"
+                android:inputType="text"
+                android:background="#00000000"
+                android:gravity="top" />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="30dp"
+                android:tint="#7CB034"
+                android:padding="3dp"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_action_name_ico"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:textColorHint="#7CB034"
+                android:textColor="#7CB034"
+                android:padding="5dp"
+                android:maxLines="1"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textEmailAddress"
+                android:background="#00000000"
+                android:gravity="top" />
+            <ImageView
+                android:tint="#7CB034"
+                android:contentDescription="@null"
+                android:layout_width="30dp"
+                android:padding="3dp"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_action_mail_ico"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
