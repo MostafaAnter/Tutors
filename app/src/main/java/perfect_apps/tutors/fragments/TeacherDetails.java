@@ -313,6 +313,17 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
                 }else {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    RatingDialogFragment newFragment1 = RatingDialogFragment.newInstance(mStackLevel);
+                    newFragment1.show(ft1, "dialog");
 
                 }
                 break;
@@ -334,6 +345,17 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
                 }else {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    RatingDialogFragment newFragment1 = RatingDialogFragment.newInstance(mStackLevel);
+                    newFragment1.show(ft1, "dialog");
 
                 }
                 break;
