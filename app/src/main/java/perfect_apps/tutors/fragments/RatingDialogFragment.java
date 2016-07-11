@@ -15,9 +15,23 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.app.AppController;
+import perfect_apps.tutors.store.TutorsPrefStore;
+import perfect_apps.tutors.utils.Constants;
+import perfect_apps.tutors.utils.Utils;
 
 /**
  * Created by mostafa on 07/07/16.
@@ -26,9 +40,12 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     int mNum;
 
 
-    @Bind(R.id.text1)TextView textView1;
-    @Bind(R.id.closeDialog) ImageView close;
-    @Bind(R.id.ratingBar) RatingBar ratingBar;
+    @Bind(R.id.text1)
+    TextView textView1;
+    @Bind(R.id.closeDialog)
+    ImageView close;
+    @Bind(R.id.ratingBar)
+    RatingBar ratingBar;
 
     /**
      * Create a new instance of MyDialogFragment, providing "num"
@@ -69,7 +86,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         close.setOnClickListener(this);
     }
 
-    private void changeTextFont(){
+    private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
         textView1.setTypeface(fontBold);
@@ -77,13 +94,12 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.closeDialog:
                 dismiss();
                 break;
         }
     }
-
 
 
     @Override
@@ -93,7 +109,61 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         Dialog dialog = getDialog();
         if (dialog != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+    }
+
+
+    private void requestData() {
+        if (Utils.isOnline(getActivity())) {
+
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("جارى تسجيل الدخول...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/do/rate";
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    pDialog.dismissWithAnimation();
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                    params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    params.put("rate", ratingBar.getRating() + "");
+                    params.put("teacher_id", getArguments().getString("user_id"));
+                    return params;
+
+                }
+            };
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
         }
     }
 }

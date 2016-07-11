@@ -323,6 +323,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
                     // Create and show the dialog.
                     RatingDialogFragment newFragment1 = RatingDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
 
                 }
@@ -355,6 +358,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
                     // Create and show the dialog.
                     RatingDialogFragment newFragment1 = RatingDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
 
                 }
