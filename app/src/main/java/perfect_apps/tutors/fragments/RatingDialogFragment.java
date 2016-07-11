@@ -154,6 +154,8 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    pDialog.dismissWithAnimation();
+                    dismiss();
                 }
             }) {
 
