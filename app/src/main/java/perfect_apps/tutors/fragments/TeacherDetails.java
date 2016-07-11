@@ -8,7 +8,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -31,9 +31,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -41,7 +39,6 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.app.AppController;
-import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
@@ -128,6 +125,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     @Bind(R.id.avatar)
     ImageView imageAvatar;
+
+    @Bind(R.id.ratingBar) RatingBar ratingBar;
 
     public TeacherDetails() {
 
@@ -446,6 +445,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     private void fetchData() {
         if (Utils.isOnline(getActivity())) {
+            // first fetch rate
+            fetchRate();
+
             // Set up a progress dialog
             final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -504,6 +506,54 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     .show();
         }
 
+    }
+
+    private void fetchRate() {
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+
+        String url = "http://services-apps.net/tutors/api/show/rates?teacher_id=" +
+                getArguments().getString(Constants.DETAIL_USER_ID);
+
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject  jsonRootObject = new JSONObject(response);
+                    JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
+                    for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                        JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                        String rate = jsonObject.optString("rating");
+
+                        float rating_per_5 = Float.valueOf(rate);
+                        if (rating_per_5 != 0)
+                            rating_per_5 = rating_per_5 / 5;
+
+                        textView23.setText(String.valueOf(rating_per_5));
+                        ratingBar.setRating(rating_per_5);
+
+
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void parseFeed(String response) {
