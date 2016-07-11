@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     ImageView close;
     @Bind(R.id.ratingBar)
     RatingBar ratingBar;
+    @Bind(R.id.button1)
+    Button button1;
 
     /**
      * Create a new instance of MyDialogFragment, providing "num"
@@ -84,6 +87,8 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         close.setOnClickListener(this);
+        button1.setOnClickListener(this);
+
     }
 
     private void changeTextFont() {
@@ -97,6 +102,9 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         switch (v.getId()) {
             case R.id.closeDialog:
                 dismiss();
+                break;
+            case R.id.button1:
+                doRate();
                 break;
         }
     }
@@ -114,13 +122,13 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     }
 
 
-    private void requestData() {
+    private void doRate() {
         if (Utils.isOnline(getActivity())) {
 
             // Set up a progress dialog
             final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            pDialog.setTitleText("جارى تسجيل الدخول...");
+            pDialog.setTitleText("جارى تنفيذ طلبك...");
             pDialog.setCancelable(false);
             pDialog.show();
 
@@ -134,6 +142,11 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                 @Override
                 public void onResponse(String response) {
                     pDialog.dismissWithAnimation();
+                    dismiss();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("عمل رئع!")
+                            .setContentText("لقد قمت بتقييم المعلم")
+                            .show();
 
 
                 }
