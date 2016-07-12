@@ -115,6 +115,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         // populate mainImage
         Glide.with(mContext)
                 .load(mDataSet.get(position).getChats_avatar())
+                .placeholder(R.drawable.login_user_ico)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.getConversationAvatar());
     }

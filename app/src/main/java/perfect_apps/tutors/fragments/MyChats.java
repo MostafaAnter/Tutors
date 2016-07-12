@@ -73,11 +73,7 @@ public class MyChats extends Fragment {
                 initiateRefresh();
             }
         });
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         if (!mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(true);
         }
