@@ -156,7 +156,7 @@ public class MyChats extends Fragment {
     }
 
     private void initiateRefresh() {
-        //new DummyBackgroundTask().execute();
+        requestMessages();
     }
 
     // remove all item from RecyclerView

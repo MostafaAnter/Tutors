@@ -7,8 +7,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import perfect_apps.tutors.models.MyChatsItem;
 import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.models.TeacherItem;
+import perfect_apps.tutors.utils.Utils;
 
 /**
  * Created by mostafa on 06/06/16.
@@ -159,6 +161,30 @@ public class JsonParser {
                 brandList.add(new SpinnerItem(id, name));
             }
             return brandList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<MyChatsItem> parseMyMessages(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
+            List<MyChatsItem> teacherItems = new ArrayList<>();
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String message = jsonObject.optString("message");
+                String created_at = jsonObject.optString("created_at");
+                JSONObject sender = jsonObject.optJSONObject("sender");
+                String name = sender.optString("name");
+                String image_full_path = sender.optString("image_full_path");
+                teacherItems.add(new MyChatsItem(name, id, image_full_path, message, Utils.manipulateDateFormat(created_at)));
+            }
+            return teacherItems;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
