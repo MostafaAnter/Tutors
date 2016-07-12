@@ -307,7 +307,21 @@ public class TeachersHomeList extends Fragment {
         chatIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (addTeacherMessageToBackstack()) {
+                    MyChats teacherDetails =
+                            new MyChats();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                    teacherDetails.setArguments(b);
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(MyChats.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
             }
         });
     }
@@ -322,6 +336,16 @@ public class TeachersHomeList extends Fragment {
         if (fm.getBackStackEntryCount() == 0){
             return true;
         }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean addTeacherMessageToBackstack(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0){
+            return true;
+        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(MyChats.TAG)){
             return false;
         }
         return true;
