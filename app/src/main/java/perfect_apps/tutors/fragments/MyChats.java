@@ -12,13 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.ChatsAdapter;
+import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.MyChatsItem;
+import perfect_apps.tutors.store.TutorsPrefStore;
+import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
+import perfect_apps.tutors.utils.Utils;
 
 
 /**
@@ -140,7 +149,7 @@ public class MyChats extends Fragment {
      * When the AsyncTask finishes, it calls onRefreshComplete(), which updates the data in the
      * ListAdapter and turns off the progress bar.
      */
-    private void onRefreshComplete(List<String> result) {
+    private void onRefreshComplete() {
 
         // Stop the refreshing indicator
         mSwipeRefreshLayout.setRefreshing(false);
@@ -155,6 +164,47 @@ public class MyChats extends Fragment {
         if (mDataset != null){
             mDataset.clear();
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void requestMessages(){
+        if (Utils.isOnline(getActivity())) {
+            // Tag used to cancel the request
+            String  tag_string_req = "string_req";
+
+            String url = "";
+            if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+                url = "http://services-apps.net/tutors/api/message/show?email="
+                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
+                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+            }else {
+                url = "http://services-apps.net/tutors/api/message/show?email="
+                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
+                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
+            }
+
+            if (!mSwipeRefreshLayout.isRefreshing())
+                mSwipeRefreshLayout.setRefreshing(true);
+
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    onRefreshComplete();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onRefreshComplete();
+
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
     }
 }
