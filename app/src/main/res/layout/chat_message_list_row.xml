@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeightLarge"
     android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
 
@@ -12,9 +14,9 @@
         android:layout_width="?android:attr/listPreferredItemHeight"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/avatr"
-        app:civ_border_color="#000000"
+        app:civ_border_color="#FFFFFF"
         app:civ_border_width=".1dp"
         app:civ_shadow="false" />
 
@@ -29,12 +31,12 @@
 
         <TextView
             android:id="@+id/name"
+            android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="Group One"
-            android:textColor="#444444"
-            style="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"/>
@@ -48,7 +50,8 @@
             style="?android:attr/textAppearanceSmall"
             android:textColor="#888888"
             android:ellipsize="end"
-            android:maxLines="1" />
+            android:text=""
+            android:maxLines="2" />
 
 
     </LinearLayout>
@@ -64,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="12:00 AM"
+            android:text=""
             android:textSize="10dp" />
         </LinearLayout>
 
