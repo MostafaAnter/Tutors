@@ -222,6 +222,19 @@ public class HomeActivity extends LocalizationActivity
             }
 
         } else if (id == R.id.studentSearchAboutTeacher) {
+            if (addStudentHomeListToBackstack()) {
+                clearBackStack();
+                SearchAboutTeacherFragment teacherDetails =
+                        new SearchAboutTeacherFragment();
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
 
         } else if (id == R.id.studentSignOut) {
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, "");
