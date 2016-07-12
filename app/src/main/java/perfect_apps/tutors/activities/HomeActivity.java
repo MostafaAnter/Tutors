@@ -138,7 +138,9 @@ public class HomeActivity extends LocalizationActivity
             // Handle the camera action
         } else if (id == R.id.login) {
             // login student page
-            startActivity(new Intent(HomeActivity.this, LoginStudentActivity.class)
+            Intent intent = new Intent(HomeActivity.this, LoginStudentActivity.class);
+            intent.putExtra("", "");
+            startActivity(intent
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
