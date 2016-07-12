@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,50 +163,75 @@ public class MyChats extends Fragment {
 
     // remove all item from RecyclerView
     private void clearDataSet() {
-        if (mDataset != null){
+        if (mDataset != null) {
             mDataset.clear();
             mAdapter.notifyDataSetChanged();
         }
     }
 
-    private void requestMessages(){
-        if (Utils.isOnline(getActivity())) {
-            // Tag used to cancel the request
-            String  tag_string_req = "string_req";
+    private void requestMessages() {
 
-            String url = "";
-            if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
-                url = "http://services-apps.net/tutors/api/message/show?email="
-                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
-                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
-            }else {
-                url = "http://services-apps.net/tutors/api/message/show?email="
-                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
-                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
-            }
-
-            if (!mSwipeRefreshLayout.isRefreshing())
-                mSwipeRefreshLayout.setRefreshing(true);
-
-            StringRequest strReq = new StringRequest(Request.Method.GET,
-                    url, new Response.Listener<String>() {
-
-                @Override
-                public void onResponse(String response) {
-                    onRefreshComplete();
-
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    onRefreshComplete();
-
-                }
-            });
-
-            // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        String url = "";
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
+            url = "http://services-apps.net/tutors/api/message/show?email="
+                    + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
+                    + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+        } else {
+            url = "http://services-apps.net/tutors/api/message/show?email="
+                    + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
+                    + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
         }
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (Utils.isOnline(getActivity())) {
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url1 = "";
+                if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
+                    url1 = "http://services-apps.net/tutors/api/message/show?email="
+                            + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
+                            + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+                } else {
+                    url1 = "http://services-apps.net/tutors/api/message/show?email="
+                            + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
+                            + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
+                }
+
+                // Cached response doesn't exists. Make network call here
+                if (!mSwipeRefreshLayout.isRefreshing())
+                    mSwipeRefreshLayout.setRefreshing(true);
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        onRefreshComplete();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        onRefreshComplete();
+
+                    }
+                });
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+        }
+
+
     }
 }
