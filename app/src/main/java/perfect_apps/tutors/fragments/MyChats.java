@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.ChatsAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.MyChatsItem;
+import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
@@ -36,6 +38,7 @@ import perfect_apps.tutors.utils.Utils;
  * Created by mostafa on 02/04/16.
  */
 public class MyChats extends Fragment {
+    public static final String TAG = "MyChats";
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private enum LayoutManagerType {
@@ -70,6 +73,17 @@ public class MyChats extends Fragment {
                 initiateRefresh();
             }
         });
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
+
+        // Start our refresh background task
+        initiateRefresh();
     }
 
     @Nullable
@@ -187,6 +201,19 @@ public class MyChats extends Fragment {
         if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
+                try {
+                    data = URLDecoder.decode(data, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                clearDataSet();
+                for (MyChatsItem item:
+                        JsonParser.parseMyMessages(data)) {
+                    mDataset.add(item);
+                    mAdapter.notifyDataSetChanged();
+                    onRefreshComplete();
+
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -215,6 +242,18 @@ public class MyChats extends Fragment {
 
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            response = URLDecoder.decode(response, "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        clearDataSet();
+                        for (MyChatsItem item:
+                                JsonParser.parseMyMessages(response)) {
+                            mDataset.add(item);
+                            mAdapter.notifyDataSetChanged();
+
+                        }
                         onRefreshComplete();
 
                     }

@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.fragments.MyChats;
 import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.StudentDetails;
 import perfect_apps.tutors.fragments.TeacherDetails;
@@ -208,6 +209,22 @@ public class HomeActivity extends LocalizationActivity
             }
 
         }else if (id == R.id.teacherMessages) {
+            if (addTeacherMessageToBackstack()) {
+                // clearBackStack();
+                MyChats teacherDetails =
+                        new MyChats();
+                Bundle b = new Bundle();
+                b.putString(Constants.COMMING_FROM, getIntent().getStringExtra(Constants.COMMING_FROM));
+                teacherDetails.setArguments(b);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(MyChats.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
 
         }else if (id == R.id.teacherMyData) {
             if (addTeacherDetailToBackstack()) {
@@ -258,6 +275,16 @@ public class HomeActivity extends LocalizationActivity
         if (fm.getBackStackEntryCount() == 0){
             return true;
         }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean addTeacherMessageToBackstack(){
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0){
+            return true;
+        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(MyChats.TAG)){
             return false;
         }
         return true;
