@@ -57,7 +57,6 @@ public class HomeActivity extends LocalizationActivity
         chatIc.setVisibility(View.GONE);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,16 +66,16 @@ public class HomeActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
-         // if user is authenticated as teacher or student change menu :)
+        // if user is authenticated as teacher or student change menu :)
         if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.TEACHER) &&
                 getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_teacher);
             changeFontOfNavigation();
-        }else if(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+        } else if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.STUDENT) &&
-                getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+                getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_student);
             changeFontOfNavigation();
@@ -97,7 +96,7 @@ public class HomeActivity extends LocalizationActivity
                         .add(R.id.fragment_container, teachersListFragment).addToBackStack(SearchAboutTeacherFragment.TAG).commit();
 
 
-                if (getIntent().getExtras().containsKey("user_id")){
+                if (getIntent().getExtras().containsKey("user_id")) {
                     Bundle arguments = new Bundle();
                     arguments.putString(Constants.DETAIL_USER_ID, getIntent().getStringExtra("user_id"));
                     arguments.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
@@ -153,16 +152,56 @@ public class HomeActivity extends LocalizationActivity
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.search_about_teacher) {
-
+            if (addStudentHomeListToBackstack()) {
+                clearBackStack();
+                SearchAboutTeacherFragment teacherDetails =
+                        new SearchAboutTeacherFragment();
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
         } else if (id == R.id.about_app) {
 
-        }else if (id == R.id.contact_us) {
+        } else if (id == R.id.contact_us) {
 
-        }else if (id == R.id.studentHome) {
+        } else if (id == R.id.studentHome) {
+            if (addStudentHomeListToBackstack()) {
+                clearBackStack();
+                SearchAboutTeacherFragment teacherDetails =
+                        new SearchAboutTeacherFragment();
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
 
-        }else if (id == R.id.studentMessages) {
-
-        }else if (id == R.id.studentMyData) {
+        } else if (id == R.id.studentMessages) {
+            if (addTeacherMessageToBackstack()) {
+                // clearBackStack();
+                MyChats teacherDetails =
+                        new MyChats();
+                Bundle b = new Bundle();
+                b.putString(Constants.COMMING_FROM, getIntent().getStringExtra(Constants.COMMING_FROM));
+                teacherDetails.setArguments(b);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(MyChats.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
+        } else if (id == R.id.studentMyData) {
             if (addStudentDetailToBackstack()) {
                 // clearBackStack();
                 StudentDetails teacherDetails =
@@ -182,15 +221,15 @@ public class HomeActivity extends LocalizationActivity
                 getSupportFragmentManager().executePendingTransactions();
             }
 
-        }else if (id == R.id.studentSearchAboutTeacher) {
+        } else if (id == R.id.studentSearchAboutTeacher) {
 
-        }else if (id == R.id.studentSignOut) {
+        } else if (id == R.id.studentSignOut) {
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, "");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        }else if (id == R.id.teacherHome) {
+        } else if (id == R.id.teacherHome) {
             if (addTeacherHomeListToBackstack()) {
                 clearBackStack();
                 TeachersHomeList teacherDetails =
@@ -210,7 +249,7 @@ public class HomeActivity extends LocalizationActivity
                 getSupportFragmentManager().executePendingTransactions();
             }
 
-        }else if (id == R.id.teacherMessages) {
+        } else if (id == R.id.teacherMessages) {
             if (addTeacherMessageToBackstack()) {
                 // clearBackStack();
                 MyChats teacherDetails =
@@ -228,9 +267,9 @@ public class HomeActivity extends LocalizationActivity
                 getSupportFragmentManager().executePendingTransactions();
             }
 
-        }else if (id == R.id.teacherMyData) {
+        } else if (id == R.id.teacherMyData) {
             if (addTeacherDetailToBackstack()) {
-               // clearBackStack();
+                // clearBackStack();
                 TeacherDetails teacherDetails =
                         new TeacherDetails();
                 Bundle b = new Bundle();
@@ -249,7 +288,7 @@ public class HomeActivity extends LocalizationActivity
                 getSupportFragmentManager().executePendingTransactions();
             }
 
-        }else if (id == R.id.teacherSignOut) {
+        } else if (id == R.id.teacherSignOut) {
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, "");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -262,61 +301,74 @@ public class HomeActivity extends LocalizationActivity
         return true;
     }
 
-    private boolean addStudentDetailToBackstack(){
+
+
+    private boolean addStudentDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(StudentDetails.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(StudentDetails.TAG)) {
             return false;
         }
         return true;
     }
 
-    private boolean addTeacherDetailToBackstack(){
+    private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
             return false;
         }
         return true;
     }
 
-    private boolean addTeacherMessageToBackstack(){
+    private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(MyChats.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(MyChats.TAG)) {
             return false;
         }
         return true;
     }
 
-    private boolean addTeacherHomeListToBackstack(){
+    private boolean addTeacherHomeListToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeachersHomeList.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeachersHomeList.TAG)) {
             return false;
         }
         return true;
     }
 
-    private void clearBackStack(){
+    private boolean addStudentHomeListToBackstack() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            return true;
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(SearchAboutTeacherFragment.TAG)) {
+            return false;
+        }
+        fm.popBackStackImmediate(SearchAboutTeacherFragment.TAG, 0);
+        return true;
+    }
+
+    private void clearBackStack() {
         FragmentManager fm = getSupportFragmentManager();
         fm.popBackStack();
     }
 
     //change font of drawer
-    private void changeFontOfNavigation(){
+    private void changeFontOfNavigation() {
         Menu m = navigationView.getMenu();
-        for (int i=0;i<m.size();i++) {
+        for (int i = 0; i < m.size(); i++) {
             MenuItem mi = m.getItem(i);
 
             //for aapplying a font to subMenu ...
             SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
+            if (subMenu != null && subMenu.size() > 0) {
+                for (int j = 0; j < subMenu.size(); j++) {
                     MenuItem subMenuItem = subMenu.getItem(j);
                     applyFontToMenuItem(subMenuItem);
                 }
@@ -330,7 +382,7 @@ public class HomeActivity extends LocalizationActivity
     private void applyFontToMenuItem(MenuItem mi) {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
 
