@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -113,10 +114,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         viewHolder.getTimeStamp().setTypeface(font);
 
         // populate mainImage
-        Glide.with(mContext)
+        Picasso.with(mContext)
                 .load(mDataSet.get(position).getChats_avatar())
                 .placeholder(R.drawable.login_user_ico)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.getConversationAvatar());
     }
 

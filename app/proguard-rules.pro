@@ -57,3 +57,12 @@
 -dontwarn com.android.volley.**
 -keep class cn.pedant.SweetAlert.**{*;}
 #############################################################################################
+# Keep Picasso
+-keep class com.squareup.picasso.** { *; }
+-keepclasseswithmembers class * {
+    @com.squareup.picasso.** *;
+}
+-keepclassmembers class * {
+    @com.squareup.picasso.** *;
+}
+-dontwarn com.squareup.okhttp.**

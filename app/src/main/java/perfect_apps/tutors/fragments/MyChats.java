@@ -1,16 +1,21 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -120,7 +125,18 @@ public class MyChats extends Fragment {
         mAdapter = new ChatsAdapter(getActivity(), mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+
+        setActionsOfToolBarIcons();
         return view;
+    }
+
+    private void setActionsOfToolBarIcons() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
+        TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        title.setText("رسائلي");
+        title.setTypeface(font);
+
     }
 
     /**
@@ -203,7 +219,7 @@ public class MyChats extends Fragment {
                     e.printStackTrace();
                 }
                 clearDataSet();
-                for (MyChatsItem item:
+                for (MyChatsItem item :
                         JsonParser.parseMyMessages(data)) {
                     mDataset.add(item);
                     mAdapter.notifyDataSetChanged();
@@ -244,7 +260,7 @@ public class MyChats extends Fragment {
                             e.printStackTrace();
                         }
                         clearDataSet();
-                        for (MyChatsItem item:
+                        for (MyChatsItem item :
                                 JsonParser.parseMyMessages(response)) {
                             mDataset.add(item);
                             mAdapter.notifyDataSetChanged();

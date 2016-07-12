@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
@@ -266,6 +268,9 @@ public class TeachersHomeList extends Fragment {
 
         profileIc.setVisibility(View.VISIBLE);
         chatIc.setVisibility(View.VISIBLE);
+
+        TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        title.setText("");
 
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
