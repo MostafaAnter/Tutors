@@ -565,8 +565,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_shape_gray"
-                android:orientation="horizontal"
-                android:onClick="rateTeacher">
+                android:orientation="horizontal">
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="0dp"
@@ -576,7 +575,6 @@
                     android:textColorHint="#9d9d9d"
                     android:textColor="#9d9d9d"
                     android:padding="5dp"
-                    android:onClick="rateTeacher"
                     android:background="#00000000" />
                 <ImageView
                     android:contentDescription="@null"
@@ -596,8 +594,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_shape_blue"
-                android:orientation="horizontal"
-                android:onClick="sendMessageToTeacher">
+                android:orientation="horizontal">
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="0dp"
@@ -607,7 +604,6 @@
                     android:textColorHint="@color/colorPrimary"
                     android:textColor="@color/colorPrimary"
                     android:padding="5dp"
-                    android:onClick="sendMessageToTeacher"
                     android:background="#00000000" />
                 <ImageView
                     android:contentDescription="@null"
