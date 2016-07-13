@@ -153,6 +153,13 @@ public class Conversation extends Fragment {
                     e.printStackTrace();
                 }
                 // TODO: 13/07/16
+                clearDataSet();
+                for (Messages item :
+                        JsonParser.parseConversation(data)) {
+                    mDataSet.add(item);
+                    mAdapter.notifyDataSetChanged();
+
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -187,6 +194,13 @@ public class Conversation extends Fragment {
                             e.printStackTrace();
                         }
                         // TODO: 13/07/16
+                        clearDataSet();
+                        for (Messages item :
+                                JsonParser.parseConversation(response)) {
+                            mDataSet.add(item);
+                            mAdapter.notifyDataSetChanged();
+
+                        }
 
                     }
                 }, new Response.ErrorListener() {
@@ -203,6 +217,14 @@ public class Conversation extends Fragment {
             }
         }
 
+    }
+
+    // remove all item from RecyclerView
+    private void clearDataSet() {
+        if (mDataSet != null) {
+            mDataSet.clear();
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
 

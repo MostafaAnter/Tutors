@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import perfect_apps.tutors.models.Messages;
 import perfect_apps.tutors.models.MyChatsItem;
 import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.models.TeacherItem;
@@ -183,6 +184,36 @@ public class JsonParser {
                 String name = sender.optString("name");
                 String image_full_path = sender.optString("image_full_path");
                 teacherItems.add(new MyChatsItem(name, id, image_full_path, message, Utils.manipulateDateFormat(created_at)));
+            }
+            return teacherItems;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<Messages> parseConversation(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
+            List<Messages> teacherItems = new ArrayList<>();
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String message = jsonObject.optString("message");
+                String created_at = jsonObject.optString("created_at");
+
+                JSONObject sender = jsonObject.optJSONObject("sender");
+                String email = sender.optString("email");
+                String image_full_path = sender.optString("image_full_path");
+                int group_id = sender.optInt("group_id");
+
+                JSONArray message_users  = jsonObject.optJSONArray("message_users");
+                JSONObject message_user = message_users.getJSONObject(0);
+                boolean is_seen = message_user.optBoolean("is_seen");
+
+                teacherItems.add(new Messages(image_full_path, message, is_seen, created_at, group_id, Utils.manipulateDateFormat(created_at)));
             }
             return teacherItems;
         } catch (JSONException e) {
