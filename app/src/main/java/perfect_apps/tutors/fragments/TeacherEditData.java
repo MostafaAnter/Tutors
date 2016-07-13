@@ -72,7 +72,6 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private static String name;
     private static String email;
     private static String password;
-    private static String password_confirmation;
     private static String country_id;
     private static String city_id ;
     private static String major_id ;
@@ -83,6 +82,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private static String gender_id;
     private static Uri image;
     private static String desc;
+    private static String current_email;
+    private static String current_password;
+    private static String who_am_i;
+    private static String qualification;
+    private static String experience;
 
 
 
@@ -185,7 +189,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.pickPhoto:
-                pickPhoto();
+              //  pickPhoto();
                 break;
         }
     }
@@ -983,7 +987,9 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
             JSONObject jsonRootObject = new JSONObject(response);
             JSONObject itemObject = jsonRootObject.optJSONObject("item");
             editText3.setText(itemObject.optString("name"));
+            name = itemObject.optString("name");
             editText1.setText(itemObject.optString("desc"));
+            desc = itemObject.optString("desc");
             // populate mainImage
             Glide.with(getActivity())
                     .load(itemObject.optString("image_full_path"))
@@ -994,11 +1000,19 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
             JSONObject teacherInfoObject = itemObject.optJSONObject("teacher_info");
             editText5.setText(teacherInfoObject.optString("hour_price"));
+            hour_price = teacherInfoObject.optString("hour_price");
             editText4.setText(teacherInfoObject.optString("subjects"));
-            if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null"))
+            subjects = teacherInfoObject.optString("subjects");
+            if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null")){
                 editText6.setText(teacherInfoObject.optString("qualification"));
-            if (!teacherInfoObject.optString("experience").equalsIgnoreCase("null"))
+                qualification = teacherInfoObject.optString("qualification");
+
+            }
+            if (!teacherInfoObject.optString("experience").equalsIgnoreCase("null")){
                 editText7.setText(teacherInfoObject.optString("experience"));
+                experience = teacherInfoObject.optString("experience");
+            }
+
 
             JSONObject countryObject = teacherInfoObject.optJSONObject("country");
             selectValue(spinner1, countryObject.optString("name"));
