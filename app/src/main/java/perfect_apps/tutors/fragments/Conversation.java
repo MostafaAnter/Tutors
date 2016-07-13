@@ -28,7 +28,6 @@ import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.MessagesAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.Messages;
-import perfect_apps.tutors.models.MyChatsItem;
 import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
@@ -38,6 +37,7 @@ import perfect_apps.tutors.utils.Utils;
  * Created by mostafa on 13/07/16.
  */
 public class Conversation extends Fragment {
+    public static final String TAG = "Conversation";
 
     // for scroll to last item
     int displayedPosition = 0;

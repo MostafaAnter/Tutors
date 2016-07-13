@@ -5,25 +5,24 @@ package perfect_apps.tutors.models;
  */
 public class MyChatsItem {
     private String chats_name;
-
     private String chat_id;
-
+    private String user_id;
     private String chats_last_message;
     private String time_stamp;
     private String chats_avatar;
+
+    public MyChatsItem(String chats_name, String chat_id, String user_id, String chats_last_message, String time_stamp, String chats_avatar) {
+        this.chats_name = chats_name;
+        this.chat_id = chat_id;
+        this.user_id = user_id;
+        this.chats_last_message = chats_last_message;
+        this.time_stamp = time_stamp;
+        this.chats_avatar = chats_avatar;
+    }
+
     public MyChatsItem(){
 
     }
-
-    public MyChatsItem(String chats_name, String chat_id, String chats_avatar
-            , String chats_last_message, String time_stamp){
-        this.chats_avatar = chats_avatar;
-        this.chat_id = chat_id;
-        this.chats_last_message = chats_last_message;
-        this.chats_name = chats_name;
-        this.time_stamp = time_stamp;
-    }
-
     public String getChats_name() {
         return chats_name;
     }
@@ -62,5 +61,13 @@ public class MyChatsItem {
 
     public void setChat_id(String chat_id) {
         this.chat_id = chat_id;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

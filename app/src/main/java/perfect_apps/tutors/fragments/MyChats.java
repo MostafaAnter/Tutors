@@ -132,6 +132,24 @@ public class MyChats extends Fragment {
                 new RecyclerItemClickListener.OnItemClickListener() {
             @Override public void onItemClick(View view, int position) {
 
+
+                Conversation teacherDetails =
+                        new Conversation();
+                Bundle b = new Bundle();
+                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                b.putString("message_id", mDataset.get(position).getChat_id());
+                b.putString("user_id", mDataset.get(position).getUser_id());
+                b.putString("flag", "last_chat_page");
+                teacherDetails.setArguments(b);
+                FragmentTransaction transaction = getFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(Conversation.TAG);
+                transaction.commit();
+                // to add to back stack
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+
             }
             })
         );
