@@ -350,8 +350,6 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
     private void doReplyMessage(){
         if (Utils.isOnline(getActivity())) {
-            String tag_string_req = null;
-            StringRequest strReq = null;
             if (checkDataForReplyMessage()) {
                 // Set up a progress dialog
                 final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
@@ -360,11 +358,10 @@ public class Conversation extends Fragment implements View.OnClickListener {
                 pDialog.setCancelable(false);
                 pDialog.show();
 
-                // Tag used to cancel the request
-                tag_string_req = "string_req";
+
                 String url = "http://services-apps.net/tutors/api/message/add/reply";
 
-                strReq = new StringRequest(Request.Method.POST,
+                StringRequest strReq = new StringRequest(Request.Method.POST,
                         url, new Response.Listener<String>() {
 
                     @Override
@@ -408,7 +405,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                     }
                 };
-                strReq.setShouldCache(false);
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq);
 
             }
 
@@ -423,8 +421,6 @@ public class Conversation extends Fragment implements View.OnClickListener {
     private void doNewMessage(){
 
         if (Utils.isOnline(getActivity())) {
-            String tag_string_req = null;
-            StringRequest strReq = null;
             if (checkDataForNewMessage()) {
                 // Set up a progress dialog
                 final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
@@ -434,10 +430,9 @@ public class Conversation extends Fragment implements View.OnClickListener {
                 pDialog.show();
 
                 // Tag used to cancel the request
-                tag_string_req = "string_req";
                 String url = "http://services-apps.net/tutors/api/message/add/new";
 
-                strReq = new StringRequest(Request.Method.POST,
+                StringRequest strReq = new StringRequest(Request.Method.POST,
                         url, new Response.Listener<String>() {
 
                     @Override
@@ -479,7 +474,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                     }
                 };
-                strReq.setShouldCache(false);
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq);
             }
 
         } else {

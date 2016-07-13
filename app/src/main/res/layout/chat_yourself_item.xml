@@ -8,14 +8,15 @@
     android:layoutDirection="ltr"
     android:orientation="horizontal">
 
-    <cn.carbs.android.avatarimageview.library.AvatarImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/conversation_avatar"
         android:layout_width="?android:attr/listPreferredItemHeight"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="4dp"
         android:src="@drawable/avatr"
-        app:aiv_ShowBoarder="false"/>
+        app:civ_border_width="1dp"
+        app:civ_border_color="#FFFFFF"/>
 
     <TextView
         android:id="@+id/message"

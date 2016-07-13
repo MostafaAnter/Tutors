@@ -16,7 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.carbs.android.avatarimageview.library.AvatarImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.models.MyChatsItem;
 
@@ -48,9 +48,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         @Bind(R.id.message) TextView last_message;
         @Bind(R.id.timestamp) TextView timeStamp;
         @Bind(R.id.conversation_avatar)
-        AvatarImageView conversationAvatar;
+        CircleImageView conversationAvatar;
 
-        public AvatarImageView getConversationAvatar() {
+        public CircleImageView getConversationAvatar() {
             return conversationAvatar;
         }
 

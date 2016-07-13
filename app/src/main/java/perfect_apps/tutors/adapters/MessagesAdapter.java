@@ -16,7 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.carbs.android.avatarimageview.library.AvatarImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.models.Messages;
 import perfect_apps.tutors.store.TutorsPrefStore;
@@ -49,7 +49,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.message) TextView message;
         @Bind(R.id.conversation_avatar)
-        AvatarImageView avatarImage;
+        CircleImageView avatarImage;
         @Bind(R.id.timestamp) TextView authorAndTimestamp;
         @Bind(R.id.showFlag) ImageView showFlag;
 
@@ -57,7 +57,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             return message;
         }
 
-        public AvatarImageView getAvatarImage() {
+        public CircleImageView getAvatarImage() {
             return avatarImage;
         }
 
