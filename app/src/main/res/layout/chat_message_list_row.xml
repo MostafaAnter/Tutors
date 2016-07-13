@@ -9,16 +9,14 @@
     android:orientation="horizontal">
 
 
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <cn.carbs.android.avatarimageview.library.AvatarImageView
         android:id="@+id/conversation_avatar"
         android:layout_width="?android:attr/listPreferredItemHeight"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/avatr"
-        app:civ_border_color="#FFFFFF"
-        app:civ_border_width=".1dp"
-        app:civ_shadow="false" />
+        app:aiv_ShowBoarder="false"/>
 
     <LinearLayout
         android:layout_width="0dp"

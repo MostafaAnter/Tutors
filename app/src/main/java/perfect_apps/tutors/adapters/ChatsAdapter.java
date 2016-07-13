@@ -9,15 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.mikhaellopez.circularimageview.CircularImageView;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.carbs.android.avatarimageview.library.AvatarImageView;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.models.MyChatsItem;
 
@@ -49,9 +48,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         @Bind(R.id.message) TextView last_message;
         @Bind(R.id.timestamp) TextView timeStamp;
         @Bind(R.id.conversation_avatar)
-        CircularImageView conversationAvatar;
+        AvatarImageView conversationAvatar;
 
-        public CircularImageView getConversationAvatar() {
+        public AvatarImageView getConversationAvatar() {
             return conversationAvatar;
         }
 

@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.carbs.android.avatarimageview.library.AvatarImageView;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.models.Messages;
 import perfect_apps.tutors.store.TutorsPrefStore;
@@ -48,7 +48,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.message) TextView message;
-        @Bind(R.id.conversation_avatar) CircularImageView avatarImage;
+        @Bind(R.id.conversation_avatar)
+        AvatarImageView avatarImage;
         @Bind(R.id.timestamp) TextView authorAndTimestamp;
         @Bind(R.id.showFlag) ImageView showFlag;
 
@@ -56,7 +57,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             return message;
         }
 
-        public CircularImageView getAvatarImage() {
+        public AvatarImageView getAvatarImage() {
             return avatarImage;
         }
 
@@ -100,15 +101,18 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (mDataSet.get(position).getGroup_id() == 3){
+
+        if (new TutorsPrefStore(mContext).getPreferenceValue(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
             if (mDataSet.get(position).getMessageOwnerEmail().equalsIgnoreCase(new TutorsPrefStore(mContext).getPreferenceValue(Constants.STUDENT_EMAIL))){
                 return SELF;
             }
-        }else if(mDataSet.get(position).getGroup_id() == 2){
+
+        }else if (new TutorsPrefStore(mContext).getPreferenceValue(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)){
             if (mDataSet.get(position).getMessageOwnerEmail().equalsIgnoreCase(new TutorsPrefStore(mContext).getPreferenceValue(Constants.TEACHER_EMAIL))){
                 return SELF;
             }
         }
+
 
         return position;
     }

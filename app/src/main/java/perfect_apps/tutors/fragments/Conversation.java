@@ -378,6 +378,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                         }
 
                         getConversationMessagesWhenOpen();
+                        messageInput.setText("");
 
 
                     }
@@ -407,8 +408,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                     }
                 };
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+                strReq.setShouldCache(false);
+
             }
 
         } else {
@@ -450,6 +451,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                         }
 
                         getConversationMessagesWhenOpen();
+                        messageInput.setText("");
 
                     }
                 }, new Response.ErrorListener() {
@@ -477,8 +479,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                     }
                 };
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+                strReq.setShouldCache(false);
             }
 
         } else {

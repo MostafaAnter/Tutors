@@ -87,6 +87,9 @@ public class MyChats extends Fragment {
 
         // Start our refresh background task
         initiateRefresh();
+
+        // save coming from state to use it in conversation adapter
+        new TutorsPrefStore(getActivity()).addPreference(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
     }
 
     @Nullable
