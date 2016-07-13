@@ -184,7 +184,7 @@ public class JsonParser {
                 String name = sender.optString("name");
                 String user_id = sender.optString("id");
                 String image_full_path = sender.optString("image_full_path");
-                teacherItems.add(new MyChatsItem(name, id, user_id, image_full_path, message, Utils.manipulateDateFormat(created_at)));
+                teacherItems.add(new MyChatsItem(name, id, user_id, message, Utils.manipulateDateFormat(created_at),image_full_path  ));
             }
             return teacherItems;
         } catch (JSONException e) {
