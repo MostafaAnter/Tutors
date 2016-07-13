@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -42,7 +43,7 @@ import perfect_apps.tutors.utils.Utils;
 /**
  * Created by mostafa on 13/07/16.
  */
-public class Conversation extends Fragment {
+public class Conversation extends Fragment implements View.OnClickListener {
     public static final String TAG = "Conversation";
 
     // for scroll to last item
@@ -50,6 +51,19 @@ public class Conversation extends Fragment {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.messageInput) EditText messageInput;
     @Bind(R.id.send_button) ImageView sendButton;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.send_button:
+                if (getArguments().getString("flag").equalsIgnoreCase("last_chat_page")){
+                    doReplyMessage();
+                }else {
+                    doNewMessage();
+                }
+                break;
+        }
+    }
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER;
@@ -83,8 +97,62 @@ public class Conversation extends Fragment {
 
         switch (id){
             case R.id.menu_refresh:
+                if (getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
+                    getConversationMessagesWhenOpen();
+                }
                 return true;
             case R.id.about_sender:
+                if (!getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
+                    TeacherDetails teacherDetails =
+                            new TeacherDetails();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                    b.putString(Constants.DETAIL_USER_ID, getArguments().getString("user_id"));
+
+                    teacherDetails.setArguments(b);
+
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(TeacherDetails.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }else if (getArguments().getString("group_id").equalsIgnoreCase("3")){
+                    StudentDetails teacherDetails =
+                            new StudentDetails();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                    b.putString(Constants.DETAIL_USER_ID, getArguments().getString("user_id"));
+                    teacherDetails.setArguments(b);
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(StudentDetails.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }else if (getArguments().getString("group_id").equalsIgnoreCase("2")){
+                    TeacherDetails teacherDetails =
+                            new TeacherDetails();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                    b.putString(Constants.DETAIL_USER_ID, getArguments().getString("user_id"));
+
+                    teacherDetails.setArguments(b);
+
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(TeacherDetails.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
                 return true;
 
         }
@@ -136,8 +204,10 @@ public class Conversation extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // getConversationMessages
-        getConversationMessagesWhenOpen();
+        // getConversationMessages if coming from last chat messages
+        if (getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
+            getConversationMessagesWhenOpen();
+        }
     }
 
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
@@ -264,6 +334,13 @@ public class Conversation extends Fragment {
         }
     }
 
+    private void doReplyMessage(){
+
+    }
+
+    private void doNewMessage(){
+
+    }
 
     // to scroll to last item :)
 //    LinearLayoutManager llm = (LinearLayoutManager) mRecyclerView.getLayoutManager();

@@ -11,13 +11,23 @@ public class MyChatsItem {
     private String time_stamp;
     private String chats_avatar;
 
-    public MyChatsItem(String chats_name, String chat_id, String user_id, String chats_last_message, String time_stamp, String chats_avatar) {
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
+
+    private String group_id;
+    public MyChatsItem(String chats_name, String chat_id, String user_id, String chats_last_message, String time_stamp, String chats_avatar, String group_id) {
         this.chats_name = chats_name;
         this.chat_id = chat_id;
         this.user_id = user_id;
         this.chats_last_message = chats_last_message;
         this.time_stamp = time_stamp;
         this.chats_avatar = chats_avatar;
+        this.group_id = group_id;
     }
 
     public MyChatsItem(){

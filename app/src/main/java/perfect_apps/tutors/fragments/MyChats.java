@@ -141,6 +141,7 @@ public class MyChats extends Fragment {
                     b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
                     b.putString("message_id", mDataset.get(position).getChat_id());
                     b.putString("user_id", mDataset.get(position).getUser_id());
+                    b.putString("group_id", mDataset.get(position).getGroup_id());
                     b.putString("flag", "last_chat_page");
                     teacherDetails.setArguments(b);
                     FragmentTransaction transaction = getFragmentManager()
