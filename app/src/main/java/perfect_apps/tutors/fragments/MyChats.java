@@ -36,6 +36,7 @@ import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
+import perfect_apps.tutors.utils.RecyclerItemClickListener;
 import perfect_apps.tutors.utils.Utils;
 
 
@@ -125,6 +126,15 @@ public class MyChats extends Fragment {
         mAdapter = new ChatsAdapter(getActivity(), mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+
+        // set item click listener
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(),
+                new RecyclerItemClickListener.OnItemClickListener() {
+            @Override public void onItemClick(View view, int position) {
+
+            }
+            })
+        );
 
         setActionsOfToolBarIcons();
         return view;
