@@ -203,7 +203,7 @@ public class JsonParser {
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
                 JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
                 String message = jsonObject.optString("message");
-                String created_at = jsonObject.optString("created_at");
+                String created_at = Utils.manipulateDateFormat(jsonObject.optString("created_at"));
 
                 JSONObject sender = jsonObject.optJSONObject("sender");
                 String email = sender.optString("email");
@@ -212,9 +212,13 @@ public class JsonParser {
 
                 JSONArray message_users  = jsonObject.optJSONArray("message_users");
                 JSONObject message_user = message_users.getJSONObject(0);
-                boolean is_seen = message_user.optBoolean("is_seen");
+                String is_seen = message_user.optString("is_seen");
+                boolean show =false;
+                if (is_seen.equalsIgnoreCase("1")){
+                    show = true;
+                }
 
-                teacherItems.add(new Messages(image_full_path, message, is_seen, created_at, group_id, Utils.manipulateDateFormat(created_at)));
+                teacherItems.add(new Messages(image_full_path, message, show, created_at, group_id, email));
             }
             return teacherItems;
         } catch (JSONException e) {
