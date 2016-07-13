@@ -32,6 +32,7 @@
 
 
         <ImageView
+            android:id="@+id/send_button"
             android:layout_width="48dip"
             android:layout_height="match_parent"
             android:onClick="sendMessage"
