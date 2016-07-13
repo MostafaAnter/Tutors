@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,11 +27,15 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.MessagesAdapter;
 import perfect_apps.tutors.app.AppController;
@@ -44,6 +49,13 @@ import perfect_apps.tutors.utils.Utils;
  * Created by mostafa on 13/07/16.
  */
 public class Conversation extends Fragment implements View.OnClickListener {
+    private static String email;
+    private static String password;
+    private static String to;
+    private static String messageText;
+    private static String parentMessage;
+
+
     public static final String TAG = "Conversation";
 
     // for scroll to last item
@@ -208,6 +220,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
         if (getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
             getConversationMessagesWhenOpen();
         }
+
+        sendButton.setOnClickListener(this);
     }
 
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
@@ -251,7 +265,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
-        if (entry != null) {
+        if (entry != null && !Utils.isOnline(getActivity())) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 try {
@@ -335,13 +349,217 @@ public class Conversation extends Fragment implements View.OnClickListener {
     }
 
     private void doReplyMessage(){
+        if (Utils.isOnline(getActivity())) {
+            String tag_string_req = null;
+            StringRequest strReq = null;
+            if (checkDataForReplyMessage()) {
+                // Set up a progress dialog
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("أنتظر...");
+                pDialog.setCancelable(false);
+                pDialog.show();
 
+                // Tag used to cancel the request
+                tag_string_req = "string_req";
+                String url = "http://services-apps.net/tutors/api/message/add/reply";
+
+                strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        pDialog.dismissWithAnimation();
+                        try {
+                            response = URLDecoder.decode(response, "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        getConversationMessagesWhenOpen();
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        // show error message
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("خطأ")
+                                .setContentText("حاول مره أخري")
+                                .show();
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("email", email);
+                        params.put("password", password);
+                        params.put("to[]", to);
+                        params.put("message", messageText);
+                        params.put("parent_id", parentMessage);
+                        return params;
+
+                    }
+                };
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+
+        } else {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("خطأ")
+                    .setContentText("تحقق من الأتصال بألأنترنت")
+                    .show();
+        }
     }
 
     private void doNewMessage(){
 
+        if (Utils.isOnline(getActivity())) {
+            String tag_string_req = null;
+            StringRequest strReq = null;
+            if (checkDataForNewMessage()) {
+                // Set up a progress dialog
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("أنتظر...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                // Tag used to cancel the request
+                tag_string_req = "string_req";
+                String url = "http://services-apps.net/tutors/api/message/add/new";
+
+                strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        pDialog.dismissWithAnimation();
+                        try {
+                            response = URLDecoder.decode(response, "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        getConversationMessagesWhenOpen();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        // show error message
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("خطأ")
+                                .setContentText("حاول مره أخري")
+                                .show();
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("email", email);
+                        params.put("password", password);
+                        params.put("to[]", to);
+                        params.put("message", messageText);
+                        return params;
+
+                    }
+                };
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+
+        } else {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("خطأ")
+                    .setContentText("تحقق من الأتصال بألأنترنت")
+                    .show();
+        }
     }
 
+    private boolean checkDataForNewMessage(){
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+            email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
+            password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+        }else {
+            email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
+            password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
+        }
+
+        to = getArguments().getString("user_id");
+        try {
+            messageText = URLEncoder.encode(messageInput.getText().toString().trim(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        if (email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()
+                && to != null && !to.trim().isEmpty()
+                && messageText != null && !messageText.trim().isEmpty()){
+
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("هذه طريقه غير صحيحه حاول مره اخرى")
+                    .show();
+            return false;
+        }
+
+    }
+
+    private boolean checkDataForReplyMessage(){
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+            email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
+            password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+        }else {
+            email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
+            password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
+        }
+
+        to = getArguments().getString("user_id");
+        try {
+            messageText = URLEncoder.encode(messageInput.getText().toString().trim(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        parentMessage = getArguments().getString("message_id");
+
+        if (email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()
+                && to != null && !to.trim().isEmpty()
+                && messageText != null && !messageText.trim().isEmpty()
+                && parentMessage != null && !parentMessage.trim().isEmpty()){
+
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("هذه طريقه غير صحيحه حاول مره اخرى")
+                    .show();
+            return false;
+        }
+
+    }
     // to scroll to last item :)
 //    LinearLayoutManager llm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
 //    llm.scrollToPositionWithOffset(displayedPosition, mDataSet.size());

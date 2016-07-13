@@ -254,7 +254,7 @@ public class MyChats extends Fragment {
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
-        if (entry != null) {
+        if (entry != null && !Utils.isOnline(getActivity())) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 try {
