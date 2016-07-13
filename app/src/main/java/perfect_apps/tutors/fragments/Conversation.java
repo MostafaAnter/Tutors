@@ -1,15 +1,21 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -63,6 +69,27 @@ public class Conversation extends Fragment {
         super.onCreate(savedInstanceState);
         // initialize mDataSet
         mDataSet = new ArrayList<>();
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_items, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.menu_refresh:
+                return true;
+            case R.id.about_sender:
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Nullable
@@ -92,7 +119,17 @@ public class Conversation extends Fragment {
             }
         });
 
+        setActionsOfToolBarIcons();
         return view;
+    }
+
+    private void setActionsOfToolBarIcons() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
+        TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        title.setText("رسائلي");
+        title.setTypeface(font);
+
     }
 
     @Override
