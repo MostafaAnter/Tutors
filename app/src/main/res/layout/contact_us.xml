@@ -101,7 +101,7 @@
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:gravity="right"
-                android:hint="@string/password"
+                android:hint="رقم الجوال"
                 android:imeOptions="actionUnspecified"
                 android:maxLines="1"
                 android:padding="5dp"
@@ -115,7 +115,7 @@
                 android:background="#f8f8f8"
                 android:contentDescription="@null"
                 android:padding="3dp"
-                android:src="@drawable/ic_action_pass_ico" />
+                android:src="@drawable/ic_action_mob_ico" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -162,12 +162,12 @@
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"/>
         <LinearLayout
+            android:id="@+id/linearSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_blue"
-            android:onClick="loginTeacher"
             android:orientation="horizontal">
 
             <Button
@@ -177,8 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00000000"
-                android:hint="@string/login"
-                android:onClick="loginTeacher"
+                android:hint="ارسال"
                 android:padding="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary" />
@@ -190,7 +189,7 @@
                 android:background="@color/colorPrimary"
                 android:contentDescription="@null"
                 android:padding="8dp"
-                android:src="@drawable/log_btn_ico" />
+                android:src="@drawable/ic_action_send_mes_ico" />
         </LinearLayout>
 
 
