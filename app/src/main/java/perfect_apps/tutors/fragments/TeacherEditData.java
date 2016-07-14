@@ -1110,6 +1110,15 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("عمل رأئع!")
                                 .setContentText("تم تحديث الحساب بنجاح")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                                        fm.popBackStack();
+
+                                    }
+                                })
                                 .show();
 
                     }
