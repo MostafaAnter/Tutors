@@ -83,8 +83,6 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private static String gender_id;
     private static Uri image;
     private static String desc;
-    private static String current_email;
-    private static String current_password;
     private static String who_am_i;
     private static String qualification;
     private static String experience;
@@ -1183,17 +1181,17 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private boolean checkValidation() {
         try {
             desc = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
-            name = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
-            subjects = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
+            name = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
+            subjects = URLEncoder.encode(editText4.getText().toString().trim(), "UTF-8");
             who_am_i = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
             qualification = URLEncoder.encode(editText6.getText().toString().trim(), "UTF-8");
             experience = URLEncoder.encode(editText7.getText().toString().trim(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        hour_price = editText4.getText().toString().trim();
-        email = editText5.getText().toString().trim();
-        password = editText6.getText().toString().trim();
+        hour_price = editText5.getText().toString().trim();
+        email = editText8.getText().toString().trim();
+        password = editText9.getText().toString().trim();
 
 
         // first check mail format

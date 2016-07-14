@@ -627,21 +627,27 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
 
             JSONObject countryObject = teacherInfoObject.optJSONObject("country");
+            if (countryObject.optString("name") != null)
             textView2.setText(countryObject.optString("name"));
 
             JSONObject cityObject = teacherInfoObject.optJSONObject("city");
+            if (cityObject.optString("name") != null)
             textView4.setText(cityObject.optString("name"));
 
             JSONObject stageObject = teacherInfoObject.optJSONObject("stage");
+            if (stageObject.optString("name") != null)
             textView6.setText(stageObject.optString("name"));
 
             JSONObject majorObject = teacherInfoObject.optJSONObject("major");
+            if (majorObject.optString("name") != null)
             textView8.setText(majorObject.optString("name"));
 
             JSONObject applyServiceObject = teacherInfoObject.optJSONObject("apply_service");
+            if (applyServiceObject.optString("name") != null)
             textView12.setText(applyServiceObject.optString("name"));
 
             JSONObject genderObject = teacherInfoObject.optJSONObject("gender");
+            if (genderObject.optString("name") != null)
             textView14.setText(genderObject.optString("name"));
 
 
