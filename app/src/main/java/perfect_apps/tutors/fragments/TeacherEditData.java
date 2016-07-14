@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,11 +74,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private static String email;
     private static String password;
     private static String country_id;
-    private static String city_id ;
-    private static String major_id ;
-    private static String stage_id ;
-    private static String subjects ;
-    private static String hour_price ;
+    private static String city_id;
+    private static String major_id;
+    private static String stage_id;
+    private static String subjects;
+    private static String hour_price;
     private static String apply_service_id;
     private static String gender_id;
     private static Uri image;
@@ -89,34 +90,54 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private static String experience;
 
 
+    @Bind(R.id.editText1)
+    EditText editText1;
+    @Bind(R.id.editText2)
+    EditText editText2;
+    @Bind(R.id.editText3)
+    EditText editText3;
+    @Bind(R.id.editText4)
+    EditText editText4;
+    @Bind(R.id.editText5)
+    EditText editText5;
+    @Bind(R.id.editText6)
+    EditText editText6;
+    @Bind(R.id.editText7)
+    EditText editText7;
+    @Bind(R.id.editText8)
+    EditText editText8;
+    @Bind(R.id.editText9)
+    EditText editText9;
+    @Bind(R.id.button1)
+    Button button1;
+    @Bind(R.id.button2)
+    Button button2;
+    @Bind(R.id.button3)
+    Button button3;
+    @Bind(R.id.image1)
+    ImageView imageView1;
 
+    @Bind(R.id.pickPhoto)
+    LinearLayout linearLayout;
 
-    @Bind(R.id.editText1) EditText editText1;
-    @Bind(R.id.editText2) EditText editText2;
-    @Bind(R.id.editText3) EditText editText3;
-    @Bind(R.id.editText4) EditText editText4;
-    @Bind(R.id.editText5) EditText editText5;
-    @Bind(R.id.editText6) EditText editText6;
-    @Bind(R.id.editText7) EditText editText7;
-    @Bind(R.id.editText8) EditText editText8;
-    @Bind(R.id.editText9) EditText editText9;
-    @Bind(R.id.button1) Button button1;
-    @Bind(R.id.button2) Button button2;
-    @Bind(R.id.button3) Button button3;
-    @Bind(R.id.image1) ImageView imageView1;
-
-    @Bind(R.id.pickPhoto) LinearLayout linearLayout;
-
-    @Bind(R.id.spinner1) Spinner spinner1;
-    @Bind(R.id.spinner2) Spinner spinner2;
-    @Bind(R.id.spinner3) Spinner spinner3;
-    @Bind(R.id.spinner4) Spinner spinner4;
-    @Bind(R.id.spinner5) Spinner spinner5;
-    @Bind(R.id.spinner6) Spinner spinner6;
+    @Bind(R.id.spinner1)
+    Spinner spinner1;
+    @Bind(R.id.spinner2)
+    Spinner spinner2;
+    @Bind(R.id.spinner3)
+    Spinner spinner3;
+    @Bind(R.id.spinner4)
+    Spinner spinner4;
+    @Bind(R.id.spinner5)
+    Spinner spinner5;
+    @Bind(R.id.spinner6)
+    Spinner spinner6;
+    @Bind(R.id.linearUpdate) LinearLayout updateView;
+    @Bind(R.id.linearCancel) LinearLayout canceliew;
 
     private static final int REQUEST_CODE = 1;
 
-    public TeacherEditData(){
+    public TeacherEditData() {
     }
 
     @Nullable
@@ -135,9 +156,13 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchSpinners();
+        button2.setOnClickListener(this);
+        updateView.setOnClickListener(this);
+        canceliew.setOnClickListener(this);
+        button3.setOnClickListener(this);
     }
 
-    private void changeTextFont(){
+    private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
         editText1.setTypeface(font);
@@ -175,7 +200,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void setSelectedPhotoInsideCircleShap(Uri uri){
+    private void setSelectedPhotoInsideCircleShap(Uri uri) {
         Glide.with(this)
                 .load(uri)
                 .centerCrop()
@@ -187,16 +212,29 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.pickPhoto:
-              //  pickPhoto();
+                //  pickPhoto();
+                break;
+            case R.id.button2:
+                updateProfile();
+                break;
+            case R.id.linearUpdate:
+                updateProfile();
+                break;
+            case R.id.linearCancel:
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+                break;
+            case R.id.button3:
+                FragmentManager fm1 = getActivity().getSupportFragmentManager();
+                fm1.popBackStack();
                 break;
         }
     }
 
     private void setActionsOfToolBarIcons() {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-
 
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
@@ -251,11 +289,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         });
     }
 
-    private boolean addTeacherDetailToBackstack(){
+    private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
             return false;
         }
         return true;
@@ -420,10 +458,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     }
 
 
-
-
-
-    private void fetchSpinners(){
+    private void fetchSpinners() {
         getCountries();
         getStage();
         getMagor();
@@ -471,7 +506,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -552,7 +587,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -633,7 +668,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -714,7 +749,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -795,7 +830,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -841,7 +876,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
     }
 
-    private void fetchCitiesData(String urlCities){
+    private void fetchCitiesData(String urlCities) {
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -874,7 +909,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -1003,12 +1038,12 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
             hour_price = teacherInfoObject.optString("hour_price");
             editText4.setText(teacherInfoObject.optString("subjects"));
             subjects = teacherInfoObject.optString("subjects");
-            if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null")){
+            if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null")) {
                 editText6.setText(teacherInfoObject.optString("qualification"));
                 qualification = teacherInfoObject.optString("qualification");
 
             }
-            if (!teacherInfoObject.optString("experience").equalsIgnoreCase("null")){
+            if (!teacherInfoObject.optString("experience").equalsIgnoreCase("null")) {
                 editText7.setText(teacherInfoObject.optString("experience"));
                 experience = teacherInfoObject.optString("experience");
             }
@@ -1044,6 +1079,154 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 spinner.setSelection(i);
                 break;
             }
+        }
+    }
+
+    private void updateProfile() {
+        if (Utils.isOnline(getActivity())) {
+
+            if (checkValidation()) {
+                // Set up a progress dialog
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("أنتظر...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                // Tag used to cancel the request
+                String url = "http://services-apps.net/tutors/api/update/teacher";
+
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        pDialog.dismissWithAnimation();
+                        try {
+                            response = URLDecoder.decode(response, "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("عمل رأئع!")
+                                .setContentText("تم تحديث الحساب بنجاح")
+                                .show();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        // show error message
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("خطأ")
+                                .setContentText("حاول مره أخري")
+                                .show();
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("current_password", password);
+                        params.put("current_email", email);
+
+                        params.put("who_am_i", who_am_i);
+                        params.put("experience", experience);
+                        params.put("qualification", qualification);
+
+                        if (name != null)
+                            params.put("name", name);
+                        if (email != null)
+                            params.put("email", email);
+                        if (country_id != null)
+                            params.put("country_id", country_id);
+                        if (city_id != null)
+                            params.put("city_id", city_id);
+                        if (major_id != null)
+                            params.put("major_id", major_id);
+                        if (stage_id != null)
+                            params.put("stage_id", stage_id);
+                        if (subjects != null)
+                            params.put("subjects", subjects);
+                        if (hour_price != null)
+                            params.put("hour_price", hour_price);
+                        if (apply_service_id != null)
+                            params.put("apply_service_id", apply_service_id);
+                        if (gender_id != null)
+                            params.put("gender_id", gender_id);
+                        if (desc != null)
+                            params.put("desc", desc);
+
+                        return params;
+
+                    }
+                };
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq);
+            }
+
+
+        } else {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("خطأ")
+                    .setContentText("تحقق من الأتصال بألأنترنت")
+                    .show();
+        }
+    }
+
+    private boolean checkValidation() {
+        try {
+            desc = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
+            name = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
+            subjects = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
+            who_am_i = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
+            qualification = URLEncoder.encode(editText6.getText().toString().trim(), "UTF-8");
+            experience = URLEncoder.encode(editText7.getText().toString().trim(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        hour_price = editText4.getText().toString().trim();
+        email = editText5.getText().toString().trim();
+        password = editText6.getText().toString().trim();
+
+
+        // first check mail format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("البريد الالكترونى غير صالح")
+                    .show();
+            return false;
+        }
+
+
+        if (name != null && !name.trim().isEmpty()
+                && subjects != null && !subjects.trim().isEmpty()
+                && hour_price != null && !hour_price.trim().isEmpty()
+                && email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()
+                && country_id != null && !country_id.trim().isEmpty()
+                && city_id != null && !city_id.trim().isEmpty()
+                && major_id != null && !major_id.trim().isEmpty()
+                && stage_id != null && !stage_id.trim().isEmpty()
+                && gender_id != null && !gender_id.trim().isEmpty()
+                && apply_service_id != null && !apply_service_id.trim().isEmpty()) {
+
+            return true;
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("قم بإكمال تسجيل البيانات")
+                    .show();
+            return false;
         }
     }
 }
