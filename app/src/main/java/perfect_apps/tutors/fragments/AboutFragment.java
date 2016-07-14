@@ -34,7 +34,7 @@ import perfect_apps.tutors.utils.Utils;
  * Created by mostafa on 14/07/16.
  */
 public class AboutFragment extends Fragment {
-    private static final String TAG = "AboutFragment";
+    public static final String TAG = "AboutFragment";
 
     @Bind(R.id.title)
     TextView title;

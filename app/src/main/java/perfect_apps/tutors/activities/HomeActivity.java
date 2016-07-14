@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.fragments.AboutFragment;
+import perfect_apps.tutors.fragments.ContactUs;
 import perfect_apps.tutors.fragments.MyChats;
 import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.StudentDetails;
@@ -166,8 +168,36 @@ public class HomeActivity extends LocalizationActivity
                 getSupportFragmentManager().executePendingTransactions();
             }
         } else if (id == R.id.about_app) {
+            if (addAboutToBackstack()) {
+                // clearBackStack();
+                AboutFragment teacherDetails =
+                        new AboutFragment();
+
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(AboutFragment.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
 
         } else if (id == R.id.contact_us) {
+            if (addContactToBackstack()) {
+                // clearBackStack();
+                ContactUs teacherDetails =
+                        new ContactUs();
+
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(ContactUs.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
 
         } else if (id == R.id.studentHome) {
             if (addStudentHomeListToBackstack()) {
@@ -315,7 +345,6 @@ public class HomeActivity extends LocalizationActivity
     }
 
 
-
     private boolean addStudentDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() == 0) {
@@ -335,6 +364,27 @@ public class HomeActivity extends LocalizationActivity
         }
         return true;
     }
+
+    private boolean addContactToBackstack() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            return true;
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(ContactUs.TAG)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean addAboutToBackstack() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            return true;
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(AboutFragment.TAG)) {
+            return false;
+        }
+        return true;
+    }
+
 
     private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
