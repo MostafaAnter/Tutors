@@ -45,6 +45,7 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.app.AppController;
+import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
 import perfect_apps.tutors.utils.VolleyMultipartRequest;
 
@@ -93,8 +94,12 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavUtils.navigateUpFromSameTask(RegisterStudentMembershipActivity.this);
-                overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
+//                NavUtils.navigateUpFromSameTask(RegisterStudentMembershipActivity.this);
+                Intent intent = new Intent(RegisterStudentMembershipActivity.this, HomeActivity.class);
+                intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                finish();
             }
         });
 

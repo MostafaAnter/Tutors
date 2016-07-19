@@ -75,8 +75,11 @@ public class LoginStudentActivity extends LocalizationActivity {
             @Override
             public void onClick(View v) {
                 //NavUtils.navigateUpFromSameTask(LoginStudentActivity.this);
+                Intent intent = new Intent(LoginStudentActivity.this, HomeActivity.class);
+                intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 finish();
-                overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
             }
         });
 
