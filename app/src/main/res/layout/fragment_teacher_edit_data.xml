@@ -70,7 +70,7 @@
                     android:layout_weight="1"
                     android:layout_height="0dp"
                     android:background="@color/colorPrimary"
-                    android:text="@string/addPhoto"
+                    android:text="صورتي"
                     android:textColor="#FFFFFF"/>
 
             </LinearLayout>
@@ -84,7 +84,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
-            android:hint="@string/write_about_you"
+            android:hint="نبذة تعريفية عن المدرس"
             android:textSize="12sp"
             android:imeOptions="actionUnspecified"
             android:padding="5dp"

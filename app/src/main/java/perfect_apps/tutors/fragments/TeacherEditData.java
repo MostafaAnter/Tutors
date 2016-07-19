@@ -158,6 +158,9 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         updateView.setOnClickListener(this);
         canceliew.setOnClickListener(this);
         button3.setOnClickListener(this);
+
+        editText8.setText(new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+        editText9.setText(new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
     }
 
     private void changeTextFont() {
