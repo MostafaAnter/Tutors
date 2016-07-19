@@ -902,7 +902,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            startActivity(new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class));
+                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
+                            intent.putExtra("email", email);
+                            intent.putExtra("password", password);
+                            startActivity(intent);
                             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
                         } catch (JSONException e) {
