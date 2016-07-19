@@ -51,6 +51,14 @@ public class LoginStudentActivity extends LocalizationActivity {
         setContentView(R.layout.activity_login_teacher);
         ButterKnife.bind(this);
         setToolbar();
+
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().containsKey("email")){
+                editText1.setText(getIntent().getStringExtra("email"));
+                editText2.setText(getIntent().getStringExtra("password"));
+                requestData();
+            }
+        }
     }
 
     @Override
@@ -66,7 +74,8 @@ public class LoginStudentActivity extends LocalizationActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavUtils.navigateUpFromSameTask(LoginStudentActivity.this);
+                //NavUtils.navigateUpFromSameTask(LoginStudentActivity.this);
+                finish();
                 overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
             }
         });

@@ -215,6 +215,8 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                             Log.d("response", resultResponse);
                             if (!getIntent().getExtras().containsKey("user_id")) {
                                 Intent intent = new Intent(RegisterStudentMembershipActivity.this, LoginStudentActivity.class);
+                                intent.putExtra("email", email);
+                                intent.putExtra("password", password);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
                                 finish();
