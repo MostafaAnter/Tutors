@@ -51,10 +51,12 @@ public class LoginTeacherActivity extends LocalizationActivity {
         ButterKnife.bind(this);
         setToolbar();
 
-        if (getIntent().getExtras().containsKey("email")){
-            editText1.setText(getIntent().getStringExtra("email"));
-            editText2.setText(getIntent().getStringExtra("password"));
-            requestData();
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().containsKey("email")){
+                editText1.setText(getIntent().getStringExtra("email"));
+                editText2.setText(getIntent().getStringExtra("password"));
+                requestData();
+            }
         }
     }
 
