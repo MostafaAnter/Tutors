@@ -150,7 +150,8 @@ public class HomeActivity extends LocalizationActivity
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.register_student_membership) {
-            startActivity(new Intent(HomeActivity.this, RegisterStudentMembershipActivity.class));
+            startActivity(new Intent(HomeActivity.this, RegisterStudentMembershipActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.search_about_teacher) {

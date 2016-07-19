@@ -105,7 +105,10 @@ public class LoginStudentActivity extends LocalizationActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
+        Intent intent = new Intent(LoginStudentActivity.this, HomeActivity.class);
+        intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         finish();
     }
 
