@@ -8,16 +8,19 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
@@ -37,6 +40,7 @@ public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static NavigationView navigationView;
+    TextView studentMessageCount, teacherMessageCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,6 @@ public class HomeActivity extends LocalizationActivity
         profileIc.setVisibility(View.GONE);
         chatIc.setVisibility(View.GONE);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -68,6 +71,7 @@ public class HomeActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+
         // if user is authenticated as teacher or student change menu :)
         if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.TEACHER) &&
@@ -75,12 +79,27 @@ public class HomeActivity extends LocalizationActivity
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_teacher);
             changeFontOfNavigation();
+            // get teacher message count
+            teacherMessageCount = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                    findItem(R.id.teacherMessages));
+            teacherMessageCount.setGravity(Gravity.CENTER_VERTICAL);
+            teacherMessageCount.setTypeface(null, Typeface.BOLD);
+            teacherMessageCount.setTextColor(getResources().getColor(R.color.colorAccent));
+            teacherMessageCount.setText("0");
+
         } else if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.STUDENT) &&
                 getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_student);
             changeFontOfNavigation();
+            // get student message count
+            studentMessageCount = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                    findItem(R.id.studentMessages));
+            studentMessageCount.setGravity(Gravity.CENTER_VERTICAL);
+            studentMessageCount.setTypeface(null, Typeface.BOLD);
+            studentMessageCount.setTextColor(getResources().getColor(R.color.colorAccent));
+            studentMessageCount.setText("0");
         }
 
 
