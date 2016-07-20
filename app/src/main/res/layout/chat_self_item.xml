@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:padding="10dp"
+        android:maxWidth="170dp"
         android:text="horld"
         android:gravity="center_vertical"
         android:textColor="#FFFFFF"
