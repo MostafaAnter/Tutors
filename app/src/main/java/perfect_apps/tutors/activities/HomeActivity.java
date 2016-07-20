@@ -1,6 +1,7 @@
 package perfect_apps.tutors.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -23,8 +24,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.fragments.AboutFragment;
 import perfect_apps.tutors.fragments.ContactUs;
 import perfect_apps.tutors.fragments.MyChats;
@@ -35,6 +49,7 @@ import perfect_apps.tutors.fragments.TeachersHomeList;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
+import perfect_apps.tutors.utils.Utils;
 
 public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,6 +101,8 @@ public class HomeActivity extends LocalizationActivity
             teacherMessageCount.setTypeface(null, Typeface.BOLD);
             teacherMessageCount.setTextColor(getResources().getColor(R.color.colorAccent));
             teacherMessageCount.setText("0");
+            getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_EMAIL),
+                    new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_PASSWORD), teacherMessageCount);
 
         } else if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                 .equalsIgnoreCase(Constants.STUDENT) &&
@@ -100,6 +117,8 @@ public class HomeActivity extends LocalizationActivity
             studentMessageCount.setTypeface(null, Typeface.BOLD);
             studentMessageCount.setTextColor(getResources().getColor(R.color.colorAccent));
             studentMessageCount.setText("0");
+            getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_EMAIL),
+                    new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_PASSWORD), studentMessageCount);
         }
 
 
@@ -469,5 +488,68 @@ public class HomeActivity extends LocalizationActivity
         mi.setTitle(mNewTitle);
     }
 
+    private void getMessageCount(String email, String password , final TextView t){
+        String url = "http://services-apps.net/tutors/api/message/show/count?email=" + email + "&password=" + password;
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null && !Utils.isOnline(this)) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                try {
+                    data = URLDecoder.decode(data, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                // to do some thing
+                try {
+                    JSONObject jsonObject = new JSONObject(data);
+                    String count = jsonObject.optString("count");
+                    t.setText(count);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (Utils.isOnline(this)) {
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url1 = "http://services-apps.net/tutors/api/message/show/count?email=" + email + "&password=" + password;
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url1, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            response = URLDecoder.decode(response, "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        // do some thing here
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String count = jsonObject.optString("count");
+                            t.setText(count);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+        }
+
+
+    }
 
 }
