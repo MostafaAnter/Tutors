@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -58,9 +59,20 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_dialog, container, false);
+        View v = inflater.inflate(R.layout.fragment_rate_info, container, false);
         ButterKnife.bind(this, v);
         changeTextFont();
 

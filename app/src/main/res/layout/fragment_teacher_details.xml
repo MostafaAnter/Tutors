@@ -421,14 +421,15 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/darker_gray" />
 
-            <TextView
+            <Button
                 android:id="@+id/text20"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="@string/rates" />
+                android:text="@string/rates"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <TextView

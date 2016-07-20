@@ -89,7 +89,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     @Bind(R.id.text19)
     TextView textView19;
     @Bind(R.id.text20)
-    TextView textView20;
+    Button textView20;
     @Bind(R.id.text21)
     TextView textView21;
     @Bind(R.id.name)
@@ -161,6 +161,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
         rateTeacher.setOnClickListener(this);
         button2.setOnClickListener(this);
+        textView20.setOnClickListener(this);
 
 
         setActionsOfToolBarIcons();
@@ -391,6 +392,42 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
                     // Create and show the dialog.
                     RatingDialogFragment newFragment1 = RatingDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
+                    newFragment1.show(ft1, "dialog");
+
+                }
+                break;
+
+            case R.id.text20:
+                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)) {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                    newFragment1.setArguments(bundle1);
+                    newFragment1.show(ft1, "dialog");
+                }else {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    RateInfoFragment newFragment1 = RateInfoFragment.newInstance(mStackLevel);
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment1.setArguments(bundle1);
