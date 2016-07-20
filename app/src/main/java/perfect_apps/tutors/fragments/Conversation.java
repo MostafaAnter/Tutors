@@ -58,8 +58,6 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "Conversation";
 
-    // for scroll to last item
-    int displayedPosition = 0;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.messageInput) EditText messageInput;
     @Bind(R.id.send_button) ImageView sendButton;
@@ -184,21 +182,6 @@ public class Conversation extends Fragment implements View.OnClickListener {
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
         mAdapter = new MessagesAdapter(getActivity(), mDataSet);
         mRecyclerView.setAdapter(mAdapter);
-        // to scroll to last item :)
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager llm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-                displayedPosition = llm.findLastCompletelyVisibleItemPosition();
-            }
-        });
-
         setActionsOfToolBarIcons();
         return view;
     }
@@ -279,6 +262,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                         JsonParser.parseConversation(data)) {
                     mDataSet.add(item);
                     mAdapter.notifyDataSetChanged();
+                    mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
 
                 }
 
@@ -320,6 +304,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                                 JsonParser.parseConversation(response)) {
                             mDataSet.add(item);
                             mAdapter.notifyDataSetChanged();
+                            mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
 
                         }
 
@@ -374,7 +359,22 @@ public class Conversation extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
 
-                        getConversationMessagesWhenOpen();
+                        // add item to list here
+                        String myEmail = "";
+                        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+                            myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
+
+                        }else {
+                            myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
+
+                        }
+
+                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail);
+                        mDataSet.add(item);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
+
+                        //getConversationMessagesWhenOpen();
                         messageInput.setText("");
 
 
@@ -445,7 +445,22 @@ public class Conversation extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
 
-                        getConversationMessagesWhenOpen();
+                        // add item to list here
+                        String myEmail = "";
+                        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+                            myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
+
+                        }else {
+                            myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
+
+                        }
+
+                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail);
+                        mDataSet.add(item);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
+
+                        //getConversationMessagesWhenOpen();
                         messageInput.setText("");
 
                     }
