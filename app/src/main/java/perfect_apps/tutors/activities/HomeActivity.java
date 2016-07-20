@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -535,6 +536,8 @@ public class HomeActivity extends LocalizationActivity
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+                        Log.e("teeest", response);
 
                     }
                 }, new Response.ErrorListener() {
