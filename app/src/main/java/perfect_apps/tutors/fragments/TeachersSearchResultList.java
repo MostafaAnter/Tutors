@@ -105,7 +105,7 @@ public class TeachersSearchResultList extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new TeachersSearchResultsListAdapter(getActivity(), mDataset);
+        mAdapter = new TeachersSearchResultsListAdapter(getActivity(), mDataset, Constants.STUDENT_PAGE);
         // Set TeachersListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 

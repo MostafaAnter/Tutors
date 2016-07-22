@@ -9,6 +9,7 @@ public class Constants {
     public static final String COMMING_FROM = "comingFrom";
     public static final String TEACHER_PAGE = "teacherLoginPage";
     public static final String STUDENT_PAGE = "studentPage";
+    public static final String TEACHER_HOME_PAGE = "teacherHomePage";
 
     // authenticated state to change navigation drawer
     public static final String TEACHER_AUTHENTICATION_STATE = "teacher_authenticationState";

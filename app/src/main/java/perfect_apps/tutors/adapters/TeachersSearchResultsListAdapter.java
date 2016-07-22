@@ -36,10 +36,12 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
 
     private List<TeacherItem> mDataSet;
     private static Context mContext;
+    private String comingFrom;
 
-    public TeachersSearchResultsListAdapter(Context mContext, List<TeacherItem> mDataSet) {
+    public TeachersSearchResultsListAdapter(Context mContext, List<TeacherItem> mDataSet, String comingFrom) {
         this.mDataSet = mDataSet;
         this.mContext = mContext;
+        this.comingFrom = comingFrom;
     }
 
 
@@ -101,7 +103,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                     Bundle arguments = new Bundle();
                     arguments.putString(Constants.DETAIL_USER_ID, mDataSet.get(getPosition()).getId());
-                    arguments.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    arguments.putString(Constants.COMMING_FROM, comingFrom);
                     TeacherDetails fragment = new TeacherDetails();
                     fragment.setArguments(arguments);
                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()

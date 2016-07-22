@@ -92,12 +92,18 @@ public class JsonParser {
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("stages");
             List<SpinnerItem> brandList = new ArrayList<>();
             brandList.add(null);
-            for (int i = 0; i < jsonMoviesArray.length(); i++) {
-                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
-                String id = jsonObject.optString("id");
-                String name = jsonObject.optString("name");
-                brandList.add(new SpinnerItem(id, name));
-            }
+//            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+//                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+//                String id = jsonObject.optString("id");
+//                String name = jsonObject.optString("name");
+//                brandList.add(new SpinnerItem(id, name));
+//            }
+
+            brandList.add(new SpinnerItem("1", "المرحلة الأبتدائية"));
+            brandList.add(new SpinnerItem("2", "المرحلة الأعدادية"));
+            brandList.add(new SpinnerItem("3", "المرحلة الثانوية"));
+
+
             return brandList;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,12 +119,19 @@ public class JsonParser {
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("majors");
             List<SpinnerItem> brandList = new ArrayList<>();
             brandList.add(null);
-            for (int i = 0; i < jsonMoviesArray.length(); i++) {
-                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
-                String id = jsonObject.optString("id");
-                String name = jsonObject.optString("name");
-                brandList.add(new SpinnerItem(id, name));
-            }
+//            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+//                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+//                String id = jsonObject.optString("id");
+//                String name = jsonObject.optString("name");
+//                brandList.add(new SpinnerItem(id, name));
+//            }
+
+            brandList.add(new SpinnerItem("1", "الرياضيات"));
+            brandList.add(new SpinnerItem("2", "اللغة العربية"));
+            brandList.add(new SpinnerItem("3", "اللغة الانجليزية"));
+            brandList.add(new SpinnerItem("4", "العلوم"));
+            brandList.add(new SpinnerItem("5", "التاريخ"));
+
             return brandList;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -134,12 +147,14 @@ public class JsonParser {
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("apply_services");
             List<SpinnerItem> brandList = new ArrayList<>();
             brandList.add(null);
-            for (int i = 0; i < jsonMoviesArray.length(); i++) {
-                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
-                String id = jsonObject.optString("id");
-                String name = jsonObject.optString("name");
-                brandList.add(new SpinnerItem(id, name));
-            }
+//            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+//                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+//                String id = jsonObject.optString("id");
+//                String name = jsonObject.optString("name");
+//                brandList.add(new SpinnerItem(id, name));
+//            }
+            brandList.add(new SpinnerItem("1", "شخصى"));
+            brandList.add(new SpinnerItem("2", "عبر الانترنت"));
             return brandList;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -155,12 +170,15 @@ public class JsonParser {
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("genders");
             List<SpinnerItem> brandList = new ArrayList<>();
             brandList.add(null);
-            for (int i = 0; i < jsonMoviesArray.length(); i++) {
-                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
-                String id = jsonObject.optString("id");
-                String name = jsonObject.optString("name");
-                brandList.add(new SpinnerItem(id, name));
-            }
+//            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+//                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+//                String id = jsonObject.optString("id");
+//                String name = jsonObject.optString("name");
+//                brandList.add(new SpinnerItem(id, name));
+//            }
+
+            brandList.add(new SpinnerItem("1", "معلم"));
+            brandList.add(new SpinnerItem("2", "معلمه"));
             return brandList;
         } catch (JSONException e) {
             e.printStackTrace();
