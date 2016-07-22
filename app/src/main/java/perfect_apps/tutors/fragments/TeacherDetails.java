@@ -149,8 +149,11 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
         if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
             viewThatShowForStudent.setVisibility(View.GONE);
-        } else {
+        } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             viewThatShowForTeacher.setVisibility(View.GONE);
+        }else {
+            viewThatShowForTeacher.setVisibility(View.GONE);
+            rateTeacher.setVisibility(View.GONE);
         }
 
         viewThatShowForTeacher.setOnClickListener(this);
