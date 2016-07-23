@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:text="اذا كنت عضو مسبقا أضغط هنا "/>
+            android:text="اذا كنت عضو جديد أضغط هنا "/>
         <TextView
             android:id="@id/text6"
             android:textColor="@color/colorPrimary"

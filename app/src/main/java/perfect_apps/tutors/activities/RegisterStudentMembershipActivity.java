@@ -19,10 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
@@ -323,6 +325,10 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                     }
                 };
 
+                int socketTimeout = 30000;//30 seconds - change to what you want
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                multipartRequest.setRetryPolicy(policy);
+
                 AppController.getInstance().addToRequestQueue(multipartRequest);
                 // last of request
 
@@ -355,6 +361,15 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                     .setContentText("البريد الالكترونى غير صالح")
                     .show();
             return false;
+        }
+
+        if (editText3.getText().toString().trim().length() < 6){
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("لابد ان يكون الرقم السرى اكثر من 6 خانات")
+                    .show();
+            return false;
+
         }
 
 

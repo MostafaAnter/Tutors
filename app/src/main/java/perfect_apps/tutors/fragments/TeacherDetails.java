@@ -257,7 +257,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 getActivity().getSupportFragmentManager().executePendingTransactions();
                 break;
             case R.id.linearSentMessageToTeacher:
-                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
+                        && !new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -295,7 +296,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.button1:
-                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
+                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -333,7 +335,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.linearRateTeacher:
-                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
+                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -368,7 +371,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.button2:
-                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
+                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -404,7 +408,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text20:
-                if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
+                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -467,10 +472,19 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
             profileIc.setVisibility(View.VISIBLE);
             chatIc.setVisibility(View.VISIBLE);
+            searchIc.setVisibility(View.GONE);
             TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
             title.setText("بياناتي الشخصية");
             title.setTypeface(font);
-        } else {
+        }else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)){
+            profileIc.setVisibility(View.VISIBLE);
+            chatIc.setVisibility(View.VISIBLE);
+            searchIc.setVisibility(View.GONE);
+            TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+            title.setText("بيانات المدرس");
+            title.setTypeface(font);
+
+        }else {
             searchIc.setVisibility(View.VISIBLE);
             TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
             title.setText("بيانات المدرس");
