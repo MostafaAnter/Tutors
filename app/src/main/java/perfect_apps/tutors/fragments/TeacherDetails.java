@@ -146,8 +146,11 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
 
         // hide some view to suitable with context
-
-        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
+        if (getArguments().getString(Constants.DETAIL_USER_ID)
+                .equalsIgnoreCase(new TutorsPrefStore(getActivity())
+                .getPreferenceValue(Constants.TEACHER_ID))){
+            viewThatShowForStudent.setVisibility(View.GONE);
+        }else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
             viewThatShowForStudent.setVisibility(View.GONE);
         } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             viewThatShowForTeacher.setVisibility(View.GONE);
