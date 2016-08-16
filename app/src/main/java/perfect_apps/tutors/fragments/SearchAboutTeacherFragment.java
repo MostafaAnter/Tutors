@@ -29,6 +29,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -169,6 +170,12 @@ public class SearchAboutTeacherFragment extends Fragment {
                 }
             }
         });
+
+
+        List<SpinnerItem> spinnerItemList = new ArrayList<>();
+        spinnerItemList.add(null);
+        populateSpinner2(spinnerItemList);
+        populateSpinner4(spinnerItemList);
     }
 
     private boolean checkIfFieldIsEmpty(){
@@ -325,6 +332,8 @@ public class SearchAboutTeacherFragment extends Fragment {
                 if (position > 0) {
                     // doSome things
                     stage_id = selectedItem.getId();
+                    major_id = "";
+                    getMagor(stage_id);
                 }
             }
 
@@ -417,7 +426,6 @@ public class SearchAboutTeacherFragment extends Fragment {
     private void fetchData(){
         getCountries();
         getStage();
-        getMagor();
         getSex();
         getApplyService();
 
@@ -508,11 +516,11 @@ public class SearchAboutTeacherFragment extends Fragment {
         }
     }
 
-    private void getMagor() {
+    private void getMagor(String stage_id) {
         /**
          * this section for fetch stage
          */
-        String urlstage = BuildConfig.API_MAJORS;
+        String urlstage = BuildConfig.API_MAJORS + "?stage=" + stage_id;
         // We first check for cached request
         Cache cache1 = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry1 = cache1.get(urlstage);

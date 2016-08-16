@@ -4,8 +4,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,9 +32,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
-import perfect_apps.tutors.adapters.TeachersListAdapter;
 import perfect_apps.tutors.adapters.TeachersSearchResultsListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
@@ -108,7 +103,6 @@ public class TeachersSearchResultList extends Fragment {
         mAdapter = new TeachersSearchResultsListAdapter(getActivity(), mDataset, Constants.STUDENT_PAGE);
         // Set TeachersListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
-
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -265,6 +259,7 @@ public class TeachersSearchResultList extends Fragment {
                 mAdapter.notifyDataSetChanged();
                 Log.d(TAG, response.toString());
                 onRefreshComplete();
+
 
             }
         }, new Response.ErrorListener() {
