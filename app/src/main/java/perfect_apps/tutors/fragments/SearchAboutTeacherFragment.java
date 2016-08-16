@@ -97,6 +97,18 @@ public class SearchAboutTeacherFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        country_id = "";
+        city_id = "";
+        major_id = "";
+        stage_id = "";
+        apply_service_id = "";
+        gender_id = "";
+
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         searchTeachers.setOnClickListener(new View.OnClickListener() {
@@ -132,27 +144,29 @@ public class SearchAboutTeacherFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeachersSearchResultList teacherDetails =
-                        new TeachersSearchResultList();
-                Bundle b = new Bundle();
+                if (checkIfFieldIsEmpty()) {
+                    TeachersSearchResultList teacherDetails =
+                            new TeachersSearchResultList();
+                    Bundle b = new Bundle();
 
-                b.putString(Constants.COUNTRY_ID, country_id);
-                b.putString(Constants.CITY_ID, city_id);
-                b.putString(Constants.MAJOR_ID, major_id);
-                b.putString(Constants.STAGE_ID, stage_id);
-                b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
-                b.putString(Constants.GENDER_ID, gender_id);
+                    b.putString(Constants.COUNTRY_ID, country_id);
+                    b.putString(Constants.CITY_ID, city_id);
+                    b.putString(Constants.MAJOR_ID, major_id);
+                    b.putString(Constants.STAGE_ID, stage_id);
+                    b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
+                    b.putString(Constants.GENDER_ID, gender_id);
 
-                teacherDetails.setArguments(b);
+                    teacherDetails.setArguments(b);
 
-                FragmentTransaction transaction = getFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.fragment_container, teacherDetails);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.addToBackStack(TeachersSearchResultList.TAG);
-                transaction.commit();
-                // to add to back stack
-                getActivity().getSupportFragmentManager().executePendingTransactions();
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(TeachersSearchResultList.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
             }
         });
     }
@@ -256,6 +270,7 @@ public class SearchAboutTeacherFragment extends Fragment {
                 if (position > 0) {
                     // doSome things
                     country_id = selectedItem.getId();
+                    city_id = "";
                     String urlCities = BuildConfig.API_CITIES + selectedItem.getId();
                     fetchCitiesData(urlCities);
                 }
@@ -435,7 +450,10 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner6(JsonParser.parseSexFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseSexFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner6(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -516,7 +534,11 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner4(JsonParser.parseMajorsFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseMajorsFeed(response);
+
+                    if (spinnerItemList != null) {
+                        populateSpinner4(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -597,7 +619,10 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner5(JsonParser.parseApplyServicesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseApplyServicesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner5(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -678,7 +703,10 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner3(JsonParser.parseStageFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseStageFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner3(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -759,7 +787,10 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner1(JsonParser.parseCountriesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseCountriesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner1(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -838,7 +869,10 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner2(JsonParser.parseCitiesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseCitiesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner2(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
