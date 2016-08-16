@@ -10,13 +10,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/makNewSearch">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:background="#FFFFFF"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager" />
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+        <LinearLayout
+            android:id="@+id/noData"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="77dp"
+                android:layout_height="80dp"
+                android:src="@drawable/no_data"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="لاتوجد نتائج"/>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
 </android.support.v4.widget.SwipeRefreshLayout>
     <LinearLayout
         android:layout_width="match_parent"

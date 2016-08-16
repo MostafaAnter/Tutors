@@ -47,6 +47,7 @@ public class TeachersSearchResultList extends Fragment {
 
     @Bind(R.id.button1)Button button1;
     @Bind(R.id.makNewSearch)LinearLayout makeNewSearch;
+    @Bind(R.id.noData) LinearLayout noDataView;
 
     // for manipulate recyclerView
     public static final String TAG = "TeachersSearchResult";
@@ -260,6 +261,9 @@ public class TeachersSearchResultList extends Fragment {
                 Log.d(TAG, response.toString());
                 onRefreshComplete();
 
+                if (mDataset.size() == 0)
+                    noDataView.setVisibility(View.VISIBLE);
+
 
             }
         }, new Response.ErrorListener() {
@@ -268,6 +272,7 @@ public class TeachersSearchResultList extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 onRefreshComplete();
+                noDataView.setVisibility(View.VISIBLE);
             }
         });
         // disable cache
