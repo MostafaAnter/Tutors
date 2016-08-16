@@ -124,6 +124,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         super.onStart();
         changeTextFont();
         fetchData();
+        List<SpinnerItem> spinnerItemList = new ArrayList<>();
+        spinnerItemList.add(null);
+        populateSpinner2(spinnerItemList);
+        populateSpinner4(spinnerItemList);
     }
 
     private void setToolbar() {
@@ -240,6 +244,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 if (position > 0) {
                     // doSome things
                     country_id = selectedItem.getId();
+                    city_id = null;
                     String urlCities = BuildConfig.API_CITIES + selectedItem.getId();
                     fetchCitiesData(urlCities);
                 }
@@ -293,7 +298,9 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-                   stage_id = selectedItem.getId();
+                    stage_id = selectedItem.getId();
+                    major_id = null;
+                    getMagor(stage_id);
                 }
             }
 
@@ -391,7 +398,6 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     private void fetchData(){
         getCountries();
         getStage();
-        getMagor();
         getSex();
         getApplyService();
 
@@ -479,11 +485,11 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         }
     }
 
-    private void getMagor() {
+    private void getMagor(String stage_id) {
         /**
          * this section for fetch stage
          */
-        String urlstage = BuildConfig.API_MAJORS;
+        String urlstage = BuildConfig.API_MAJORS + "?stage=" + stage_id;
         // We first check for cached request
         Cache cache1 = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry1 = cache1.get(urlstage);
