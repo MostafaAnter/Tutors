@@ -15,6 +15,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * Created by mostafa on 30/06/16.
  */
@@ -69,5 +71,12 @@ public class Utils {
         }else {
             return post_date;
         }
+    }
+
+    public static void showErrorMessage(Context mContext, String message){
+        new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("خطأ !")
+                .setContentText(message)
+                .show();
     }
 }

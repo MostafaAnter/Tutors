@@ -51,6 +51,7 @@ import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.utils.Constants;
+import perfect_apps.tutors.utils.Utils;
 
 /**
  * Created by mostafa on 29/06/16.
@@ -101,27 +102,29 @@ public class SearchAboutTeacherFragment extends Fragment {
         searchTeachers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeachersSearchResultList teacherDetails =
-                        new TeachersSearchResultList();
-                Bundle b = new Bundle();
+                if (checkIfFieldIsEmpty()) {
+                    TeachersSearchResultList teacherDetails =
+                            new TeachersSearchResultList();
+                    Bundle b = new Bundle();
 
-                b.putString(Constants.COUNTRY_ID, country_id);
-                b.putString(Constants.CITY_ID, city_id);
-                b.putString(Constants.MAJOR_ID, major_id);
-                b.putString(Constants.STAGE_ID, stage_id);
-                b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
-                b.putString(Constants.GENDER_ID, gender_id);
+                    b.putString(Constants.COUNTRY_ID, country_id);
+                    b.putString(Constants.CITY_ID, city_id);
+                    b.putString(Constants.MAJOR_ID, major_id);
+                    b.putString(Constants.STAGE_ID, stage_id);
+                    b.putString(Constants.APPLY_SERVICE_ID, apply_service_id);
+                    b.putString(Constants.GENDER_ID, gender_id);
 
-                teacherDetails.setArguments(b);
+                    teacherDetails.setArguments(b);
 
-                FragmentTransaction transaction = getFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.fragment_container, teacherDetails);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.addToBackStack(TeachersSearchResultList.TAG);
-                transaction.commit();
-                // to add to back stack
-                getActivity().getSupportFragmentManager().executePendingTransactions();
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(TeachersSearchResultList.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
 
             }
         });
@@ -152,6 +155,34 @@ public class SearchAboutTeacherFragment extends Fragment {
                 getActivity().getSupportFragmentManager().executePendingTransactions();
             }
         });
+    }
+
+    private boolean checkIfFieldIsEmpty(){
+        if (country_id.trim().isEmpty()){
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار الدولة");
+            return false;
+        }
+        if (city_id.trim().isEmpty()){
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المدينة");
+            return false;
+        }
+        if (stage_id.trim().isEmpty()){
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المرحلة الدراسية");
+            return false;
+        }
+        if (major_id.trim().isEmpty()){
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار التخصص");
+            return false;
+        }
+        if (apply_service_id.trim().isEmpty()){
+            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع تقديم الخدمة");
+            return false;
+        }
+        if (gender_id.trim().isEmpty()){
+            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع المعلم");
+            return false;
+        }
+        return true;
     }
 
     @Override
