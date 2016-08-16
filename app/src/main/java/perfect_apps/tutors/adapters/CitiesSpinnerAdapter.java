@@ -1,6 +1,7 @@
 package perfect_apps.tutors.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,10 +67,9 @@ public class CitiesSpinnerAdapter extends ArrayAdapter {
 
             // Default selected Spinner item
             label.setText("المدينة");
-        }
-        else
-        {
+        }else{
             label.setText(mDataset.get(position).getName());
+            label.setTextColor(Color.BLACK);
         }
 
         return row;

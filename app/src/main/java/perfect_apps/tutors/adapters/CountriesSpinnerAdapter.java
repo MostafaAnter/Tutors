@@ -73,6 +73,7 @@ public class CountriesSpinnerAdapter extends ArrayAdapter {
         else
         {
             label.setText(mDataset.get(position).getName());
+            label.setTextColor(Color.BLACK);
         }
 
         return row;

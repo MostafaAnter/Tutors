@@ -1,6 +1,7 @@
 package perfect_apps.tutors.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,7 @@ public class ServiceSpinnerAdapterGreen extends ArrayAdapter {
         else
         {
             label.setText(mDataset.get(position).getName());
+            label.setTextColor(Color.BLACK);
         }
 
         return row;
