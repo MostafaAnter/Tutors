@@ -462,10 +462,8 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private void fetchSpinners() {
         getCountries();
         getStage();
-        getMagor();
         getSex();
         getApplyService();
-
         fetchData();
 
     }
@@ -497,7 +495,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner6(JsonParser.parseSexFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseSexFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner6(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -507,7 +508,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }) {
+            }){
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -552,11 +553,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void getMagor() {
+    private void getMagor(String stage_id) {
         /**
          * this section for fetch stage
          */
-        String urlstage = BuildConfig.API_MAJORS;
+        String urlstage = BuildConfig.API_MAJORS + "?stage=" + stage_id;
         // We first check for cached request
         Cache cache1 = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry1 = cache1.get(urlstage);
@@ -578,7 +579,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner4(JsonParser.parseMajorsFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseMajorsFeed(response);
+
+                    if (spinnerItemList != null) {
+                        populateSpinner4(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -588,7 +593,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }) {
+            }){
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -659,7 +664,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner5(JsonParser.parseApplyServicesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseApplyServicesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner5(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -669,7 +677,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }) {
+            }){
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -740,7 +748,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner3(JsonParser.parseStageFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseStageFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner3(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -750,7 +761,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }) {
+            }){
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -821,7 +832,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner1(JsonParser.parseCountriesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseCountriesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner1(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -831,7 +845,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }) {
+            }){
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -877,7 +891,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
     }
 
-    private void fetchCitiesData(String urlCities) {
+    private void fetchCitiesData(String urlCities){
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -900,7 +914,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner2(JsonParser.parseCitiesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseCitiesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner2(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -910,7 +927,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }) {
+            }){
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
