@@ -73,6 +73,7 @@
             android:maxLines="2"
             style="?android:attr/textAppearanceSmall"
             android:ellipsize="end"
+            android:textColor="#000000"
             android:text="يتم اكتساب القوه عن طريق تبادل المعرفه يتم اكتساب القوه عن طريق تبادل "/>
     </LinearLayout>
 
