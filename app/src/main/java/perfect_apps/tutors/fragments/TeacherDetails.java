@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -665,11 +666,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             textView22.setText(itemObject.optString("name"));
             textView26.setText(itemObject.optString("desc"));
             // populate mainImage
-            Glide.with(getActivity())
+            Picasso.with(getActivity())
                     .load(itemObject.optString("image_full_path"))
-                    .thumbnail(0.1f)
                     .placeholder(R.drawable.login_user_ico)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageAvatar);
 
             JSONObject teacherInfoObject = itemObject.optJSONObject("teacher_info");
