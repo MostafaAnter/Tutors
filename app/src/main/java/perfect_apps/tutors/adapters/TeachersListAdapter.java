@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -125,7 +126,12 @@ public class TeachersListAdapter extends RecyclerView.Adapter<TeachersListAdapte
         viewHolder.getRatePerFive().setTypeface(font);
         viewHolder.getRatingBar().setRating(mDataSet.get(position).getRating_per_5());
 
-        viewHolder.getCostPerHour().setText(mDataSet.get(position).getHour_price());
+        if (mDataSet.get(position).getHour_price() != null &&
+                !mDataSet.get(position).getHour_price().trim().isEmpty()) {
+            viewHolder.getCostPerHour().setText(mDataSet.get(position).getHour_price());
+        } else {
+            viewHolder.getCostPerHour().setText("-");
+        }
         viewHolder.getCostPerHour().setTypeface(fontBold);
 
         viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
@@ -133,11 +139,9 @@ public class TeachersListAdapter extends RecyclerView.Adapter<TeachersListAdapte
         viewHolder.getHour().setTypeface(font);
 
         // populate mainImage
-        Glide.with(mContext)
+        Picasso.with(mContext)
                 .load(mDataSet.get(position).getImage_full_path())
-                .thumbnail(0.1f)
                 .placeholder(R.drawable.login_user_ico)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.getUserAvatar());
 
 
