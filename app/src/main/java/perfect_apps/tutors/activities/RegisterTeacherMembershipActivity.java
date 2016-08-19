@@ -71,20 +71,23 @@ import perfect_apps.tutors.utils.VolleyMultipartRequest;
 public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     // vars that i will post to service
 
-    private static String name;
-    private static String email;
-    private static String password;
-    private static String password_confirmation;
-    private static String country_id;
-    private static String city_id ;
-    private static String major_id ;
-    private static String stage_id ;
-    private static String subjects ;
-    private static String hour_price ;
-    private static String apply_service_id;
-    private static String gender_id;
-    private static Uri image;
-    private static String desc;
+    private String name;
+    private String email;
+    private String password;
+    private String password_confirmation;
+    private String country_id;
+    private String city_id ;
+    private String major_id ;
+    private String stage_id ;
+    private String subjects ;
+    private String hour_price ;
+    private String apply_service_id;
+    private String gender_id;
+    private Uri image;
+    private String desc;
+    private String who_am_i;
+    private String qualification;
+    private String experience;
 
 
 
@@ -98,6 +101,11 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     @Bind(R.id.editText4) EditText editText4;
     @Bind(R.id.editText5) EditText editText5;
     @Bind(R.id.editText6) EditText editText6;
+
+    @Bind(R.id.editText7) EditText editText7;
+    @Bind(R.id.editText8) EditText editText8;
+    @Bind(R.id.editText9) EditText editText9;
+
     @Bind(R.id.button1) Button button1;
     @Bind(R.id.button2) Button button2;
     @Bind(R.id.image1) ImageView imageView1;
@@ -179,6 +187,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         editText4.setTypeface(font);
         editText5.setTypeface(font);
         editText6.setTypeface(font);
+        editText7.setTypeface(font);
+        editText8.setTypeface(font);
+        editText9.setTypeface(font);
+
         button1.setTypeface(font);
         button2.setTypeface(fontBold);
         textView3.setTypeface(fontBold);
@@ -430,7 +442,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner6(JsonParser.parseSexFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseSexFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner6(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -511,7 +526,11 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner4(JsonParser.parseMajorsFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseMajorsFeed(response);
+
+                    if (spinnerItemList != null) {
+                        populateSpinner4(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -592,7 +611,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner5(JsonParser.parseApplyServicesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseApplyServicesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner5(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -673,7 +695,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner3(JsonParser.parseStageFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseStageFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner3(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -754,7 +779,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner1(JsonParser.parseCountriesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseCountriesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner1(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -833,7 +861,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner2(JsonParser.parseCitiesFeed(response));
+                    List<SpinnerItem> spinnerItemList = JsonParser.parseCitiesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner2(spinnerItemList);
+                    }
                     Log.d("response", response.toString());
 
                 }
@@ -924,10 +955,20 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pDialog.dismissWithAnimation();
+                        String errorServerMessage = "";
+                        if (error.networkResponse.data != null) {
+                            errorServerMessage = new String(error.networkResponse.data);
+                            try {
+                                JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                errorServerMessage = errorMessageObject.optString("message");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         // show error message
                         new SweetAlertDialog(RegisterTeacherMembershipActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("نأسف!")
-                                .setContentText("حدث خطأ حاول مره اخري")
+                                .setTitleText("خطأ!")
+                                .setContentText(errorServerMessage)
                                 .show();
 
                         NetworkResponse networkResponse = error.networkResponse;
@@ -994,6 +1035,12 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                         params.put("gender_id", gender_id);
                         if(desc != null)
                         params.put("desc", desc);
+                        if(who_am_i != null)
+                        params.put("who_am_i", who_am_i);
+                        if(experience != null)
+                        params.put("experience", experience);
+                        if(qualification != null)
+                        params.put("qualification", qualification);
                         return params;
                     }
 
@@ -1030,11 +1077,15 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         }
     }
 
-    private boolean attempRegister(){
+    private boolean attempRegister() {
         try {
             desc = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
             name = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
             subjects = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
+            who_am_i = URLEncoder.encode(editText9.getText().toString().trim(), "UTF-8");
+            qualification = URLEncoder.encode(editText7.getText().toString().trim(), "UTF-8");
+            experience = URLEncoder.encode(editText8.getText().toString().trim(), "UTF-8");
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -1042,6 +1093,51 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         email = editText5.getText().toString().trim();
         password = editText6.getText().toString().trim();
         password_confirmation = editText6.getText().toString().trim();
+
+
+        if (desc == null || desc.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء كتابة نبذة مختصرة عنك");
+            return false;
+        }
+
+        if (name == null || name.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء أدخال الاسم كامل");
+            return false;
+        }
+
+        if (country_id == null || country_id.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء قم بأختيار الدولة");
+            return false;
+        }
+        if (city_id == null || city_id.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء قم بأختيار المدينة");
+            return false;
+        }
+        if (stage_id== null || stage_id.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء قم بأختيار المرحلة الدراسية");
+            return false;
+        }
+        if (major_id == null || major_id.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء قم بأختيار التخصص");
+            return false;
+        }
+        if (apply_service_id == null || apply_service_id.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء اختيار نوع تقديم الخدمة");
+            return false;
+        }
+        if (gender_id == null || gender_id.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء اختيار نوع المعلم");
+            return false;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء ادخل البريد الاليكترونى");
+            return false;
+        }
+        if (password == null || password.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء ادخل الرقم السري");
+            return false;
+        }
+
 
         // first check mail format
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -1052,30 +1148,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
             return false;
         }
 
-
-        if (name != null && !name.trim().isEmpty()
-                && subjects != null && !subjects.trim().isEmpty()
-                && hour_price != null && !hour_price.trim().isEmpty()
-                && email != null && !email.trim().isEmpty()
-                && password != null && !password.trim().isEmpty()
-                && country_id != null && !country_id.trim().isEmpty()
-                && city_id != null && !city_id.trim().isEmpty()
-                && major_id != null && !major_id.trim().isEmpty()
-                && stage_id != null && !stage_id.trim().isEmpty()
-                && gender_id != null && !gender_id.trim().isEmpty()
-                && apply_service_id != null && !apply_service_id.trim().isEmpty()){
-
-            return true;
-
-        }else {
-            // show error message
-            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("نأسف !")
-                    .setContentText("قم بإكمال تسجيل البيانات")
-                    .show();
-            return false;
-        }
-
+        return true;
 
     }
 

@@ -23,7 +23,7 @@
     <string name="write_about_you">اكتب نبذه مختصره عنك سوف تظهر فى عضويتك اسفل صورتك...</string>
     <string name="addPhoto">أضف صورتي</string>
     <string name="full_name">الاسم بالكامل</string>
-    <string name="school_subjects">المواد الدراسية</string>
+    <string name="school_subjects">المواد التى أدرسها</string>
     <string name="password">كلمة المرور</string>
     <string name="email">البريد الإلكتروني</string>
     <string name="cost_of_hour">سعر الساعة بالعملة المحلية</string>

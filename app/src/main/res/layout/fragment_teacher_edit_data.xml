@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layoutDirection="ltr"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="perfect_apps.tutors.activities.RegisterTeacherMembershipActivity"
     android:scrollbarStyle="insideOverlay"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="perfect_apps.tutors.activities.RegisterTeacherMembershipActivity">
+
     <LinearLayout
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
@@ -19,59 +20,61 @@
 
 
         <LinearLayout
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_marginTop="@dimen/activity_vertical_margin">
 
             <EditText
                 android:id="@+id/editText1"
                 android:layout_width="0dp"
-                android:layout_weight="1.5"
                 android:layout_height="fill_parent"
                 android:layout_above="@+id/send_button"
-                android:background="@drawable/border_shape"
-                android:hint="@string/write_about_you"
-                android:textSize="12sp"
-                android:imeOptions="actionUnspecified"
-                android:padding="5dp"
                 android:layout_marginRight="10dp"
-                android:inputType="textMultiLine"
-                android:gravity="top" >
-            </EditText>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
+                android:layout_weight="1.5"
                 android:background="@drawable/border_shape"
-                android:orientation="vertical"
-                android:id="@+id/pickPhoto">
+                android:gravity="top"
+                android:hint="@string/write_about_you"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textMultiLine"
+                android:padding="5dp"
+                android:textSize="12sp"></EditText>
+
+            <LinearLayout
+                android:id="@+id/pickPhoto"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_shape"
+                android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="2">
+
                     <ImageView
                         android:id="@+id/image1"
                         android:layout_width="match_parent"
-                        android:layout_gravity="center_horizontal"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/avatr"/>
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/avatr" />
 
                 </FrameLayout>
+
                 <Button
                     android:id="@+id/button1"
-                    android:layout_margin="5dp"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:text="صورتي"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
         </LinearLayout>
@@ -80,59 +83,63 @@
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeightLarge"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
+            android:gravity="top"
             android:hint="نبذة تعريفية عن المدرس"
-            android:textSize="12sp"
             android:imeOptions="actionUnspecified"
-            android:padding="5dp"
             android:inputType="textMultiLine"
-            android:gravity="top" />
+            android:padding="5dp"
+            android:textSize="12sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/full_name"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:maxLines="1"
-                android:imeOptions="actionUnspecified"
-                android:padding="5dp"
-                android:inputType="text"
+                android:layout_weight="1"
                 android:background="#00000000"
-                android:gravity="top" />
+                android:gravity="top"
+                android:hint="@string/full_name"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_name_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_name_ico" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_weight="1"
                 android:background="@drawable/border_shape"
                 android:orientation="horizontal">
 
@@ -143,15 +150,16 @@
                     android:contentDescription="@null"
                     android:padding="8dp"
                     android:src="@drawable/down_arrow" />
+
                 <ImageView
-                    android:contentDescription="@null"
                     android:layout_width="30dp"
-                    android:padding="3dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
                     android:layout_margin="1dp"
                     android:background="#f8f8f8"
-                    android:layout_alignParentRight="true"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_action_place_ico"/>
+                    android:contentDescription="@null"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_action_place_ico" />
 
                 <Spinner
                     android:id="@+id/spinner2"
@@ -168,12 +176,12 @@
 
             <View
                 android:layout_width="@dimen/activity_horizontal_margin"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_weight="1"
                 android:background="@drawable/border_shape"
                 android:orientation="horizontal">
 
@@ -184,15 +192,16 @@
                     android:contentDescription="@null"
                     android:padding="8dp"
                     android:src="@drawable/down_arrow" />
+
                 <ImageView
-                    android:contentDescription="@null"
                     android:layout_width="30dp"
-                    android:padding="3dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
                     android:layout_margin="1dp"
                     android:background="#f8f8f8"
-                    android:layout_alignParentRight="true"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_action_place_ico"/>
+                    android:contentDescription="@null"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_action_place_ico" />
 
                 <Spinner
                     android:id="@+id/spinner1"
@@ -208,12 +217,13 @@
             </RelativeLayout>
 
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
 
@@ -224,15 +234,16 @@
                 android:contentDescription="@null"
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_alignParentRight="true"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_school_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_school_ico" />
 
             <Spinner
                 android:id="@+id/spinner3"
@@ -249,10 +260,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
 
@@ -263,15 +274,16 @@
                 android:contentDescription="@null"
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_alignParentRight="true"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_schooll_icon"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_schooll_icon" />
 
             <Spinner
                 android:id="@+id/spinner4"
@@ -286,76 +298,12 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@drawable/border_shape"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="@string/school_subjects"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:padding="5dp"
-                android:maxLines="1"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:background="#00000000"
-                android:gravity="right" />
-            <ImageView
-                android:contentDescription="@null"
-                android:layout_width="30dp"
-                android:padding="3dp"
-                android:layout_margin="1dp"
-                android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_school_ico"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@drawable/border_shape"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editText5"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="@string/cost_of_hour"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:padding="5dp"
-                android:maxLines="1"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:background="#00000000"
-                android:gravity="top" />
-            <ImageView
-                android:contentDescription="@null"
-                android:layout_width="30dp"
-                android:padding="3dp"
-                android:layout_margin="1dp"
-                android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_cur_ico"/>
-        </LinearLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
 
@@ -366,15 +314,16 @@
                 android:contentDescription="@null"
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_alignParentRight="true"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_serv_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_serv_ico" />
 
             <Spinner
                 android:id="@+id/spinner5"
@@ -391,10 +340,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
 
@@ -405,15 +354,16 @@
                 android:contentDescription="@null"
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_alignParentRight="true"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_sex_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_sex_ico" />
 
             <Spinner
                 android:id="@+id/spinner6"
@@ -427,194 +377,281 @@
 
 
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="right"
+                android:hint="@string/school_subjects"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_school_ico" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="@string/cost_of_hour"
+                android:imeOptions="actionUnspecified"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_cur_ico" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/editText6"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="top"
                 android:hint="المؤهل الدراسي"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:padding="5dp"
-                android:maxLines="1"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textEmailAddress"
-                android:background="#00000000"
-                android:gravity="top" />
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_edu_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_edu_ico" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/editText7"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="عدد سنوات الخبرة"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:padding="5dp"
-                android:maxLines="1"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textEmailAddress"
+                android:layout_weight="1"
                 android:background="#00000000"
-                android:gravity="top" />
+                android:gravity="top"
+                android:hint="عدد سنوات الخبرة"
+                android:imeOptions="actionUnspecified"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_exp_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_exp_ico" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/editText8"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="top"
                 android:hint="@string/email"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:padding="5dp"
-                android:maxLines="1"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textEmailAddress"
-                android:background="#00000000"
-                android:gravity="top" />
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_mail_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_mail_ico" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/editText9"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="right"
                 android:hint="@string/password"
-                android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:padding="5dp"
-                android:maxLines="1"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:background="#00000000"
-                android:gravity="right" />
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
-                android:padding="3dp"
+                android:layout_height="match_parent"
                 android:layout_margin="1dp"
                 android:background="#f8f8f8"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_pass_ico"/>
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_pass_ico" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/viewForStudent"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:id="@+id/linearCancel"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/border_shape_gray"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="الغاء"
-                    android:textColorHint="#9d9d9d"
-                    android:textColor="#9d9d9d"
+                    android:layout_weight="1"
+                    android:background="#00000000"
                     android:padding="5dp"
-                    android:background="#00000000" />
+                    android:text="الغاء"
+                    android:textColor="#9d9d9d"
+                    android:textColorHint="#9d9d9d" />
+
                 <ImageView
-                    android:contentDescription="@null"
                     android:layout_width="48dp"
-                    android:padding="8dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="1dp"
                     android:background="#9d9d9d"
-                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:padding="8dp"
                     android:src="@drawable/ic_action_cancle_btn_ico"
-                    android:tint="#FFFFFF"/>
+                    android:tint="#FFFFFF" />
             </LinearLayout>
+
             <View
                 android:layout_width="@dimen/activity_horizontal_margin"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+
             <LinearLayout
                 android:id="@+id/linearUpdate"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/border_shape_blue"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="حفظ"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textColor="@color/colorPrimary"
+                    android:layout_weight="1"
+                    android:background="#00000000"
                     android:padding="5dp"
-                    android:background="#00000000" />
+                    android:text="حفظ"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary" />
+
                 <ImageView
-                    android:contentDescription="@null"
                     android:layout_width="48dp"
-                    android:padding="8dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="1dp"
                     android:background="@color/colorPrimary"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_action_save_btn_ico"/>
+                    android:contentDescription="@null"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_action_save_btn_ico" />
             </LinearLayout>
 
         </LinearLayout>

@@ -70,22 +70,22 @@ import perfect_apps.tutors.utils.Utils;
  * Created by mostafa on 28/06/16.
  */
 public class TeacherEditData extends Fragment implements View.OnClickListener {
-    private static String name;
-    private static String email;
-    private static String password;
-    private static String country_id;
-    private static String city_id;
-    private static String major_id;
-    private static String stage_id;
-    private static String subjects;
-    private static String hour_price;
-    private static String apply_service_id;
-    private static String gender_id;
-    private static Uri image;
-    private static String desc;
-    private static String who_am_i;
-    private static String qualification;
-    private static String experience;
+    private String name;
+    private String email;
+    private String password;
+    private String country_id;
+    private String city_id;
+    private String major_id;
+    private String stage_id;
+    private String subjects;
+    private String hour_price;
+    private String apply_service_id;
+    private String gender_id;
+    private Uri image;
+    private String desc;
+    private String who_am_i;
+    private String qualification;
+    private String experience;
 
 
     @Bind(R.id.editText1)
