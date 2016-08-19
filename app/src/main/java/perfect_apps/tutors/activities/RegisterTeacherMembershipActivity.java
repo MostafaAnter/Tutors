@@ -960,6 +960,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                             errorServerMessage = new String(error.networkResponse.data);
                             try {
                                 JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                Log.e("server error", errorMessageObject.toString());
                                 errorServerMessage = errorMessageObject.optString("message");
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -1009,37 +1010,37 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        if(name != null)
+                        if(name != null && !name.trim().isEmpty())
                         params.put("name", name);
-                        if(email != null)
+                        if(email != null && !email.trim().isEmpty())
                         params.put("email", email);
-                        if(password != null)
+                        if(password != null&& !password.trim().isEmpty())
                         params.put("password", password);
-                        if(password_confirmation != null)
+                        if(password_confirmation != null && !password_confirmation.trim().isEmpty())
                         params.put("password_confirmation", password_confirmation);
-                        if(country_id != null)
+                        if(country_id != null && !country_id.trim().isEmpty())
                         params.put("country_id", country_id);
-                        if(city_id != null)
+                        if(city_id != null && !city_id.trim().isEmpty())
                         params.put("city_id", city_id);
-                        if(major_id != null)
+                        if(major_id != null && !major_id.trim().isEmpty())
                         params.put("major_id", major_id);
-                        if(stage_id != null)
+                        if(stage_id != null && !stage_id.trim().isEmpty())
                         params.put("stage_id", stage_id);
-                        if(subjects != null)
+                        if(subjects != null && !subjects.trim().isEmpty())
                         params.put("subjects", subjects);
-                        if(hour_price != null)
+                        if(hour_price != null && !hour_price.trim().isEmpty())
                         params.put("hour_price", hour_price);
-                        if(apply_service_id != null)
+                        if(apply_service_id != null && !apply_service_id.trim().isEmpty())
                         params.put("apply_service_id", apply_service_id);
-                        if(gender_id != null)
+                        if(gender_id != null && !gender_id.trim().isEmpty())
                         params.put("gender_id", gender_id);
-                        if(desc != null)
+                        if(desc != null && !desc.trim().isEmpty())
                         params.put("desc", desc);
-                        if(who_am_i != null)
+                        if(who_am_i != null && !who_am_i.trim().isEmpty())
                         params.put("who_am_i", who_am_i);
-                        if(experience != null)
+                        if(experience != null && !experience.trim().isEmpty())
                         params.put("experience", experience);
-                        if(qualification != null)
+                        if(qualification != null && !qualification.trim().isEmpty())
                         params.put("qualification", qualification);
                         return params;
                     }
