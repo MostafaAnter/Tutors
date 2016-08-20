@@ -280,6 +280,9 @@ public class SearchAboutTeacherFragment extends Fragment {
                     city_id = "";
                     String urlCities = BuildConfig.API_CITIES + selectedItem.getId();
                     fetchCitiesData(urlCities);
+                }else{
+                    country_id = "";
+                    city_id = "";
                 }
             }
 
@@ -306,6 +309,8 @@ public class SearchAboutTeacherFragment extends Fragment {
                 if (position > 0) {
                     // doSome things
                     city_id = selectedItem.getId();
+                }else{
+                    city_id = "";
                 }
             }
 
@@ -334,6 +339,9 @@ public class SearchAboutTeacherFragment extends Fragment {
                     stage_id = selectedItem.getId();
                     major_id = "";
                     getMagor(stage_id);
+                }else{
+                    stage_id = "";
+                    major_id = "";
                 }
             }
 
@@ -360,6 +368,8 @@ public class SearchAboutTeacherFragment extends Fragment {
                 if (position > 0) {
                     // doSome things
                     major_id = selectedItem.getId();
+                }else {
+                    major_id = "";
                 }
             }
 
@@ -386,6 +396,8 @@ public class SearchAboutTeacherFragment extends Fragment {
                 if (position > 0) {
                     // doSome things
                     apply_service_id = selectedItem.getId();
+                }else {
+                    apply_service_id = "";
                 }
             }
 
@@ -412,6 +424,8 @@ public class SearchAboutTeacherFragment extends Fragment {
                 if (position > 0) {
                     // doSome things
                     gender_id = selectedItem.getId();
+                }else {
+                    gender_id = "";
                 }
             }
 
