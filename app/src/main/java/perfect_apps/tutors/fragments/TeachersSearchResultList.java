@@ -4,6 +4,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +39,7 @@ import perfect_apps.tutors.adapters.TeachersSearchResultsListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
 
@@ -309,6 +312,18 @@ public class TeachersSearchResultList extends Fragment {
         searchIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (addSearchAboutTeacherToBackstack()) {
+                    SearchAboutTeacherFragment teacherDetails =
+                            new SearchAboutTeacherFragment();
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
 
             }
         });
@@ -319,6 +334,16 @@ public class TeachersSearchResultList extends Fragment {
 
             }
         });
+    }
+
+    private boolean addSearchAboutTeacherToBackstack(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0){
+            return true;
+        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            return false;
+        }
+        return true;
     }
 
     @Override
