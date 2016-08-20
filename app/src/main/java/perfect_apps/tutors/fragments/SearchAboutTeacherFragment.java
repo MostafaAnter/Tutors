@@ -283,6 +283,11 @@ public class SearchAboutTeacherFragment extends Fragment {
                 }else{
                     country_id = "";
                     city_id = "";
+
+                    List<SpinnerItem> spinnerItemList = new ArrayList<>();
+                    spinnerItemList.add(null);
+                    populateSpinner2(spinnerItemList);
+
                 }
             }
 
@@ -342,6 +347,10 @@ public class SearchAboutTeacherFragment extends Fragment {
                 }else{
                     stage_id = "";
                     major_id = "";
+
+                    List<SpinnerItem> spinnerItemList = new ArrayList<>();
+                    spinnerItemList.add(null);
+                    populateSpinner4(spinnerItemList);
                 }
             }
 
