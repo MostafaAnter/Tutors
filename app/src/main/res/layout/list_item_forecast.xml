@@ -12,8 +12,7 @@
         android:layout_weight="1"
         android:padding="5dp"
         android:minHeight="?android:attr/listPreferredItemHeightLarge"
-        android:layout_height="match_parent"
-        android:src="@drawable/login_user_ico"/>
+        android:layout_height="match_parent" />
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="2.5"

@@ -146,7 +146,8 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
         viewHolder.getRatingBar().setRating(mDataSet.get(position).getRating_per_5());
 
         if (mDataSet.get(position).getHour_price() != null &&
-                !mDataSet.get(position).getHour_price().trim().isEmpty()) {
+                !mDataSet.get(position).getHour_price().trim().isEmpty() &&
+                !mDataSet.get(position).getHour_price().equalsIgnoreCase("null")) {
             viewHolder.getCostPerHour().setText(mDataSet.get(position).getHour_price());
         } else {
             viewHolder.getCostPerHour().setText("-");
