@@ -150,7 +150,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
                 !mDataSet.get(position).getHour_price().equalsIgnoreCase("null")) {
             viewHolder.getCostPerHour().setText(mDataSet.get(position).getHour_price());
         } else {
-            viewHolder.getCostPerHour().setText("-");
+            viewHolder.getCostPerHour().setText("--");
         }
         viewHolder.getCostPerHour().setTypeface(fontBold);
 
