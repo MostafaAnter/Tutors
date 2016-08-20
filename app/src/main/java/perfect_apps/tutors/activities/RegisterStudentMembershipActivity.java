@@ -52,11 +52,11 @@ import perfect_apps.tutors.utils.Utils;
 import perfect_apps.tutors.utils.VolleyMultipartRequest;
 
 public class RegisterStudentMembershipActivity extends LocalizationActivity {
-    private static String name;
-    private static String email;
-    private static String password;
-    private static String password_confirmation;
-    private static Uri image;
+    private String name;
+    private String email;
+    private String password;
+    private String password_confirmation;
+    private Uri image;
 
 
 
@@ -354,6 +354,20 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
         password = editText3.getText().toString().trim();
         password_confirmation = editText3.getText().toString().trim();
 
+        if (name == null || name.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء أدخال الاسم كامل");
+            return false;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء ادخل البريد الاليكترونى");
+            return false;
+        }
+        if (password == null || password.trim().isEmpty()) {
+            Utils.showErrorMessage(this, "الرجاء ادخل الرقم السري");
+            return false;
+        }
+
+
         // first check mail format
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -372,21 +386,7 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
 
         }
 
-
-        if (name != null && !name.trim().isEmpty()
-                && email != null && !email.trim().isEmpty()
-                && password != null && !password.trim().isEmpty()){
-
-            return true;
-
-        }else {
-            // show error message
-            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("نأسف !")
-                    .setContentText("قم بإكمال تسجيل البيانات")
-                    .show();
-            return false;
-        }
+        return true;
 
 
     }
