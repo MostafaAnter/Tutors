@@ -73,6 +73,20 @@ public class HomeActivity extends LocalizationActivity
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
+        ImageView back = (ImageView) toolbar.findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                if (fm.getBackStackEntryCount() == 1){
+                    finish();
+                }else {
+                    clearBackStack();
+                }
+
+            }
+        });
 
         searchIc.setVisibility(View.GONE);
         profileIc.setVisibility(View.GONE);
