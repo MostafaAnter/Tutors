@@ -672,7 +672,13 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     .into(imageAvatar);
 
             JSONObject teacherInfoObject = itemObject.optJSONObject("teacher_info");
-            textView28.setText(teacherInfoObject.optString("hour_price"));
+            if (teacherInfoObject.optString("hour_price") != null &&
+                    !teacherInfoObject.optString("hour_price").trim().isEmpty() &&
+                    !teacherInfoObject.optString("hour_price").equalsIgnoreCase("null")) {
+                textView28.setText(teacherInfoObject.optString("hour_price"));
+            } else {
+                textView28.setText("--");
+            }
             textView10.setText(teacherInfoObject.optString("subjects"));
             if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null"))
             textView16.setText(teacherInfoObject.optString("qualification"));
