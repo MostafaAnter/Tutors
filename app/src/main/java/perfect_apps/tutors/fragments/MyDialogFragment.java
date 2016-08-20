@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -73,6 +74,17 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         close.setOnClickListener(this);
         textView4.setOnClickListener(this);
         textView6.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     private void changeTextFont(){

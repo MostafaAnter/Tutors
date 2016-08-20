@@ -207,20 +207,6 @@ public class HomeActivity extends LocalizationActivity
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        } else if (id == R.id.search_about_teacher) {
-            if (addStudentHomeListToBackstack()) {
-                clearBackStack();
-                SearchAboutTeacherFragment teacherDetails =
-                        new SearchAboutTeacherFragment();
-                FragmentTransaction transaction = getSupportFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.fragment_container, teacherDetails);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
-                transaction.commit();
-                // to add to back stack
-                getSupportFragmentManager().executePendingTransactions();
-            }
         } else if (id == R.id.about_app) {
             if (addAboutToBackstack()) {
                 // clearBackStack();
