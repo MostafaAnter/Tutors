@@ -242,7 +242,9 @@ public class TeachersSearchResultList extends Fragment {
                 "&apply_service_id=" +
                 getArguments().getString(Constants.APPLY_SERVICE_ID) +
                 "&gender_id=" +
-                getArguments().getString(Constants.GENDER_ID) ;
+                getArguments().getString(Constants.GENDER_ID) +
+                "&order_by=" +
+                "rating_count";
 
         // making fresh volley request and getting json
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
