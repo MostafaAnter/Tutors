@@ -14,15 +14,12 @@
             android:id="@+id/studentMyData"
             android:title="بياناتي الشخصية" />
         <item
-            android:id="@+id/studentSearchAboutTeacher"
-            android:title="بحث عن معلم" />
-        <item
             android:id="@+id/about_app"
             android:title="عن التطبيق" />
 
         <item
             android:id="@+id/contact_us"
-            android:title="أتصل بنا" />
+            android:title="اقتراحات واستفسارات" />
         <item
             android:id="@+id/studentSignOut"
             android:title="تسجيل خروج" />

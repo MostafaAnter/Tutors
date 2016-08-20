@@ -267,7 +267,6 @@ public class HomeActivity extends LocalizationActivity
                 // to add to back stack
                 getSupportFragmentManager().executePendingTransactions();
             }
-
         } else if (id == R.id.studentMessages) {
             if (addTeacherMessageToBackstack()) {
                 // clearBackStack();
@@ -300,21 +299,6 @@ public class HomeActivity extends LocalizationActivity
                 transaction.replace(R.id.fragment_container, teacherDetails);
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.addToBackStack(StudentDetails.TAG);
-                transaction.commit();
-                // to add to back stack
-                getSupportFragmentManager().executePendingTransactions();
-            }
-
-        } else if (id == R.id.studentSearchAboutTeacher) {
-            if (addStudentHomeListToBackstack()) {
-                clearBackStack();
-                SearchAboutTeacherFragment teacherDetails =
-                        new SearchAboutTeacherFragment();
-                FragmentTransaction transaction = getSupportFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.fragment_container, teacherDetails);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
                 transaction.commit();
                 // to add to back stack
                 getSupportFragmentManager().executePendingTransactions();
