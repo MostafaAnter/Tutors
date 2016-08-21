@@ -198,15 +198,6 @@ public class HomeActivity extends LocalizationActivity
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        } else if (id == R.id.register_teacher_membership) {
-            startActivity(new Intent(HomeActivity.this, RegisterTeacherMembershipActivity.class));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-
-        } else if (id == R.id.register_student_membership) {
-            startActivity(new Intent(HomeActivity.this, RegisterStudentMembershipActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-
         } else if (id == R.id.about_app) {
             if (addAboutToBackstack()) {
                 // clearBackStack();

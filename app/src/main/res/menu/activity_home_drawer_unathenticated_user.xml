@@ -8,12 +8,6 @@
             android:id="@+id/login"
             android:title="@string/login" />
         <item
-            android:id="@+id/register_teacher_membership"
-            android:title="@string/register_teacher_membership" />
-        <item
-            android:id="@+id/register_student_membership"
-            android:title="@string/register_student_membership" />
-        <item
             android:id="@+id/about_app"
             android:title="@string/about_app" />
         <item
