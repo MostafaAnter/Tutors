@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -35,6 +36,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
@@ -51,9 +53,13 @@ import perfect_apps.tutors.utils.DividerItemDecoration;
  */
 public class TeachersHomeList extends Fragment {
     public static final String TAG = "TeachersHomeList";
+
+    @Bind(R.id.noData)
+    LinearLayout noDataView;
     // for manipulate recyclerView
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
+
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
@@ -69,7 +75,7 @@ public class TeachersHomeList extends Fragment {
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public TeachersHomeList(){
+    public TeachersHomeList() {
 
     }
 
@@ -82,7 +88,7 @@ public class TeachersHomeList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.fragment_teachers_home_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_teachers_home_list, container, false);
         view.setTag(TAG);
 
         // manipulate recycler view
@@ -177,6 +183,7 @@ public class TeachersHomeList extends Fragment {
         });
 
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -204,7 +211,7 @@ public class TeachersHomeList extends Fragment {
 
     }
 
-    private void makeNewsRequest(){
+    private void makeNewsRequest() {
         /**
          * this section for fetch Brands
          */
@@ -244,6 +251,8 @@ public class TeachersHomeList extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     Log.d(TAG, response.toString());
                     onRefreshComplete();
+                    if (mDataset.size() == 0)
+                        noDataView.setVisibility(View.VISIBLE);
 
                 }
             }, new Response.ErrorListener() {
@@ -252,6 +261,7 @@ public class TeachersHomeList extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d(TAG, "Error: " + error.getMessage());
                     onRefreshComplete();
+                    noDataView.setVisibility(View.VISIBLE);
                 }
             });
 
@@ -332,21 +342,21 @@ public class TeachersHomeList extends Fragment {
         super.setRetainInstance(true);
     }
 
-    private boolean addTeacherDetailToBackstack(){
+    private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
             return false;
         }
         return true;
     }
 
-    private boolean addTeacherMessageToBackstack(){
+    private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0){
+        if (fm.getBackStackEntryCount() == 0) {
             return true;
-        }else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName().equalsIgnoreCase(MyChats.TAG)){
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(MyChats.TAG)) {
             return false;
         }
         return true;

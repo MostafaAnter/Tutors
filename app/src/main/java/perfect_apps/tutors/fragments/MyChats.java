@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -29,6 +30,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.ChatsAdapter;
 import perfect_apps.tutors.app.AppController;
@@ -46,6 +48,8 @@ import perfect_apps.tutors.utils.Utils;
  */
 public class MyChats extends Fragment {
     public static final String TAG = "MyChats";
+    @Bind(R.id.noData)
+    LinearLayout noDataView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private enum LayoutManagerType {
@@ -134,32 +138,33 @@ public class MyChats extends Fragment {
         // set item click listener
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(),
                 new RecyclerItemClickListener.OnItemClickListener() {
-            @Override public void onItemClick(View view, int position) {
+                    @Override
+                    public void onItemClick(View view, int position) {
 
 
-                if (addConversetionToBackstack()) {
-                    Conversation teacherDetails =
-                            new Conversation();
-                    Bundle b = new Bundle();
-                    b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
-                    b.putString("message_id", mDataset.get(position).getChat_id());
-                    b.putString("user_id", mDataset.get(position).getUser_id());
-                    b.putString("group_id", mDataset.get(position).getGroup_id());
-                    b.putString("flag", "last_chat_page");
-                    teacherDetails.setArguments(b);
-                    FragmentTransaction transaction = getFragmentManager()
-                            .beginTransaction();
-                    transaction.replace(R.id.fragment_container, teacherDetails);
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    transaction.addToBackStack(Conversation.TAG);
-                    transaction.commit();
-                    // to add to back stack
-                    getActivity().getSupportFragmentManager().executePendingTransactions();
-                }
+                        if (addConversetionToBackstack()) {
+                            Conversation teacherDetails =
+                                    new Conversation();
+                            Bundle b = new Bundle();
+                            b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                            b.putString("message_id", mDataset.get(position).getChat_id());
+                            b.putString("user_id", mDataset.get(position).getUser_id());
+                            b.putString("group_id", mDataset.get(position).getGroup_id());
+                            b.putString("flag", "last_chat_page");
+                            teacherDetails.setArguments(b);
+                            FragmentTransaction transaction = getFragmentManager()
+                                    .beginTransaction();
+                            transaction.replace(R.id.fragment_container, teacherDetails);
+                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            transaction.addToBackStack(Conversation.TAG);
+                            transaction.commit();
+                            // to add to back stack
+                            getActivity().getSupportFragmentManager().executePendingTransactions();
+                        }
 
 
-            }
-            })
+                    }
+                })
         );
 
         setActionsOfToolBarIcons();
@@ -314,6 +319,8 @@ public class MyChats extends Fragment {
 
                         }
                         onRefreshComplete();
+                        if (mDataset.size() == 0)
+                            noDataView.setVisibility(View.VISIBLE);
 
                     }
                 }, new Response.ErrorListener() {
@@ -321,6 +328,8 @@ public class MyChats extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         onRefreshComplete();
+
+                        noDataView.setVisibility(View.VISIBLE);
 
                     }
                 });
