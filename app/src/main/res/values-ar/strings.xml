@@ -7,5 +7,5 @@
     <string name="login">تسجيل دخول</string>
     <string name="register_student_membership">تسجيل عضوية طالب</string>
     <string name="register_teacher_membership">تسجيل عضوية معلم</string>
-    <string name="search_about_teacher">بحث عن معلم</string>
+    <string name="search_about_teacher">بحث عن مدرس</string>
 </resources>
