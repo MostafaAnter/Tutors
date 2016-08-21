@@ -41,9 +41,27 @@ public class SplashActivity extends LocalizationActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this, CategoryActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                if(new TutorsPrefStore(SplashActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.TEACHER)){
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                    intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+
+                }else if(new TutorsPrefStore(SplashActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)){
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                    intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+                }else {
+                    startActivity(new Intent(SplashActivity.this, CategoryActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                }
+
             }
 
             @Override
