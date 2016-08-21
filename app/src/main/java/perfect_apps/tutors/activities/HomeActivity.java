@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -57,6 +58,8 @@ public class HomeActivity extends LocalizationActivity
 
     private static NavigationView navigationView;
     TextView studentMessageCount, teacherMessageCount;
+    LinearLayout messageCountView;
+    TextView messageCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,10 @@ public class HomeActivity extends LocalizationActivity
         //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+
+        messageCountView = (LinearLayout)toolbar.findViewById(R.id.messageCountView);
+        messageCount = (TextView)toolbar.findViewById(R.id.messageCount);
+        messageCountView.setVisibility(View.GONE);
 
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
@@ -481,6 +488,10 @@ public class HomeActivity extends LocalizationActivity
                     JSONObject jsonObject = new JSONObject(data);
                     String count = jsonObject.optString("count");
                     t.setText(count);
+                    if (Integer.valueOf(count) > 0){
+                        messageCountView.setVisibility(View.VISIBLE);
+                        messageCount.setText(count);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -508,6 +519,10 @@ public class HomeActivity extends LocalizationActivity
                             JSONObject jsonObject = new JSONObject(response);
                             String count = jsonObject.optString("count");
                             t.setText(count);
+                            if (Integer.valueOf(count) > 0){
+                                messageCountView.setVisibility(View.VISIBLE);
+                                messageCount.setText(count);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

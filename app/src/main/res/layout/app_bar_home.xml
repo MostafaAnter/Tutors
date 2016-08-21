@@ -47,13 +47,32 @@
                     android:layout_height="match_parent"
                     android:padding="5dp"
                     android:src="@drawable/ic_action_profile_ico" />
-                <ImageView
-                    android:id="@+id/chat"
-                    android:contentDescription="@null"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_action_chat_ico" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/chat"
+                        android:contentDescription="@null"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_action_chat_ico" />
+                    <LinearLayout
+                        android:id="@+id/messageCountView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="20dp"
+                        android:minHeight="20dp"
+                        android:gravity="center"
+                        android:background="@drawable/status_circle_red">
+                        <TextView
+                            android:id="@+id/messageCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"/>
+                    </LinearLayout>
+                </FrameLayout>
                 <TextView
                     android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
