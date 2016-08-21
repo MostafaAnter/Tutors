@@ -51,6 +51,7 @@ import perfect_apps.tutors.adapters.StageSpinnerAdapterGreen;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
 
@@ -235,6 +236,12 @@ public class SearchAboutTeacherFragment extends Fragment {
         searchIc.setVisibility(View.VISIBLE);
         profileIc.setVisibility(View.GONE);
         chatIc.setVisibility(View.GONE);
+
+        if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.STUDENT)){
+            profileIc.setVisibility(View.VISIBLE);
+            chatIc.setVisibility(View.VISIBLE);
+        }
 
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override

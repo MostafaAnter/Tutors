@@ -34,13 +34,6 @@
                 android:gravity="center_vertical|right">
 
                 <ImageView
-                    android:id="@+id/search"
-                    android:contentDescription="@null"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_action_search_ico" />
-                <ImageView
                     android:id="@+id/profile"
                     android:contentDescription="@null"
                     android:layout_width="wrap_content"
@@ -73,6 +66,13 @@
                             android:text="0"/>
                     </LinearLayout>
                 </FrameLayout>
+                <ImageView
+                    android:id="@+id/search"
+                    android:contentDescription="@null"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_action_search_ico" />
                 <TextView
                     android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
