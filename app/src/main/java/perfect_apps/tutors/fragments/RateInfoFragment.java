@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -45,12 +47,14 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
     int mNum;
 
 
-    @Bind(R.id.text1)TextView textView1;
-    @Bind(R.id.text2)TextView textView2;
-    @Bind(R.id.text3)TextView textView3;
-    @Bind(R.id.text4)TextView textView4;
-    @Bind(R.id.text5)TextView textView5;
-    @Bind(R.id.text6)TextView textView6;
+    @Bind(R.id.pb1)ProgressBar pb1;
+    @Bind(R.id.pb2)ProgressBar pb2;
+    @Bind(R.id.pb3)ProgressBar pb3;
+    @Bind(R.id.pb4)ProgressBar pb4;
+    @Bind(R.id.pb5)ProgressBar pb5;
+    @Bind(R.id.ratingValue) TextView ratingValue;
+    @Bind(R.id.ratingBar) RatingBar rb;
+
 
 
     @Bind(R.id.closeDialog) ImageView close;
@@ -111,12 +115,6 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
     private void changeTextFont(){
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
-        textView1.setTypeface(fontBold);
-        textView2.setTypeface(font);
-        textView3.setTypeface(font);
-        textView4.setTypeface(font);
-        textView5.setTypeface(font);
-        textView6.setTypeface(font);
     }
 
     @Override
@@ -145,17 +143,20 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                 try {
                     JSONObject jsonObject = new JSONObject(data);
                     JSONObject jsonObject1 = jsonObject.optJSONObject("rates");
-                    String oneStar = jsonObject1.optString("1");
-                    String twoStar = jsonObject1.optString("2");
-                    String threeStar = jsonObject1.optString("3");
-                    String fourStar = jsonObject1.optString("4");
-                    String fiveStar = jsonObject1.optString("5");
+                    int rate1 = jsonObject1.optInt("1");
+                    int rate2 = jsonObject1.optInt("2");
+                    int rate3 = jsonObject1.optInt("3");
+                    int rate4 = jsonObject1.optInt("4");
+                    int rate5 = jsonObject1.optInt("5");
 
-                    textView2.setText(oneStar);
-                    textView3.setText(twoStar);
-                    textView4.setText(threeStar);
-                    textView5.setText(fourStar);
-                    textView6.setText(fiveStar);
+
+
+                    if ((rate1 + rate2 + rate3 + rate4 + rate5) != 0) {
+                        float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
+                        rb.setRating(rate);
+                    }else {
+                        rb.setRating(0);
+                    }
 
 
                 } catch (JSONException e) {
@@ -199,18 +200,18 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonObject1 = jsonObject.optJSONObject("rates");
-                            String oneStar = jsonObject1.optString("1");
-                            String twoStar = jsonObject1.optString("2");
-                            String threeStar = jsonObject1.optString("3");
-                            String fourStar = jsonObject1.optString("4");
-                            String fiveStar = jsonObject1.optString("5");
+                            int rate1 = jsonObject1.optInt("1");
+                            int rate2 = jsonObject1.optInt("2");
+                            int rate3 = jsonObject1.optInt("3");
+                            int rate4 = jsonObject1.optInt("4");
+                            int rate5 = jsonObject1.optInt("5");
 
-                            textView2.setText(oneStar);
-                            textView3.setText(twoStar);
-                            textView4.setText(threeStar);
-                            textView5.setText(fourStar);
-                            textView6.setText(fiveStar);
-
+                            if ((rate1 + rate2 + rate3 + rate4 + rate5) != 0) {
+                                float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
+                                rb.setRating(rate);
+                            }else {
+                                rb.setRating(0);
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
