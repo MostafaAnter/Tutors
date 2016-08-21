@@ -32,22 +32,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical|right">
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="#FFFFFF"
-                    android:layout_marginRight="10dp"
-                    style="?android:attr/textAppearanceMedium" />
 
                 <ImageView
-                    android:id="@+id/chat"
+                    android:id="@+id/search"
                     android:contentDescription="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="5dp"
-                    android:src="@drawable/ic_action_chat_ico" />
+                    android:src="@drawable/ic_action_search_ico" />
                 <ImageView
                     android:id="@+id/profile"
                     android:contentDescription="@null"
@@ -56,12 +48,20 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_action_profile_ico" />
                 <ImageView
-                    android:id="@+id/search"
+                    android:id="@+id/chat"
                     android:contentDescription="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="5dp"
-                    android:src="@drawable/ic_action_search_ico" />
+                    android:src="@drawable/ic_action_chat_ico" />
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#FFFFFF"
+                    android:layout_marginRight="10dp"
+                    style="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
 

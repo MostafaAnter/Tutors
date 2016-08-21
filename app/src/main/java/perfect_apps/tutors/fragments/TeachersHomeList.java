@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
@@ -90,6 +91,7 @@ public class TeachersHomeList extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teachers_home_list, container, false);
         view.setTag(TAG);
+        ButterKnife.bind(this, view);
 
         // manipulate recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);

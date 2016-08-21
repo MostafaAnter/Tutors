@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.ChatsAdapter;
 import perfect_apps.tutors.app.AppController;
@@ -100,6 +101,7 @@ public class MyChats extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat_chats, container, false);
+        ButterKnife.bind(this, view);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.ItemDecoration itemDecoration = new
