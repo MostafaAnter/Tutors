@@ -255,10 +255,21 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pDialog.dismissWithAnimation();
+                        String errorServerMessage = "";
+                        if (error.networkResponse.data != null) {
+                            errorServerMessage = new String(error.networkResponse.data);
+                            try {
+                                JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                Log.e("server error", errorMessageObject.toString());
+                                errorServerMessage = errorMessageObject.optString("message");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         // show error message
                         new SweetAlertDialog(RegisterStudentMembershipActivity.this, SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("نأسف!")
-                                .setContentText("حدث خطأ حاول مره اخري")
+                                .setContentText("البريد مستخدم من قبل اعد المحاوله")
                                 .show();
 
                         NetworkResponse networkResponse = error.networkResponse;
