@@ -239,7 +239,7 @@ public class HomeActivity extends LocalizationActivity
 
         } else if (id == R.id.studentHome) {
             if (addStudentHomeListToBackstack()) {
-                clearBackStack();
+                //clearBackStack();
                 SearchAboutTeacherFragment teacherDetails =
                         new SearchAboutTeacherFragment();
                 FragmentTransaction transaction = getSupportFragmentManager()
