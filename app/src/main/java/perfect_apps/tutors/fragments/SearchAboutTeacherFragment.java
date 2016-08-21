@@ -246,6 +246,24 @@ public class SearchAboutTeacherFragment extends Fragment {
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (addStudentDetailToBackstack()) {
+                    // clearBackStack();
+                    StudentDetails teacherDetails =
+                            new StudentDetails();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    b.putString(Constants.DETAIL_USER_ID, new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_ID));
+                    teacherDetails.setArguments(b);
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(StudentDetails.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
 
             }
         });
@@ -260,9 +278,45 @@ public class SearchAboutTeacherFragment extends Fragment {
         chatIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (addTeacherMessageToBackstack()) {
+                    // clearBackStack();
+                    MyChats teacherDetails =
+                            new MyChats();
+                    Bundle b = new Bundle();
+                    b.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                    teacherDetails.setArguments(b);
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(MyChats.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
 
             }
         });
+    }
+
+    private boolean addTeacherMessageToBackstack() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            return true;
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(MyChats.TAG)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean addStudentDetailToBackstack() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            return true;
+        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(StudentDetails.TAG)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
