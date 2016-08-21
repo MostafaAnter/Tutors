@@ -53,6 +53,7 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
     @Bind(R.id.pb4)ProgressBar pb4;
     @Bind(R.id.pb5)ProgressBar pb5;
     @Bind(R.id.ratingValue) TextView ratingValue;
+    @Bind(R.id.ratingValue1) TextView ratingValue1;
     @Bind(R.id.ratingBar) RatingBar rb;
 
 
@@ -154,6 +155,18 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                     if ((rate1 + rate2 + rate3 + rate4 + rate5) != 0) {
                         float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
                         rb.setRating(rate);
+                        ratingValue.setText(String.valueOf(rate));
+                        ratingValue1.setText((rate1 + rate2 + rate3 + rate4 + rate5)+" " + "تقييمات");
+                        pb1.setMax((int) rate);
+                        pb1.setProgress((int)((1*rate1)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb2.setMax((int) rate);
+                        pb2.setProgress((int)((2*rate2)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb3.setMax((int) rate);
+                        pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb4.setMax((int) rate);
+                        pb4.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb5.setMax((int) rate);
+                        pb5.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5)));
                     }else {
                         rb.setRating(0);
                     }
@@ -209,6 +222,18 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                             if ((rate1 + rate2 + rate3 + rate4 + rate5) != 0) {
                                 float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
                                 rb.setRating(rate);
+                                ratingValue.setText(String.valueOf(rate));
+                                ratingValue1.setText((rate1 + rate2 + rate3 + rate4 + rate5) +" "+ "تقييمات");
+                                pb1.setMax((int) rate);
+                                pb1.setProgress((int)((1*rate1)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                                pb2.setMax((int) rate);
+                                pb2.setProgress((int)((2*rate2)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                                pb3.setMax((int) rate);
+                                pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                                pb4.setMax((int) rate);
+                                pb4.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                                pb5.setMax((int) rate);
+                                pb5.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5)));
                             }else {
                                 rb.setRating(0);
                             }

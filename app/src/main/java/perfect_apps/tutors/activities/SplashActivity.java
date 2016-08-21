@@ -47,6 +47,7 @@ public class SplashActivity extends LocalizationActivity {
                     intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
                     startActivity(intent);
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                    finish();
 
 
                 }else if(new TutorsPrefStore(SplashActivity.this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
@@ -55,6 +56,7 @@ public class SplashActivity extends LocalizationActivity {
                     intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
                     startActivity(intent);
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                    finish();
 
                 }else {
                     startActivity(new Intent(SplashActivity.this, CategoryActivity.class)
