@@ -70,6 +70,7 @@ import perfect_apps.tutors.utils.Utils;
  * Created by mostafa on 28/06/16.
  */
 public class TeacherEditData extends Fragment implements View.OnClickListener {
+    private static final String TAG = "TeacherEditData";
     private String name;
     private String email;
     private String password;
@@ -292,11 +293,14 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
     private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+                fm.popBackStack(TeacherDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
+        
         return true;
     }
 

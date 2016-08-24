@@ -175,12 +175,13 @@ public class MyChats extends Fragment {
 
     private boolean addConversetionToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(Conversation.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(Conversation.TAG)){
+                fm.popBackStack(Conversation.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
-        fm.popBackStackImmediate(Conversation.TAG, 0);
         return true;
     }
 
