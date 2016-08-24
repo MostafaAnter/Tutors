@@ -56,6 +56,8 @@ import perfect_apps.tutors.utils.Utils;
 public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "HomeActivity";
+
     private static NavigationView navigationView;
     TextView studentMessageCount, teacherMessageCount;
     LinearLayout messageCountView;
@@ -296,7 +298,7 @@ public class HomeActivity extends LocalizationActivity
 
         } else if (id == R.id.teacherHome) {
             if (addTeacherHomeListToBackstack()) {
-                clearBackStack();
+    //            clearBackStack();
                 TeachersHomeList teacherDetails =
                         new TeachersHomeList();
                 Bundle b = new Bundle();
@@ -369,40 +371,50 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addStudentDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(StudentDetails.TAG)) {
-            return false;
+
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(StudentDetails.TAG)){
+                fm.popBackStack(StudentDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
+
     }
 
     private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+                fm.popBackStack(TeacherDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
     }
 
     private boolean addContactToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(ContactUs.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(ContactUs.TAG)){
+                fm.popBackStack(ContactUs.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
     }
 
     private boolean addAboutToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(AboutFragment.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(AboutFragment.TAG)){
+                fm.popBackStack(AboutFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
     }
@@ -410,32 +422,37 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(MyChats.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(MyChats.TAG)){
+                fm.popBackStack(MyChats.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
     }
 
     private boolean addTeacherHomeListToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeachersHomeList.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeachersHomeList.TAG)){
+                fm.popBackStack(TeachersHomeList.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
     }
 
     private boolean addStudentHomeListToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(SearchAboutTeacherFragment.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(SearchAboutTeacherFragment.TAG)){
+                fm.popBackStack(SearchAboutTeacherFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
-        fm.popBackStackImmediate(SearchAboutTeacherFragment.TAG, 0);
         return true;
     }
 
