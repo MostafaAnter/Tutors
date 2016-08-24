@@ -322,8 +322,11 @@ public class MyChats extends Fragment {
 
                         }
                         onRefreshComplete();
-                        if (mDataset.size() == 0)
+                        if (mDataset.size() > 0){
+                            noDataView.setVisibility(View.GONE);
+                        }else {
                             noDataView.setVisibility(View.VISIBLE);
+                        }
 
                     }
                 }, new Response.ErrorListener() {
@@ -332,7 +335,11 @@ public class MyChats extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         onRefreshComplete();
 
-                        noDataView.setVisibility(View.VISIBLE);
+                        if (mDataset.size() > 0){
+                            noDataView.setVisibility(View.GONE);
+                        }else {
+                            noDataView.setVisibility(View.VISIBLE);
+                        }
 
                     }
                 });

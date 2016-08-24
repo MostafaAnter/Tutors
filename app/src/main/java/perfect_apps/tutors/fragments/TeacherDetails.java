@@ -506,6 +506,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                             new TeacherDetails();
                     Bundle b = new Bundle();
                     b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                    b.putString(Constants.DETAIL_USER_ID, new TutorsPrefStore(getActivity())
+                            .getPreferenceValue(Constants.TEACHER_ID));
 
                     teacherDetails.setArguments(b);
 
@@ -539,10 +541,12 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            return true;
-        } else if (fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
-            return false;
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+                fm.popBackStack(TeacherDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         return true;
     }
@@ -691,28 +695,40 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
 
             JSONObject countryObject = teacherInfoObject.optJSONObject("country");
-            if (countryObject.optString("name") != null)
-            textView2.setText(countryObject.optString("name"));
+            if (countryObject != null) {
+                if (countryObject.optString("name") != null)
+                textView2.setText(countryObject.optString("name"));
+            }
 
             JSONObject cityObject = teacherInfoObject.optJSONObject("city");
-            if (cityObject.optString("name") != null)
-            textView4.setText(cityObject.optString("name"));
+            if (cityObject != null) {
+                if (cityObject.optString("name") != null)
+                textView4.setText(cityObject.optString("name"));
+            }
 
             JSONObject stageObject = teacherInfoObject.optJSONObject("stage");
-            if (stageObject.optString("name") != null)
-            textView6.setText(stageObject.optString("name"));
+            if (stageObject != null) {
+                if (stageObject.optString("name") != null)
+                textView6.setText(stageObject.optString("name"));
+            }
 
             JSONObject majorObject = teacherInfoObject.optJSONObject("major");
-            if (majorObject.optString("name") != null)
-            textView8.setText(majorObject.optString("name"));
+            if (majorObject != null) {
+                if (majorObject.optString("name") != null)
+                textView8.setText(majorObject.optString("name"));
+            }
 
             JSONObject applyServiceObject = teacherInfoObject.optJSONObject("apply_service");
-            if (applyServiceObject.optString("name") != null)
-            textView12.setText(applyServiceObject.optString("name"));
+            if (applyServiceObject != null) {
+                if (applyServiceObject.optString("name") != null)
+                textView12.setText(applyServiceObject.optString("name"));
+            }
 
             JSONObject genderObject = teacherInfoObject.optJSONObject("gender");
-            if (genderObject.optString("name") != null)
-            textView14.setText(genderObject.optString("name"));
+            if (genderObject != null) {
+                if (genderObject.optString("name") != null)
+                textView14.setText(genderObject.optString("name"));
+            }
 
 
         } catch (JSONException e) {

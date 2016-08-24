@@ -266,8 +266,11 @@ public class TeachersSearchResultList extends Fragment {
                 Log.d(TAG, response.toString());
                 onRefreshComplete();
 
-                if (mDataset.size() == 0)
+                if (mDataset.size() > 0){
+                    noDataView.setVisibility(View.GONE);
+                }else {
                     noDataView.setVisibility(View.VISIBLE);
+                }
 
 
             }
@@ -277,7 +280,11 @@ public class TeachersSearchResultList extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 onRefreshComplete();
-                noDataView.setVisibility(View.VISIBLE);
+                if (mDataset.size() > 0){
+                    noDataView.setVisibility(View.GONE);
+                }else {
+                    noDataView.setVisibility(View.VISIBLE);
+                }
             }
         });
         // disable cache
