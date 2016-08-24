@@ -41,6 +41,7 @@ public class CategoryActivity extends LocalizationActivity {
         intent.putExtra(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        finish();
     }
 
     public void cateIsTeacher(View view) {
@@ -49,11 +50,13 @@ public class CategoryActivity extends LocalizationActivity {
             intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
             startActivity(intent);
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            finish();
         }else {
 
             Intent intent = new Intent(this, RegisterTeacherMembershipActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+            finish();
         }
     }
 }
