@@ -5,24 +5,30 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/studentHome"
-            android:title="الرئيسية" />
+            android:title="الرئيسية"
+            android:icon="@drawable/home_ico"/>
         <item
             android:id="@+id/studentMessages"
             app:actionViewClass="android.widget.TextView"
-            android:title="رسائلي" />
+            android:title="رسائلي"
+            android:icon="@drawable/message_ico"/>
         <item
             android:id="@+id/studentMyData"
-            android:title="بياناتي الشخصية" />
+            android:title="بياناتي الشخصية"
+            android:icon="@drawable/profile_ico"/>
         <item
             android:id="@+id/about_app"
-            android:title="عن التطبيق" />
+            android:title="عن التطبيق"
+            android:icon="@drawable/about_app_ico"/>
 
         <item
             android:id="@+id/contact_us"
-            android:title="اقتراحات واستفسارات" />
+            android:title="اقتراحات واستفسارات"
+            android:icon="@drawable/contact_us_ico"/>
         <item
             android:id="@+id/studentSignOut"
-            android:title="تسجيل خروج" />
+            android:title="تسجيل خروج"
+            android:icon="@drawable/logout_ico"/>
     </group>
 
 </menu>
