@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "602041244186",
-    "firebase_url": "https://tutors-cc96b.firebaseio.com",
-    "project_id": "tutors-cc96b",
-    "storage_bucket": "tutors-cc96b.appspot.com"
+    "project_number": "210344117025",
+    "firebase_url": "https://tutors-e05e6.firebaseio.com",
+    "project_id": "tutors-e05e6",
+    "storage_bucket": "tutors-e05e6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:602041244186:android:8b5f81e815f91607",
+        "mobilesdk_app_id": "1:210344117025:android:8b5f81e815f91607",
         "android_client_info": {
           "package_name": "perfect_apps.tutors"
         }
       },
       "oauth_client": [
         {
-          "client_id": "602041244186-mv7jj95i3rfn5n51rund6ofrjnh769tl.apps.googleusercontent.com",
+          "client_id": "210344117025-qvvo1cu95tv3dpg8ml9e324gv7ebcp2i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "perfect_apps.tutors",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "602041244186-73v7fmepol7316kgj5pua9309qv0h39m.apps.googleusercontent.com",
+          "client_id": "210344117025-qgvt8lqg87lqs6n7lfp1ltqlk47ls4jf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCiWoYujikEl8a6OZAbcq6gnvnIWq6iSu8"
+          "current_key": "AIzaSyBamiDRsqgwYjvz1GqZZAh9Z4Hg2P1taUY"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "602041244186-73v7fmepol7316kgj5pua9309qv0h39m.apps.googleusercontent.com",
+              "client_id": "210344117025-qgvt8lqg87lqs6n7lfp1ltqlk47ls4jf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
