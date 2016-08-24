@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -251,6 +252,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -280,6 +282,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -306,6 +309,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -334,6 +338,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -360,6 +365,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -386,6 +392,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
