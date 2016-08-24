@@ -9,7 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="perfect_apps.tutors.activities.RegisterTeacherMembershipActivity"
     android:scrollbarStyle="insideOverlay"
-    android:background="@drawable/bg"
     android:scrollbars="none">
     <LinearLayout
         android:id="@+id/email_login_form"

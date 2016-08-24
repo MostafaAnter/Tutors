@@ -52,6 +52,9 @@ dependencies {
     // circle view
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // for FCM
+    compile 'com.google.firebase:firebase-messaging:9.4.0'
 }
 apply plugin: 'com.google.gms.google-services'
 
