@@ -633,7 +633,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("push_token_error", error.networkResponse.toString());
+                    Utils.showErrorMessage(getActivity(), "لقد قمت بحظر المستخدم من قبل");
                     pDialog.dismissWithAnimation();
                 }
             }) {
@@ -700,7 +700,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("push_token_error", error.networkResponse.toString());
+                    Utils.showErrorMessage(getActivity(), "هذا المستخدم ليس فى قائمة الحظر الخاصه بك");
                     pDialog.dismissWithAnimation();
                 }
             }) {

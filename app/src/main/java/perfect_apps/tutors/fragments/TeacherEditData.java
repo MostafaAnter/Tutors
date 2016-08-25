@@ -528,7 +528,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -617,7 +617,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -704,7 +704,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -788,7 +788,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -872,7 +872,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -958,7 +958,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override

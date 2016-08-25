@@ -277,7 +277,7 @@ public class TeachersHomeList extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+
                     onRefreshComplete();
                     if (mDataset.size() > 0){
                         noDataView.setVisibility(View.GONE);

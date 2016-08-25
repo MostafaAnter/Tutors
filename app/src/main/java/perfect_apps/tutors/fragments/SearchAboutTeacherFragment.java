@@ -567,7 +567,7 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -652,7 +652,6 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
                 }
             }){
                 @Override
@@ -736,7 +735,7 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -820,7 +819,7 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -904,7 +903,7 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -986,7 +985,7 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
+
                 }
             }){
                 @Override
@@ -1053,7 +1052,7 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("push_token_error", error.networkResponse.toString());
+
                 }
             }) {
 
