@@ -574,6 +574,23 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                         getActivity().getSupportFragmentManager().executePendingTransactions();
                     }
                 } else {
+                    if (addTeacherMessageToBackstack()) {
+                        // clearBackStack();
+                        MyChats teacherDetails =
+                                new MyChats();
+                        Bundle b = new Bundle();
+                        b.putString(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
+                        teacherDetails.setArguments(b);
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                                .beginTransaction();
+                        transaction.replace(R.id.fragment_container, teacherDetails);
+                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        transaction.addToBackStack(MyChats.TAG);
+                        transaction.commit();
+                        // to add to back stack
+                        getActivity().getSupportFragmentManager().executePendingTransactions();
+                    }
+
                 }
 
             }
