@@ -228,7 +228,9 @@ public class TeachersHomeList extends Fragment {
         /**
          * this section for fetch Brands
          */
-        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST;
+        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST +
+                "?order_by=" +
+                "rating_count";
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(urlBrands);
