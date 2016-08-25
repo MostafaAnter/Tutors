@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,6 +90,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     private String experience;
 
 
+    // for test
+    private String majorName;
+    private String cityName;
+
+
     @Bind(R.id.editText1)
     EditText editText1;
     @Bind(R.id.editText2)
@@ -162,6 +168,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
         editText8.setText(new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
         editText9.setText(new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+
+        List<SpinnerItem> spinnerItemList = new ArrayList<>();
+        spinnerItemList.add(null);
+        populateSpinner2(spinnerItemList);
+        populateSpinner4(spinnerItemList);
     }
 
     private void changeTextFont() {
@@ -313,11 +324,13 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
                     country_id = selectedItem.getId();
+                    city_id = null;
                     String urlCities = BuildConfig.API_CITIES + selectedItem.getId();
                     fetchCitiesData(urlCities);
                 }
@@ -341,6 +354,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -367,11 +381,14 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
                     stage_id = selectedItem.getId();
+                    major_id = null;
+                    getMagor(stage_id);
                 }
             }
 
@@ -393,6 +410,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -419,6 +437,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -445,6 +464,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 //String selectedItemText = (String) parent.getItemAtPosition(position);
                 SpinnerItem selectedItem = (SpinnerItem) parent.getItemAtPosition(position);
                 if (position > 0) {
@@ -468,8 +488,6 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         getStage();
         getSex();
         getApplyService();
-        fetchData();
-
     }
 
 
@@ -590,6 +608,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                     }
                     Log.d("response", response.toString());
 
+                    if (majorName != null) {
+                        selectValue(spinner4, majorName);
+                    }
+
                 }
             }, new Response.ErrorListener() {
 
@@ -673,6 +695,9 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                         populateSpinner5(spinnerItemList);
                     }
                     Log.d("response", response.toString());
+
+                    // fetch data and select spinners program
+                    fetchData();
 
                 }
             }, new Response.ErrorListener() {
@@ -924,6 +949,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                     }
                     Log.d("response", response.toString());
 
+                    if (cityName != null) {
+                        selectValue(spinner2, cityName);
+                    }
+
                 }
             }, new Response.ErrorListener() {
 
@@ -1075,12 +1104,14 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
             selectValue(spinner1, countryObject.optString("name"));
 
             JSONObject cityObject = teacherInfoObject.optJSONObject("city");
+            cityName = cityObject.optString("name");
             selectValue(spinner2, cityObject.optString("name"));
 
             JSONObject stageObject = teacherInfoObject.optJSONObject("stage");
             selectValue(spinner3, stageObject.optString("name"));
 
             JSONObject majorObject = teacherInfoObject.optJSONObject("major");
+            majorName = majorObject.optString("name");
             selectValue(spinner4, majorObject.optString("name"));
 
             JSONObject applyServiceObject = teacherInfoObject.optJSONObject("apply_service");
