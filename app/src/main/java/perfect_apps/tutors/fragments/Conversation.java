@@ -193,7 +193,21 @@ public class Conversation extends Fragment implements View.OnClickListener {
         title.setText("رسائلي");
         title.setTypeface(font);
 
+
+
+
+        ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
+        ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
+        ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
+        ImageView back = (ImageView) toolbar.findViewById(R.id.back);
+
+        searchIc.setVisibility(View.GONE);
+        profileIc.setVisibility(View.GONE);
+        chatIc.setVisibility(View.GONE);
+        back.setVisibility(View.GONE);
+
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
