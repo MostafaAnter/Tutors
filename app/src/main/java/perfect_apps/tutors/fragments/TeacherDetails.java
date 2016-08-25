@@ -556,8 +556,40 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
+                if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
+                    if (addTeacherMessageToBackstack()) {
+                        // clearBackStack();
+                        MyChats teacherDetails =
+                                new MyChats();
+                        Bundle b = new Bundle();
+                        b.putString(Constants.COMMING_FROM, Constants.STUDENT_PAGE);
+                        teacherDetails.setArguments(b);
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                                .beginTransaction();
+                        transaction.replace(R.id.fragment_container, teacherDetails);
+                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        transaction.addToBackStack(MyChats.TAG);
+                        transaction.commit();
+                        // to add to back stack
+                        getActivity().getSupportFragmentManager().executePendingTransactions();
+                    }
+                } else {
+                }
+
             }
         });
+    }
+
+    private boolean addTeacherMessageToBackstack() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i("tag", "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(MyChats.TAG)){
+                fm.popBackStack(MyChats.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        }
+        return true;
     }
 
     private boolean addStudentDetailToBackstack() {
