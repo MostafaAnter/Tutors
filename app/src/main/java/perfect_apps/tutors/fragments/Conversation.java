@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -208,11 +209,13 @@ public class Conversation extends Fragment implements View.OnClickListener {
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
         ImageView back = (ImageView) toolbar.findViewById(R.id.back);
+        LinearLayout messageCountView = (LinearLayout)toolbar.findViewById(R.id.messageCountView);
 
         searchIc.setVisibility(View.GONE);
         profileIc.setVisibility(View.GONE);
         chatIc.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
+        messageCountView.setVisibility(View.GONE);
 
     }
 
