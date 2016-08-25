@@ -397,7 +397,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                         }
 
-                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail);
+                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail,null,null);
                         mDataSet.add(item);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
@@ -483,7 +483,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                         }
 
-                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail);
+                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail, null, null);
                         mDataSet.add(item);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
@@ -708,7 +708,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("blocked_id", getArguments().getString("message_id"));
+                    params.put("blocked_id", getArguments().getString("user_id"));
                     if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                             .equalsIgnoreCase(Constants.STUDENT)) {
                         params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
