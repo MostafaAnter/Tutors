@@ -213,13 +213,16 @@ public class JsonParser {
 
                 JSONArray message_users  = jsonObject.optJSONArray("message_users");
                 JSONObject message_user = message_users.getJSONObject(0);
+                String user_id = message_user.optString("user_id");
+                String user_to_id = message_user.optString("user_to_id");
                 String is_seen = message_user.optString("is_seen");
+
                 boolean show =false;
                 if (is_seen.equalsIgnoreCase("1")){
                     show = true;
                 }
 
-                teacherItems.add(new Messages(image_full_path, message, show, created_at, group_id, email));
+                teacherItems.add(new Messages(image_full_path, message, show, created_at, group_id, email, user_id, user_to_id));
             }
             return teacherItems;
         } catch (JSONException e) {

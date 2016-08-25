@@ -290,6 +290,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
                     mAdapter.notifyDataSetChanged();
                     mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
 
+                    //mDataSet.get(0).ge
+
                 }
 
             } catch (UnsupportedEncodingException e) {
@@ -702,7 +704,6 @@ public class Conversation extends Fragment implements View.OnClickListener {
                     pDialog.dismissWithAnimation();
                 }
             }) {
-
 
                 @Override
                 protected Map<String, String> getParams() {
