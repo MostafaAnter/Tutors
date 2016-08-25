@@ -7,18 +7,28 @@
         android:orderInCategory="101"
         android:title=""
         app:showAsAction="always">
-    <menu>
-    <item
-        android:id="@+id/menu_refresh"
-        android:icon="@drawable/ic_autorenew_24dp"
-        android:title="إعادة تحميل"
-        app:showAsAction="always|withText" />
-    <item
-        android:id="@+id/about_sender"
-        android:icon="@drawable/ic_info_outline_black_24dp"
-        android:title="عن الراسل"
-        app:showAsAction="always|withText" />
-     </menu>
+        <menu>
+            <item
+                android:id="@+id/menu_refresh"
+                android:icon="@drawable/ic_autorenew_24dp"
+                android:title="إعادة تحميل"
+                app:showAsAction="always|withText" />
+            <item
+                android:id="@+id/about_sender"
+                android:icon="@drawable/ic_info_outline_black_24dp"
+                android:title="عن الراسل"
+                app:showAsAction="always|withText" />
+            <item
+                android:id="@+id/block"
+                android:icon="@drawable/block"
+                android:title="حظر"
+                app:showAsAction="always|withText" />
+            <item
+                android:id="@+id/unblock"
+                android:icon="@drawable/unblock"
+                android:title="إلغاء الحظر"
+                app:showAsAction="always|withText" />
+        </menu>
     </item>
 
 </menu>
