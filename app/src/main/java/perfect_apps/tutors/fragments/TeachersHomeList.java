@@ -408,7 +408,7 @@ public class TeachersHomeList extends Fragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("push_token", error.getMessage());
+                    Log.e("push_token", error.networkResponse.toString());
                 }
             }) {
 
