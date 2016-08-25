@@ -79,20 +79,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightLarge"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/border_shape"
-            android:gravity="top"
-            android:hint="نبذة تعريفية عن المدرس"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textMultiLine"
-            android:padding="5dp"
-            android:textSize="12sp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -378,73 +365,8 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/border_shape"
-            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:gravity="right"
-                android:hint="@string/school_subjects"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:background="#f8f8f8"
-                android:contentDescription="@null"
-                android:padding="3dp"
-                android:src="@drawable/ic_action_school_ico" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/border_shape"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editText5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:gravity="top"
-                android:hint="@string/cost_of_hour"
-                android:imeOptions="actionUnspecified"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_margin="1dp"
-                android:background="#f8f8f8"
-                android:contentDescription="@null"
-                android:padding="3dp"
-                android:src="@drawable/ic_action_cur_ico" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -514,6 +436,80 @@
                 android:src="@drawable/ic_action_exp_ico" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="0dp"
+                android:layout_height="77dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="@string/school_subjects"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeightLarge"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape"
+            android:gravity="top"
+            android:hint="نبذة تعريفية عن المدرس"
+            android:textColorHint="@color/colorPrimary"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textMultiLine"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="@string/cost_of_hour"
+                android:imeOptions="actionUnspecified"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:background="#f8f8f8"
+                android:contentDescription="@null"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_cur_ico" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
