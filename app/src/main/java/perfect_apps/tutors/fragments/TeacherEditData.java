@@ -1250,12 +1250,58 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
             who_am_i = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
             qualification = URLEncoder.encode(editText6.getText().toString().trim(), "UTF-8");
             experience = URLEncoder.encode(editText7.getText().toString().trim(), "UTF-8");
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         hour_price = editText5.getText().toString().trim();
         email = editText8.getText().toString().trim();
         password = editText9.getText().toString().trim();
+
+
+
+        if (desc == null || desc.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء كتابة نبذة مختصرة عنك");
+            return false;
+        }
+
+        if (name == null || name.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء أدخال الاسم كامل");
+            return false;
+        }
+
+        if (country_id == null || country_id.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار الدولة");
+            return false;
+        }
+        if (city_id == null || city_id.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المدينة");
+            return false;
+        }
+        if (stage_id== null || stage_id.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المرحلة الدراسية");
+            return false;
+        }
+        if (major_id == null || major_id.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار التخصص");
+            return false;
+        }
+        if (apply_service_id == null || apply_service_id.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع تقديم الخدمة");
+            return false;
+        }
+        if (gender_id == null || gender_id.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع المعلم");
+            return false;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء ادخل البريد الاليكترونى");
+            return false;
+        }
+        if (password == null || password.trim().isEmpty()) {
+            Utils.showErrorMessage(getActivity(), "الرجاء ادخل الرقم السري");
+            return false;
+        }
 
 
         // first check mail format
@@ -1267,28 +1313,6 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
             return false;
         }
 
-
-        if (name != null && !name.trim().isEmpty()
-                && subjects != null && !subjects.trim().isEmpty()
-                && hour_price != null && !hour_price.trim().isEmpty()
-                && email != null && !email.trim().isEmpty()
-                && password != null && !password.trim().isEmpty()
-                && country_id != null && !country_id.trim().isEmpty()
-                && city_id != null && !city_id.trim().isEmpty()
-                && major_id != null && !major_id.trim().isEmpty()
-                && stage_id != null && !stage_id.trim().isEmpty()
-                && gender_id != null && !gender_id.trim().isEmpty()
-                && apply_service_id != null && !apply_service_id.trim().isEmpty()) {
-
-            return true;
-
-        } else {
-            // show error message
-            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("نأسف !")
-                    .setContentText("قم بإكمال تسجيل البيانات")
-                    .show();
-            return false;
-        }
+        return true;
     }
 }
