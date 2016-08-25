@@ -618,6 +618,10 @@ public class Conversation extends Fragment implements View.OnClickListener {
                     Log.d("push_token_response", response);
 
                     pDialog.dismissWithAnimation();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("تم")
+                            .setContentText("لقد قمت بحظر المستخدم")
+                            .show();
                 }
             }, new Response.ErrorListener() {
 
@@ -680,6 +684,10 @@ public class Conversation extends Fragment implements View.OnClickListener {
                 public void onResponse(String response) {
                     Log.d("push_token_response", response);
                     pDialog.dismissWithAnimation();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("تم")
+                            .setContentText("لقد قمت بإلغاء الحظر")
+                            .show();
 
                 }
             }, new Response.ErrorListener() {
