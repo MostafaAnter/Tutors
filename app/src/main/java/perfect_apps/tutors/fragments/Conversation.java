@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -163,6 +165,12 @@ public class Conversation extends Fragment implements View.OnClickListener {
                     // to add to back stack
                     getActivity().getSupportFragmentManager().executePendingTransactions();
                 }
+                return true;
+            case R.id.block:
+                block();
+                return true;
+            case R.id.unblock:
+                unblock();
                 return true;
 
         }
@@ -585,6 +593,132 @@ public class Conversation extends Fragment implements View.OnClickListener {
             return false;
         }
 
+    }
+
+    private void block() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/block/block";
+
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("أنتظر...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token_response", response);
+
+                    pDialog.dismissWithAnimation();
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("push_token_error", error.networkResponse.toString());
+                    pDialog.dismissWithAnimation();
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("blocked_id", getArguments().getString("message_id"));
+                    if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                            .equalsIgnoreCase(Constants.STUDENT)) {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    }else {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+                    }
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private void unblock() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/block/unblock";
+
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("أنتظر...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token_response", response);
+                    pDialog.dismissWithAnimation();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("push_token_error", error.networkResponse.toString());
+                    pDialog.dismissWithAnimation();
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("blocked_id", getArguments().getString("message_id"));
+                    if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                            .equalsIgnoreCase(Constants.STUDENT)) {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    }else {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+                    }
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
     }
     // to scroll to last item :)
 //    LinearLayoutManager llm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
