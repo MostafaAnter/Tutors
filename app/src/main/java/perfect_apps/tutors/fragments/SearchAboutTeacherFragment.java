@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,13 +28,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.CitiesSpinnerAdapter;
@@ -177,6 +182,11 @@ public class SearchAboutTeacherFragment extends Fragment {
         spinnerItemList.add(null);
         populateSpinner2(spinnerItemList);
         populateSpinner4(spinnerItemList);
+
+        if(new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.STUDENT)){
+            pushToken();
+        }
     }
 
     private boolean checkIfFieldIsEmpty(){
@@ -1020,6 +1030,54 @@ public class SearchAboutTeacherFragment extends Fragment {
 
             // Adding request to volley request queue
             AppController.getInstance().addToRequestQueue(jsonReq);
+        }
+    }
+
+    private void pushToken() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/api/token/add";
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token", response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("push_token", error.getMessage());
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("token_id", FirebaseInstanceId.getInstance().getToken());
+                    params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                    params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
         }
     }
 }

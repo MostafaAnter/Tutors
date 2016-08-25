@@ -30,14 +30,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.TeachersListAdapter;
@@ -48,6 +52,7 @@ import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
+import perfect_apps.tutors.utils.Utils;
 
 /**
  * Created by mostafa on 24/06/16.
@@ -183,6 +188,12 @@ public class TeachersHomeList extends Fragment {
                 initiateRefresh();
             }
         });
+
+
+        if(new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)){
+            pushToken();
+        }
 
     }
 
@@ -373,5 +384,53 @@ public class TeachersHomeList extends Fragment {
             }
         }
         return true;
+    }
+
+    private void pushToken() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/api/token/add";
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token", response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("push_token", error.getMessage());
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("token_id", FirebaseInstanceId.getInstance().getToken());
+                    params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+                    params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
     }
 }
