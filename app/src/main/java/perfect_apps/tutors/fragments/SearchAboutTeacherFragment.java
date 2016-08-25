@@ -1039,21 +1039,21 @@ public class SearchAboutTeacherFragment extends Fragment {
 
             // Tag used to cancel the request
             String tag_string_req = "string_req";
-            String url = "http://services-apps.net/api/token/add";
+            String url = "http://services-apps.net/tutors/api/token/add";
 
             StringRequest strReq = new StringRequest(Request.Method.POST,
                     url, new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
-                    Log.d("push_token", response);
+                    Log.d("push_token_response", response);
 
                 }
             }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("push_token", error.getMessage());
+                    Log.e("push_token_error", error.networkResponse.toString());
                 }
             }) {
 

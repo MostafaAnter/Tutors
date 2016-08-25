@@ -392,7 +392,7 @@ public class TeachersHomeList extends Fragment {
 
             // Tag used to cancel the request
             String tag_string_req = "string_req";
-            String url = "http://services-apps.net/api/token/add";
+            String url = "http://services-apps.net/tutors/api/token/add";
 
             StringRequest strReq = new StringRequest(Request.Method.POST,
                     url, new Response.Listener<String>() {
