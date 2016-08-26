@@ -212,9 +212,9 @@ public class Conversation extends Fragment implements View.OnClickListener {
         LinearLayout messageCountView = (LinearLayout)toolbar.findViewById(R.id.messageCountView);
 
 
-        searchIc.setVisibility(View.GONE);
-        profileIc.setVisibility(View.GONE);
-        chatIc.setVisibility(View.GONE);
+//        searchIc.setVisibility(View.GONE);
+//        profileIc.setVisibility(View.GONE);
+//        chatIc.setVisibility(View.GONE);
         back.setVisibility(View.GONE);
         messageCountView.setVisibility(View.GONE);
 
