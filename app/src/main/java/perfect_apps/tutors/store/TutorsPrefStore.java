@@ -17,19 +17,19 @@ public class TutorsPrefStore {
     public void addPreference(String key, String value){
         SharedPreferences.Editor editor = sharknyPreferences.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public void addPreference(String key, int value){
         SharedPreferences.Editor editor = sharknyPreferences.edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public void removePreference(String key){
         SharedPreferences.Editor editor = sharknyPreferences.edit();
         editor.remove(key);
-        editor.commit();
+        editor.apply();
     }
 
     public String getPreferenceValue(String key){

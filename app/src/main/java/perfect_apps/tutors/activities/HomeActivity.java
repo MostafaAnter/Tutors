@@ -291,7 +291,7 @@ public class HomeActivity extends LocalizationActivity
             }
 
         } else if (id == R.id.studentSignOut) {
-            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, " ");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             finish();
@@ -356,7 +356,7 @@ public class HomeActivity extends LocalizationActivity
             }
 
         } else if (id == R.id.teacherSignOut) {
-            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, " ");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             finish();
