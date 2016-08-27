@@ -968,7 +968,8 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
                             try {
                                 JSONObject errorMessageObject = new JSONObject(errorServerMessage);
                                 Log.e("server error", errorMessageObject.toString());
-                                errorServerMessage = errorMessageObject.optString("message");
+                                JSONObject jsonObjectError = errorMessageObject.optJSONObject("errors");
+                                errorServerMessage = jsonObjectError.toString();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
