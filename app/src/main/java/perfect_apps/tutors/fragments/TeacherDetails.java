@@ -121,14 +121,17 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     @Bind(R.id.viewForTeacher)
     LinearLayout viewThatShowForTeacher;
 
-    @Bind(R.id.linearSentMessageToTeacher) LinearLayout sentMessageToTeacher;
-    @Bind(R.id.linearRateTeacher) LinearLayout rateTeacher;
+    @Bind(R.id.linearSentMessageToTeacher)
+    LinearLayout sentMessageToTeacher;
+    @Bind(R.id.linearRateTeacher)
+    LinearLayout rateTeacher;
 
 
     @Bind(R.id.avatar)
     ImageView imageAvatar;
 
-    @Bind(R.id.ratingBar) RatingBar ratingBar;
+    @Bind(R.id.ratingBar)
+    RatingBar ratingBar;
 
     public TeacherDetails() {
 
@@ -150,13 +153,13 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         // hide some view to suitable with context
         if (getArguments().getString(Constants.DETAIL_USER_ID)
                 .equalsIgnoreCase(new TutorsPrefStore(getActivity())
-                .getPreferenceValue(Constants.TEACHER_ID))){
+                        .getPreferenceValue(Constants.TEACHER_ID))) {
             viewThatShowForStudent.setVisibility(View.GONE);
-        }else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
+        } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
             viewThatShowForStudent.setVisibility(View.GONE);
         } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             viewThatShowForTeacher.setVisibility(View.GONE);
-        }else {
+        } else {
             viewThatShowForTeacher.setVisibility(View.GONE);
             rateTeacher.setVisibility(View.GONE);
         }
@@ -279,7 +282,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment.setArguments(bundle1);
                     newFragment.show(ft, "dialog");
-                }else {
+                } else {
                     if (addConversetionToBackstack()) {
                         Conversation teacherDetail =
                                 new Conversation();
@@ -302,7 +305,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button1:
                 if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
-                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        && !new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -318,7 +321,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
-                }else {
+                } else {
                     if (addConversetionToBackstack()) {
                         Conversation teacherDetail =
                                 new Conversation();
@@ -341,7 +344,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 break;
             case R.id.linearRateTeacher:
                 if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
-                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        && !new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -357,7 +360,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
-                }else {
+                } else {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
                     Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
@@ -377,7 +380,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button2:
                 if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
-                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        && !new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.STUDENT)) {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
@@ -393,7 +396,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment1.setArguments(bundle1);
                     newFragment1.show(ft1, "dialog");
-                }else {
+                } else {
                     mStackLevel++;
                     FragmentTransaction ft1 = getFragmentManager().beginTransaction();
                     Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
@@ -413,40 +416,23 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.text20:
-                if (!getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)
-                        &&!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
-                        .equalsIgnoreCase(Constants.STUDENT)) {
-                    mStackLevel++;
-                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
-                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
-                    if (prev1 != null) {
-                        ft1.remove(prev1);
-                    }
-                    ft1.addToBackStack(null);
 
-                    // Create and show the dialog.
-                    DialogFragment newFragment1 = MyDialogFragment.newInstance(mStackLevel);
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
-                    newFragment1.setArguments(bundle1);
-                    newFragment1.show(ft1, "dialog");
-                }else {
-                    mStackLevel++;
-                    FragmentTransaction ft1 = getFragmentManager().beginTransaction();
-                    Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
-                    if (prev1 != null) {
-                        ft1.remove(prev1);
-                    }
-                    ft1.addToBackStack(null);
-
-                    // Create and show the dialog.
-                    RateInfoFragment newFragment1 = RateInfoFragment.newInstance(mStackLevel);
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
-                    newFragment1.setArguments(bundle1);
-                    newFragment1.show(ft1, "dialog");
-
+                mStackLevel++;
+                FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                if (prev1 != null) {
+                    ft1.remove(prev1);
                 }
+                ft1.addToBackStack(null);
+
+                // Create and show the dialog.
+                RateInfoFragment newFragment1 = RateInfoFragment.newInstance(mStackLevel);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
+                newFragment1.setArguments(bundle1);
+                newFragment1.show(ft1, "dialog");
+
+
                 break;
         }
 
@@ -454,10 +440,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     private boolean addConversetionToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(Conversation.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(Conversation.TAG)) {
                 fm.popBackStack(Conversation.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -482,7 +468,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
             title.setText("بياناتي الشخصية");
             title.setTypeface(font);
-        }else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)){
+        } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_HOME_PAGE)) {
             profileIc.setVisibility(View.VISIBLE);
             chatIc.setVisibility(View.VISIBLE);
             searchIc.setVisibility(View.GONE);
@@ -490,7 +476,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             title.setText("بيانات المدرس");
             title.setTypeface(font);
 
-        }else {
+        } else {
             searchIc.setVisibility(View.VISIBLE);
             TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
             title.setText("بيانات المدرس");
@@ -599,10 +585,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i("tag", "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(MyChats.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(MyChats.TAG)) {
                 fm.popBackStack(MyChats.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -612,10 +598,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     private boolean addStudentDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
 
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(StudentDetails.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(StudentDetails.TAG)) {
                 fm.popBackStack(StudentDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -625,10 +611,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
     private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
                 fm.popBackStack(TeacherDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -714,7 +700,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject  jsonRootObject = new JSONObject(response);
+                    JSONObject jsonRootObject = new JSONObject(response);
                     JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
                     for (int i = 0; i < jsonMoviesArray.length(); i++) {
                         JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
@@ -726,8 +712,6 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
                         textView23.setText(String.valueOf(rating_per_5));
                         ratingBar.setRating(rating_per_5);
-
-
 
 
                     }
@@ -771,9 +755,9 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             }
             textView10.setText(teacherInfoObject.optString("subjects"));
             if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null"))
-            textView16.setText(teacherInfoObject.optString("qualification"));
+                textView16.setText(teacherInfoObject.optString("qualification"));
             if (!teacherInfoObject.optString("experience").equalsIgnoreCase("null"))
-            textView18.setText(teacherInfoObject.optString("experience"));
+                textView18.setText(teacherInfoObject.optString("experience"));
             if (!teacherInfoObject.optString("who_am_i").equalsIgnoreCase("null"))
                 textView21.setText(teacherInfoObject.optString("who_am_i"));
 
@@ -781,37 +765,37 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             JSONObject countryObject = teacherInfoObject.optJSONObject("country");
             if (countryObject != null) {
                 if (countryObject.optString("name") != null)
-                textView2.setText(countryObject.optString("name"));
+                    textView2.setText(countryObject.optString("name"));
             }
 
             JSONObject cityObject = teacherInfoObject.optJSONObject("city");
             if (cityObject != null) {
                 if (cityObject.optString("name") != null)
-                textView4.setText(cityObject.optString("name"));
+                    textView4.setText(cityObject.optString("name"));
             }
 
             JSONObject stageObject = teacherInfoObject.optJSONObject("stage");
             if (stageObject != null) {
                 if (stageObject.optString("name") != null)
-                textView6.setText(stageObject.optString("name"));
+                    textView6.setText(stageObject.optString("name"));
             }
 
             JSONObject majorObject = teacherInfoObject.optJSONObject("major");
             if (majorObject != null) {
                 if (majorObject.optString("name") != null)
-                textView8.setText(majorObject.optString("name"));
+                    textView8.setText(majorObject.optString("name"));
             }
 
             JSONObject applyServiceObject = teacherInfoObject.optJSONObject("apply_service");
             if (applyServiceObject != null) {
                 if (applyServiceObject.optString("name") != null)
-                textView12.setText(applyServiceObject.optString("name"));
+                    textView12.setText(applyServiceObject.optString("name"));
             }
 
             JSONObject genderObject = teacherInfoObject.optJSONObject("gender");
             if (genderObject != null) {
                 if (genderObject.optString("name") != null)
-                textView14.setText(genderObject.optString("name"));
+                    textView14.setText(genderObject.optString("name"));
             }
 
 
