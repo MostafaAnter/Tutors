@@ -63,7 +63,7 @@ public class TeachersSearchResultList extends Fragment {
         LINEAR_LAYOUT_MANAGER
     }
     // add listener for loading more view
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 3;
     private int lastVisibleItem, totalItemCount;
 
 
@@ -141,7 +141,8 @@ public class TeachersSearchResultList extends Fragment {
                 mAdapter.notifyItemInserted(mDataset.size() - 1);
 
                 // loadMoreData
-                initiateRefresh();
+                pageCount++;
+                loadMoreRequest();
             }
         });
 
@@ -285,9 +286,7 @@ public class TeachersSearchResultList extends Fragment {
                 "&gender_id=" +
                 getArguments().getString(Constants.GENDER_ID) +
                 "&order_by=" +
-                "rating_count"+
-                "&page=" +
-                pageCount;
+                "rating_count";
 
         // making fresh volley request and getting json
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
@@ -312,7 +311,72 @@ public class TeachersSearchResultList extends Fragment {
                     noDataView.setVisibility(View.VISIBLE);
                 }
 
-                pageCount++;
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                onRefreshComplete();
+                if (mDataset.size() > 0){
+                    noDataView.setVisibility(View.GONE);
+                }else {
+                    noDataView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        // disable cache
+        jsonReq.setShouldCache(false);
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+
+    }
+
+    private void loadMoreRequest() {
+        /**
+         * this section for fetch Brands
+         */
+        String urlBrands = "http://services-apps.net/tutors/api/show/teacher?country_id=" +
+                getArguments().getString(Constants.COUNTRY_ID) +
+                "&city_id=" +
+                getArguments().getString(Constants.CITY_ID) +
+                "&major_id=" +
+                getArguments().getString(Constants.MAJOR_ID) +
+                "&stage_id=" +
+                getArguments().getString(Constants.STAGE_ID) +
+                "&apply_service_id=" +
+                getArguments().getString(Constants.APPLY_SERVICE_ID) +
+                "&gender_id=" +
+                getArguments().getString(Constants.GENDER_ID) +
+                "&order_by=" +
+                "rating_count"+
+                "&page=" +
+                pageCount;
+
+        // making fresh volley request and getting json
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    response = URLDecoder.decode(response, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                mDataset.addAll(totalItemCount-1, JsonParser.parseTeachers(response));
+                mAdapter.notifyDataSetChanged();
+                Log.d(TAG, response.toString());
+                onRefreshComplete();
+
+                if (mDataset.size() > 0){
+                    noDataView.setVisibility(View.GONE);
+                }else {
+                    noDataView.setVisibility(View.VISIBLE);
+                }
 
 
             }

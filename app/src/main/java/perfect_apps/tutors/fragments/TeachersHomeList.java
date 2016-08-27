@@ -67,7 +67,7 @@ public class TeachersHomeList extends Fragment {
     private static final int SPAN_COUNT = 2;
     private int pageCount = 1;
     // add listener for loading more view
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 3;
     private int lastVisibleItem, totalItemCount;
 
 
@@ -149,7 +149,8 @@ public class TeachersHomeList extends Fragment {
                 mAdapter.notifyItemInserted(mDataset.size() - 1);
 
                 // loadMoreData
-                initiateRefresh();
+                pageCount++;
+                loadMoreRequest();
             }
         });
 
@@ -266,9 +267,7 @@ public class TeachersHomeList extends Fragment {
          */
         String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST +
                 "?order_by=" +
-                "rating_count" +
-                "&page=" +
-                pageCount;
+                "rating_count";
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(urlBrands);
@@ -282,7 +281,7 @@ public class TeachersHomeList extends Fragment {
                 mDataset.addAll(0, JsonParser.parseTeachers(data));
                 mAdapter.notifyDataSetChanged();
                 onRefreshComplete();
-                pageCount++;
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -310,7 +309,73 @@ public class TeachersHomeList extends Fragment {
                     }else {
                         noDataView.setVisibility(View.VISIBLE);
                     }
+                }
+            }, new Response.ErrorListener() {
 
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    onRefreshComplete();
+                    if (mDataset.size() > 0){
+                        noDataView.setVisibility(View.GONE);
+                    }else {
+                        noDataView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReq);
+        }
+    }
+
+    private void loadMoreRequest() {
+        /**
+         * this section for fetch Brands
+         */
+        String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST +
+                "?order_by=" +
+                "rating_count" +
+                "&page=" +
+                pageCount;
+        // We first check for cached request
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(urlBrands);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                data = URLDecoder.decode(data, "UTF-8");
+                // do some thing
+                mDataset.addAll(totalItemCount-1, JsonParser.parseTeachers(data));
+                mAdapter.notifyDataSetChanged();
+                onRefreshComplete();
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // making fresh volley request and getting json
+            StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                    urlBrands, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        response = URLDecoder.decode(response, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    mDataset.addAll(totalItemCount-1, JsonParser.parseTeachers(response));
+                    mAdapter.notifyDataSetChanged();
+                    Log.d(TAG, response.toString());
+                    onRefreshComplete();
+                    if (mDataset.size() > 0){
+                        noDataView.setVisibility(View.GONE);
+                    }else {
+                        noDataView.setVisibility(View.VISIBLE);
+                    }
                 }
             }, new Response.ErrorListener() {
 
