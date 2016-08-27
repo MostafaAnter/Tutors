@@ -42,6 +42,7 @@ import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
+import perfect_apps.tutors.utils.OnLoadMoreListener;
 
 /**
  * Created by mostafa on 24/06/16.
@@ -56,10 +57,15 @@ public class TeachersSearchResultList extends Fragment {
     public static final String TAG = "TeachersSearchResult";
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
+    private int pageCount = 1;
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
     }
+    // add listener for loading more view
+    private int visibleThreshold = 5;
+    private int lastVisibleItem, totalItemCount;
+
 
     protected LayoutManagerType mCurrentLayoutManagerType;
 
@@ -107,6 +113,38 @@ public class TeachersSearchResultList extends Fragment {
         mAdapter = new TeachersSearchResultsListAdapter(getActivity(), mDataset, Constants.STUDENT_PAGE);
         // Set TeachersListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+        // add listener for recycler view to check if item or loading view
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+                if (!mAdapter.isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    if (mAdapter.mOnLoadMoreListener != null) {
+                        mAdapter.mOnLoadMoreListener.onLoadMore();
+                    }
+                    mAdapter.isLoading = true;
+                }
+            }
+        });
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                Log.e(TAG, "Load More");
+                //pageCount++;
+                mDataset.add(null);
+                mAdapter.notifyItemInserted(mDataset.size() - 1);
+
+                // loadMoreData
+                initiateRefresh();
+            }
+        });
+
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -247,7 +285,9 @@ public class TeachersSearchResultList extends Fragment {
                 "&gender_id=" +
                 getArguments().getString(Constants.GENDER_ID) +
                 "&order_by=" +
-                "rating_count";
+                "rating_count"+
+                "&page=" +
+                pageCount;
 
         // making fresh volley request and getting json
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
@@ -271,6 +311,8 @@ public class TeachersSearchResultList extends Fragment {
                 }else {
                     noDataView.setVisibility(View.VISIBLE);
                 }
+
+                pageCount++;
 
 
             }

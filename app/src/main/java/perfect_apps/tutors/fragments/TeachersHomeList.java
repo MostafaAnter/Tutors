@@ -51,6 +51,7 @@ import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
+import perfect_apps.tutors.utils.OnLoadMoreListener;
 import perfect_apps.tutors.utils.Utils;
 
 /**
@@ -64,6 +65,11 @@ public class TeachersHomeList extends Fragment {
     // for manipulate recyclerView
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
+    private int pageCount = 1;
+    // add listener for loading more view
+    private int visibleThreshold = 5;
+    private int lastVisibleItem, totalItemCount;
+
 
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -115,6 +121,37 @@ public class TeachersHomeList extends Fragment {
         mAdapter = new TeachersSearchResultsListAdapter(getActivity(), mDataset, Constants.TEACHER_HOME_PAGE);
         // Set TeachersListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+        // add listener for recycler view to check if item or loading view
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+                if (!mAdapter.isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    if (mAdapter.mOnLoadMoreListener != null) {
+                        mAdapter.mOnLoadMoreListener.onLoadMore();
+                    }
+                    mAdapter.isLoading = true;
+                }
+            }
+        });
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                Log.e(TAG, "Load More");
+                //pageCount++;
+                mDataset.add(null);
+                mAdapter.notifyItemInserted(mDataset.size() - 1);
+
+                // loadMoreData
+                initiateRefresh();
+            }
+        });
 
 
         // Retrieve the SwipeRefreshLayout and ListView instances
@@ -229,7 +266,9 @@ public class TeachersHomeList extends Fragment {
          */
         String urlBrands = BuildConfig.API_BASE_URL + BuildConfig.API_SHOW_TEACHER_LIST +
                 "?order_by=" +
-                "rating_count";
+                "rating_count" +
+                "&page=" +
+                pageCount;
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(urlBrands);
@@ -243,6 +282,7 @@ public class TeachersHomeList extends Fragment {
                 mDataset.addAll(0, JsonParser.parseTeachers(data));
                 mAdapter.notifyDataSetChanged();
                 onRefreshComplete();
+                pageCount++;
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
