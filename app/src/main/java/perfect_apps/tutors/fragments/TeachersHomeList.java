@@ -44,7 +44,6 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
-import perfect_apps.tutors.adapters.TeachersListAdapter;
 import perfect_apps.tutors.adapters.TeachersSearchResultsListAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.TeacherItem;
