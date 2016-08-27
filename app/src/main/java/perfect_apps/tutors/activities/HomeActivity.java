@@ -291,7 +291,11 @@ public class HomeActivity extends LocalizationActivity
             }
 
         } else if (id == R.id.studentSignOut) {
-            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, " ");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_AUTHENTICATION_STATE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_ID, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_EMAIL, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_PASSWORD, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_IMAGE_FULL_PATH, "");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             finish();
@@ -356,7 +360,12 @@ public class HomeActivity extends LocalizationActivity
             }
 
         } else if (id == R.id.teacherSignOut) {
-            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, " ");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_ID, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_EMAIL, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_PASSWORD, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_HOME_PAGE, "");
+            new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_IMAGE_FULL_PATH, "");
             startActivity(new Intent(HomeActivity.this, CategoryActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             finish();

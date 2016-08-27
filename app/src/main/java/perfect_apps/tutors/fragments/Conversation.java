@@ -101,7 +101,12 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_items, menu);
+        if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)) {
+            inflater.inflate(R.menu.menu_items, menu);
+        } else {
+            inflater.inflate(R.menu.menu_items_for_student, menu);
+        }
     }
 
     @Override
