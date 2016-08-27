@@ -24,10 +24,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
@@ -54,6 +58,7 @@ import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.BuildConfig;
 import perfect_apps.tutors.R;
+import perfect_apps.tutors.activities.LoginTeacherActivity;
 import perfect_apps.tutors.adapters.CitiesSpinnerAdapter;
 import perfect_apps.tutors.adapters.CountriesSpinnerAdapter;
 import perfect_apps.tutors.adapters.MajorsSpinnerAdapter;
@@ -66,6 +71,7 @@ import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
+import perfect_apps.tutors.utils.VolleyMultipartRequest;
 
 /**
  * Created by mostafa on 28/06/16.
@@ -137,8 +143,10 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     Spinner spinner5;
     @Bind(R.id.spinner6)
     Spinner spinner6;
-    @Bind(R.id.linearUpdate) LinearLayout updateView;
-    @Bind(R.id.linearCancel) LinearLayout canceliew;
+    @Bind(R.id.linearUpdate)
+    LinearLayout updateView;
+    @Bind(R.id.linearCancel)
+    LinearLayout canceliew;
 
     private static final int REQUEST_CODE = 1;
 
@@ -227,7 +235,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pickPhoto:
-                //  pickPhoto();
+                pickPhoto();
                 break;
             case R.id.button2:
                 updateProfile();
@@ -304,14 +312,14 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
     private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
                 fm.popBackStack(TeacherDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
-        
+
         return true;
     }
 
@@ -530,7 +538,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -619,7 +627,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -706,7 +714,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -790,7 +798,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -874,7 +882,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -920,7 +928,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
     }
 
-    private void fetchCitiesData(String urlCities){
+    private void fetchCitiesData(String urlCities) {
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -960,7 +968,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -1148,20 +1156,11 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                 // Tag used to cancel the request
                 String url = "http://services-apps.net/tutors/api/update/teacher";
-
-                StringRequest strReq = new StringRequest(Request.Method.POST,
-                        url, new Response.Listener<String>() {
-
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
                     @Override
-                    public void onResponse(String response) {
-
+                    public void onResponse(NetworkResponse response) {
                         pDialog.dismissWithAnimation();
-                        try {
-                            response = URLDecoder.decode(response, "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("عمل رأئع!")
                                 .setContentText("تم تحديث الحساب بنجاح")
@@ -1178,19 +1177,65 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
 
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pDialog.dismissWithAnimation();
+                        String errorServerMessage = "";
+                        if (error.networkResponse.data != null) {
+                            errorServerMessage = new String(error.networkResponse.data);
+                            Log.e("errrror", errorServerMessage);
+                            try {
+                                JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                Log.e("server error", errorMessageObject.toString());
+                                JSONObject jsonObjectError = errorMessageObject.optJSONObject("errors");
+                                if (jsonObjectError != null) {
+                                    errorServerMessage = jsonObjectError.toString();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         // show error message
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("خطأ")
-                                .setContentText("حاول مره أخري")
+                                .setTitleText("خطأ!")
+                                .setContentText(errorServerMessage)
                                 .show();
+
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message + " Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message + " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message + " Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
                     }
                 }) {
-
-
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
@@ -1198,39 +1243,58 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                         params.put("current_password", password);
                         params.put("current_email", email);
 
-                        params.put("who_am_i", who_am_i);
-                        params.put("experience", experience);
-                        params.put("qualification", qualification);
-
-                        if (name != null)
+                        if (name != null && !name.trim().isEmpty())
                             params.put("name", name);
-                        if (email != null)
+                        if (email != null && !email.trim().isEmpty())
                             params.put("email", email);
-                        if (country_id != null)
+                        if (country_id != null && !country_id.trim().isEmpty())
                             params.put("country_id", country_id);
-                        if (city_id != null)
+                        if (city_id != null && !city_id.trim().isEmpty())
                             params.put("city_id", city_id);
-                        if (major_id != null)
+                        if (major_id != null && !major_id.trim().isEmpty())
                             params.put("major_id", major_id);
-                        if (stage_id != null)
+                        if (stage_id != null && !stage_id.trim().isEmpty())
                             params.put("stage_id", stage_id);
-                        if (subjects != null)
+                        if (subjects != null && !subjects.trim().isEmpty())
                             params.put("subjects", subjects);
-                        if (hour_price != null)
+                        if (hour_price != null && !hour_price.trim().isEmpty())
                             params.put("hour_price", hour_price);
-                        if (apply_service_id != null)
+                        if (apply_service_id != null && !apply_service_id.trim().isEmpty())
                             params.put("apply_service_id", apply_service_id);
-                        if (gender_id != null)
+                        if (gender_id != null && !gender_id.trim().isEmpty())
                             params.put("gender_id", gender_id);
-                        if (desc != null)
+                        if (desc != null && !desc.trim().isEmpty())
                             params.put("desc", desc);
+                        if (who_am_i != null && !who_am_i.trim().isEmpty())
+                            params.put("who_am_i", who_am_i);
+                        if (experience != null && !experience.trim().isEmpty())
+                            params.put("experience", experience);
+                        if (qualification != null && !qualification.trim().isEmpty())
+                            params.put("qualification", qualification);
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+
+                        if (image != null)
+                            params.put("image", new DataPart("file_avatar.jpg", Utils.getFileDataFromDrawable(getActivity(),
+                                    image), "image/jpeg"));
 
                         return params;
-
                     }
                 };
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq);
+
+                int socketTimeout = 30000;//30 seconds - change to what you want
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                multipartRequest.setRetryPolicy(policy);
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
             }
 
 
@@ -1259,7 +1323,6 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         password = editText9.getText().toString().trim();
 
 
-
         if (desc == null || desc.trim().isEmpty()) {
             Utils.showErrorMessage(getActivity(), "الرجاء كتابة نبذة مختصرة عنك");
             return false;
@@ -1278,7 +1341,7 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
             Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المدينة");
             return false;
         }
-        if (stage_id== null || stage_id.trim().isEmpty()) {
+        if (stage_id == null || stage_id.trim().isEmpty()) {
             Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المرحلة الدراسية");
             return false;
         }
