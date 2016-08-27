@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -28,12 +29,18 @@ import perfect_apps.tutors.fragments.TeachersSearchResultList;
 import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
+import perfect_apps.tutors.utils.OnLoadMoreListener;
 
 /**
  * Created by mostafa on 24/06/16.
  */
-public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<TeachersSearchResultsListAdapter.ViewHolder> {
+public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "TeachersListAdapter";
+
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
+    public OnLoadMoreListener mOnLoadMoreListener;
+    public boolean isLoading;
 
     private List<TeacherItem> mDataSet;
     private static Context mContext;
@@ -46,7 +53,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.name)TextView name;
         @Bind(R.id.rate)TextView ratePerFive;
         @Bind(R.id.rateStatic1)TextView rateStatic1;
@@ -94,7 +101,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
             return userAvatar;
         }
 
-        public ViewHolder(View v) {
+        public ItemViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
             // Define click listener for the ViewHolder's View.
@@ -117,53 +124,79 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
         }
     }
 
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+        public ProgressBar progressBar;
+
+        public LoadingViewHolder(View view) {
+            super(view);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mDataSet.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view.
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.list_item_forecast, viewGroup, false);
-
-        return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        if (viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.list_item_forecast, viewGroup, false);
+            return new ItemViewHolder(view);
+        } else if (viewType == VIEW_TYPE_LOADING) {
+            View view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.layout_loading_item, viewGroup, false);
+            return new LoadingViewHolder(view);
+        }
+        return null;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
-        Typeface fontBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/bold.ttf");
-        viewHolder.getName().setText(mDataSet.get(position).getName());
-        viewHolder.getName().setTypeface(font);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder viewHolder = (ItemViewHolder) holder;
+            Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
+            Typeface fontBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/bold.ttf");
+            viewHolder.getName().setText(mDataSet.get(position).getName());
+            viewHolder.getName().setTypeface(font);
 
-        // rate section
-        viewHolder.getRateStatic2().setText("التقييم");
-        viewHolder.getRateStatic2().setTypeface(font);
-        viewHolder.getRateStatic1().setText("/");
-        viewHolder.getRateStatic1().setTypeface(font);
+            // rate section
+            viewHolder.getRateStatic2().setText("التقييم");
+            viewHolder.getRateStatic2().setTypeface(font);
+            viewHolder.getRateStatic1().setText("/");
+            viewHolder.getRateStatic1().setTypeface(font);
 
-        viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_per_5()));
-        viewHolder.getRatePerFive().setTypeface(font);
-        viewHolder.getRatingBar().setRating(mDataSet.get(position).getRating_per_5());
+            viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_per_5()));
+            viewHolder.getRatePerFive().setTypeface(font);
+            viewHolder.getRatingBar().setRating(mDataSet.get(position).getRating_per_5());
 
-        if (mDataSet.get(position).getHour_price() != null &&
-                !mDataSet.get(position).getHour_price().trim().isEmpty() &&
-                !mDataSet.get(position).getHour_price().equalsIgnoreCase("null")) {
-            viewHolder.getCostPerHour().setText(mDataSet.get(position).getHour_price());
-        } else {
-            viewHolder.getCostPerHour().setText("--");
+            if (mDataSet.get(position).getHour_price() != null &&
+                    !mDataSet.get(position).getHour_price().trim().isEmpty() &&
+                    !mDataSet.get(position).getHour_price().equalsIgnoreCase("null")) {
+                viewHolder.getCostPerHour().setText(mDataSet.get(position).getHour_price());
+            } else {
+                viewHolder.getCostPerHour().setText("--");
+            }
+            viewHolder.getCostPerHour().setTypeface(fontBold);
+
+            viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
+            viewHolder.getDescribtion().setTypeface(font);
+            viewHolder.getHour().setTypeface(font);
+
+            // populate mainImage
+            Picasso.with(mContext)
+                    .load(mDataSet.get(position).getImage_full_path())
+                    .placeholder(R.drawable.login_user_ico)
+                    .into(viewHolder.getUserAvatar());
+        } else if (holder instanceof LoadingViewHolder) {
+            LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
+            loadingViewHolder.progressBar.setIndeterminate(true);
         }
-        viewHolder.getCostPerHour().setTypeface(fontBold);
-
-        viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
-        viewHolder.getDescribtion().setTypeface(font);
-        viewHolder.getHour().setTypeface(font);
-
-        // populate mainImage
-        Picasso.with(mContext)
-                .load(mDataSet.get(position).getImage_full_path())
-                .placeholder(R.drawable.login_user_ico)
-                .into(viewHolder.getUserAvatar());
-
 
 
     }
@@ -171,6 +204,15 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Teach
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.size();
+        return mDataSet == null ? 0 : mDataSet.size();
     }
+
+    public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
+        this.mOnLoadMoreListener = mOnLoadMoreListener;
+    }
+
+    public void setLoaded() {
+        isLoading = false;
+    }
+
 }
