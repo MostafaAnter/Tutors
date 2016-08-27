@@ -474,7 +474,7 @@
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:padding="5dp"
-                    android:text="مراسلة المعلم"
+                    android:text="مراسلة المدرس"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorPrimary" />
             </LinearLayout>
@@ -508,7 +508,7 @@
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:padding="5dp"
-                    android:text="تقييم المعلم"
+                    android:text="تقييم المدرس"
                     android:textColor="#7cb034"
                     android:textColorHint="#7cb034" />
             </LinearLayout>
