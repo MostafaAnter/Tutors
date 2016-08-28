@@ -105,9 +105,9 @@ public class StudentDetails extends Fragment {
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
 
-        searchIc.setVisibility(View.GONE);
-        profileIc.setVisibility(View.GONE);
-        chatIc.setVisibility(View.GONE);
+//        searchIc.setVisibility(View.GONE);
+//        profileIc.setVisibility(View.GONE);
+//        chatIc.setVisibility(View.GONE);
 
         if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
