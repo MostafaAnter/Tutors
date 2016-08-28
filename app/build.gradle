@@ -55,6 +55,10 @@ dependencies {
 
     // for FCM
     compile 'com.google.firebase:firebase-messaging:9.4.0'
+
+    // for dialog
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.2@aar'
+    compile 'com.flyco.animation:FlycoAnimation_Lib:1.0.0@aar'
 }
 apply plugin: 'com.google.gms.google-services'
 
