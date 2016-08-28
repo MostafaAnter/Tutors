@@ -107,6 +107,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
                     Bundle arguments = new Bundle();
                     arguments.putString(Constants.DETAIL_USER_ID, mDataSet.get(getPosition()).getId());
                     arguments.putString(Constants.COMMING_FROM, comingFrom);
+                    arguments.putString("rating_count", mDataSet.get(getPosition()).getRating_divide_count());
                     TeacherDetails fragment = new TeacherDetails();
                     fragment.setArguments(arguments);
                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()

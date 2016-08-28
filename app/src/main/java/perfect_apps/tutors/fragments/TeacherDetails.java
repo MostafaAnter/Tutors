@@ -704,12 +704,13 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     for (int i = 0; i < jsonMoviesArray.length(); i++) {
                         JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
                         String rate = jsonObject.optString("rating");
+                        String rating_count = getArguments().getString("rating_count");
 
                         float rating_per_5 = Float.valueOf(rate);
                         if (rating_per_5 != 0)
                             rating_per_5 = rating_per_5 / 5;
 
-                        textView23.setText(String.valueOf(rating_per_5));
+                        textView23.setText(rating_count);
                         ratingBar.setRating(rating_per_5);
 
 
