@@ -35,10 +35,13 @@ import com.flyco.dialog.widget.NormalListDialog;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.ChatsAdapter;
 import perfect_apps.tutors.app.AppController;
@@ -70,6 +73,13 @@ public class MyChats extends Fragment {
     protected ChatsAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected List<MyChatsItem> mDataset;
+
+
+
+    // for dialog actions
+    private String message_id;
+    private String user_id;
+    private String group_id;
 
     public MyChats() {
 
@@ -189,13 +199,16 @@ public class MyChats extends Fragment {
 
         mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                View childView = rv.findChildViewUnder(e.getX(), e.getY());
+            public boolean onInterceptTouchEvent(final RecyclerView rv, MotionEvent e) {
+                final View childView = rv.findChildViewUnder(e.getX(), e.getY());
                 if (childView != null) {
                     childView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View view) {
                             // show dialog :)
+                            message_id = mDataset.get(rv.getChildAdapterPosition(childView)).getChat_id();
+                            user_id = mDataset.get(rv.getChildAdapterPosition(childView)).getUser_id();
+                            group_id =  mDataset.get(rv.getChildAdapterPosition(childView)).getGroup_id();
                             normalListDialogCustomAttr();
 
                             return false;
@@ -415,8 +428,339 @@ public class MyChats extends Fragment {
             public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // mMenuItems.get(position).mOperName
                 Toast.makeText(getActivity(), mMenuItems.get(position).mOperName + position, Toast.LENGTH_SHORT).show();
+                if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.TEACHER)) {
+                    switch (position){
+                        case 0:
+                            if (!getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
+                                TeacherDetails teacherDetails =
+                                        new TeacherDetails();
+                                Bundle b = new Bundle();
+                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                                b.putString(Constants.DETAIL_USER_ID, user_id);
+
+                                teacherDetails.setArguments(b);
+
+                                FragmentTransaction transaction = getFragmentManager()
+                                        .beginTransaction();
+                                transaction.replace(R.id.fragment_container, teacherDetails);
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.addToBackStack(TeacherDetails.TAG);
+                                transaction.commit();
+                                // to add to back stack
+                                getActivity().getSupportFragmentManager().executePendingTransactions();
+                            }else if (group_id.equalsIgnoreCase("3")){
+                                StudentDetails teacherDetails =
+                                        new StudentDetails();
+                                Bundle b = new Bundle();
+                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                                b.putString(Constants.DETAIL_USER_ID, user_id);
+                                teacherDetails.setArguments(b);
+
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                                        .beginTransaction();
+                                transaction.replace(R.id.fragment_container, teacherDetails);
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.addToBackStack(StudentDetails.TAG);
+                                transaction.commit();
+                                // to add to back stack
+                                getActivity().getSupportFragmentManager().executePendingTransactions();
+                            }else if (group_id.equalsIgnoreCase("2")){
+                                TeacherDetails teacherDetails =
+                                        new TeacherDetails();
+                                Bundle b = new Bundle();
+                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                                b.putString(Constants.DETAIL_USER_ID, user_id);
+
+                                teacherDetails.setArguments(b);
+
+                                FragmentTransaction transaction = getFragmentManager()
+                                        .beginTransaction();
+                                transaction.replace(R.id.fragment_container, teacherDetails);
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.addToBackStack(TeacherDetails.TAG);
+                                transaction.commit();
+                                // to add to back stack
+                                getActivity().getSupportFragmentManager().executePendingTransactions();
+                            }
+                            break;
+                        case 1:
+                            block();
+                            break;
+                        case 2:
+                            unblock();
+                            break;
+                        case 3:
+                            deleteConversation();
+                            break;
+
+                    }
+
+                }else {
+                    switch (position){
+                        case 0:
+                            if (!getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
+                                TeacherDetails teacherDetails =
+                                        new TeacherDetails();
+                                Bundle b = new Bundle();
+                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                                b.putString(Constants.DETAIL_USER_ID, user_id);
+
+                                teacherDetails.setArguments(b);
+
+                                FragmentTransaction transaction = getFragmentManager()
+                                        .beginTransaction();
+                                transaction.replace(R.id.fragment_container, teacherDetails);
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.addToBackStack(TeacherDetails.TAG);
+                                transaction.commit();
+                                // to add to back stack
+                                getActivity().getSupportFragmentManager().executePendingTransactions();
+                            }else if (group_id.equalsIgnoreCase("3")){
+                                StudentDetails teacherDetails =
+                                        new StudentDetails();
+                                Bundle b = new Bundle();
+                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                                b.putString(Constants.DETAIL_USER_ID, user_id);
+                                teacherDetails.setArguments(b);
+
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                                        .beginTransaction();
+                                transaction.replace(R.id.fragment_container, teacherDetails);
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.addToBackStack(StudentDetails.TAG);
+                                transaction.commit();
+                                // to add to back stack
+                                getActivity().getSupportFragmentManager().executePendingTransactions();
+                            }else if (group_id.equalsIgnoreCase("2")){
+                                TeacherDetails teacherDetails =
+                                        new TeacherDetails();
+                                Bundle b = new Bundle();
+                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+                                b.putString(Constants.DETAIL_USER_ID, user_id);
+
+                                teacherDetails.setArguments(b);
+
+                                FragmentTransaction transaction = getFragmentManager()
+                                        .beginTransaction();
+                                transaction.replace(R.id.fragment_container, teacherDetails);
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.addToBackStack(TeacherDetails.TAG);
+                                transaction.commit();
+                                // to add to back stack
+                                getActivity().getSupportFragmentManager().executePendingTransactions();
+                            }
+                            break;
+                        case 1:
+                            deleteConversation();
+                            break;
+                    }
+
+                }
+
+
+
                 dialog.dismiss();
             }
         });
+    }
+
+    private void block() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/block/block";
+
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("أنتظر...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token_response", response);
+
+                    pDialog.dismissWithAnimation();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("تم")
+                            .setContentText("لقد قمت بحظر المستخدم")
+                            .show();
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showErrorMessage(getActivity(), "لقد قمت بحظر المستخدم من قبل");
+                    pDialog.dismissWithAnimation();
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("blocked_id", user_id);
+                    if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                            .equalsIgnoreCase(Constants.STUDENT)) {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    }else {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+                    }
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private void unblock() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/block/unblock";
+
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("أنتظر...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token_response", response);
+                    pDialog.dismissWithAnimation();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("تم")
+                            .setContentText("لقد قمت بإلغاء الحظر")
+                            .show();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showErrorMessage(getActivity(), "هذا المستخدم ليس فى قائمة الحظر الخاصه بك");
+                    pDialog.dismissWithAnimation();
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("blocked_id", user_id);
+                    if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                            .equalsIgnoreCase(Constants.STUDENT)) {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    }else {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+                    }
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private void deleteConversation() {
+        if (Utils.isOnline(getActivity())) {
+
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/tutors/api/message/delete";
+
+            // Set up a progress dialog
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("أنتظر...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("push_token_response", response);
+                    pDialog.dismissWithAnimation();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("تم")
+                            .setContentText("لقد قمت بحذف المحادثة")
+                            .show();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showErrorMessage(getActivity(), "حاول مرة اخرى");
+                    pDialog.dismissWithAnimation();
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("message_id", message_id);
+                    if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                            .equalsIgnoreCase(Constants.STUDENT)) {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD));
+                    }else {
+                        params.put("email", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL));
+                        params.put("password", new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD));
+                    }
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
     }
 }
