@@ -81,6 +81,10 @@ public class MyChats extends Fragment {
     private String user_id;
     private String group_id;
 
+
+    // for create items one time;
+    private int dialogItemsCount = 0;
+
     public MyChats() {
 
     }
@@ -113,15 +117,6 @@ public class MyChats extends Fragment {
 
         // save coming from state to use it in conversation adapter
         new TutorsPrefStore(getActivity()).addPreference(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
-
-
-        mMenuItems.add(new DialogMenuItem("  عن الراسل", R.drawable.ic_info_outline_black_24dp));
-        if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
-                .equalsIgnoreCase(Constants.TEACHER)) {
-            mMenuItems.add(new DialogMenuItem("  حظر", R.drawable.block));
-            mMenuItems.add(new DialogMenuItem("  إلغاء الحظر", R.drawable.unblock));
-        }
-        mMenuItems.add(new DialogMenuItem(" مسح", R.drawable.ic_delete_black_24dp));
 
     }
 
@@ -205,6 +200,16 @@ public class MyChats extends Fragment {
                     childView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View view) {
+                            if (dialogItemsCount < 1) {
+                                dialogItemsCount++;
+                                mMenuItems.add(new DialogMenuItem("  عن الراسل", R.drawable.ic_info_outline_black_24dp));
+                                if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                                        .equalsIgnoreCase(Constants.TEACHER)) {
+                                    mMenuItems.add(new DialogMenuItem("  حظر", R.drawable.block));
+                                    mMenuItems.add(new DialogMenuItem("  إلغاء الحظر", R.drawable.unblock));
+                                }
+                                mMenuItems.add(new DialogMenuItem(" مسح", R.drawable.ic_delete_black_24dp));
+                            }
                             // show dialog :)
                             message_id = mDataset.get(rv.getChildAdapterPosition(childView)).getChat_id();
                             user_id = mDataset.get(rv.getChildAdapterPosition(childView)).getUser_id();
@@ -427,29 +432,12 @@ public class MyChats extends Fragment {
             @Override
             public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // mMenuItems.get(position).mOperName
-                Toast.makeText(getActivity(), mMenuItems.get(position).mOperName + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), mMenuItems.get(position).mOperName + position, Toast.LENGTH_SHORT).show();
                 if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
                         .equalsIgnoreCase(Constants.TEACHER)) {
                     switch (position){
                         case 0:
-                            if (!getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
-                                TeacherDetails teacherDetails =
-                                        new TeacherDetails();
-                                Bundle b = new Bundle();
-                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
-                                b.putString(Constants.DETAIL_USER_ID, user_id);
-
-                                teacherDetails.setArguments(b);
-
-                                FragmentTransaction transaction = getFragmentManager()
-                                        .beginTransaction();
-                                transaction.replace(R.id.fragment_container, teacherDetails);
-                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                transaction.addToBackStack(TeacherDetails.TAG);
-                                transaction.commit();
-                                // to add to back stack
-                                getActivity().getSupportFragmentManager().executePendingTransactions();
-                            }else if (group_id.equalsIgnoreCase("3")){
+                            if (group_id.equalsIgnoreCase("3")){
                                 StudentDetails teacherDetails =
                                         new StudentDetails();
                                 Bundle b = new Bundle();
@@ -499,24 +487,7 @@ public class MyChats extends Fragment {
                 }else {
                     switch (position){
                         case 0:
-                            if (!getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
-                                TeacherDetails teacherDetails =
-                                        new TeacherDetails();
-                                Bundle b = new Bundle();
-                                b.putString(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
-                                b.putString(Constants.DETAIL_USER_ID, user_id);
-
-                                teacherDetails.setArguments(b);
-
-                                FragmentTransaction transaction = getFragmentManager()
-                                        .beginTransaction();
-                                transaction.replace(R.id.fragment_container, teacherDetails);
-                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                transaction.addToBackStack(TeacherDetails.TAG);
-                                transaction.commit();
-                                // to add to back stack
-                                getActivity().getSupportFragmentManager().executePendingTransactions();
-                            }else if (group_id.equalsIgnoreCase("3")){
+                            if (group_id.equalsIgnoreCase("3")){
                                 StudentDetails teacherDetails =
                                         new StudentDetails();
                                 Bundle b = new Bundle();
@@ -724,6 +695,7 @@ public class MyChats extends Fragment {
                             .setTitleText("تم")
                             .setContentText("لقد قمت بحذف المحادثة")
                             .show();
+                    initiateRefresh();
 
                 }
             }, new Response.ErrorListener() {
