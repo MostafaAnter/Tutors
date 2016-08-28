@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +28,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.flyco.dialog.entity.DialogMenuItem;
+import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.NormalListDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -54,6 +59,7 @@ public class MyChats extends Fragment {
     @Bind(R.id.noData)
     LinearLayout noDataView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ArrayList<DialogMenuItem> mMenuItems = new ArrayList<>();
 
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER
@@ -97,6 +103,16 @@ public class MyChats extends Fragment {
 
         // save coming from state to use it in conversation adapter
         new TutorsPrefStore(getActivity()).addPreference(Constants.COMMING_FROM, getArguments().getString(Constants.COMMING_FROM));
+
+
+        mMenuItems.add(new DialogMenuItem("  عن الراسل", R.drawable.ic_info_outline_black_24dp));
+        if (new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)) {
+            mMenuItems.add(new DialogMenuItem("  حظر", R.drawable.block));
+            mMenuItems.add(new DialogMenuItem("  إلغاء الحظر", R.drawable.unblock));
+        }
+        mMenuItems.add(new DialogMenuItem(" مسح", R.drawable.ic_delete_black_24dp));
+
     }
 
     @Nullable
@@ -180,6 +196,7 @@ public class MyChats extends Fragment {
                         @Override
                         public boolean onLongClick(View view) {
                             // show dialog :)
+                            normalListDialogCustomAttr();
 
                             return false;
                         }
@@ -379,5 +396,27 @@ public class MyChats extends Fragment {
         }
 
 
+    }
+
+    private void normalListDialogCustomAttr() {
+        final NormalListDialog dialog = new NormalListDialog(getActivity(), mMenuItems);
+        dialog.title("خيارات أضافية")//
+                .titleTextSize_SP(18)//
+                .titleBgColor(Color.parseColor("#409ED7"))//
+                .itemPressColor(Color.parseColor("#85D3EF"))//
+                .itemTextColor(Color.parseColor("#303030"))//
+                .itemTextSize(14)//
+                .cornerRadius(0)//
+                .widthScale(0.8f)//
+                .show(R.style.myDialogAnim);
+
+        dialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // mMenuItems.get(position).mOperName
+                Toast.makeText(getActivity(), mMenuItems.get(position).mOperName + position, Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
     }
 }
