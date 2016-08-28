@@ -563,6 +563,7 @@ public class MyChats extends Fragment {
                             .setTitleText("تم")
                             .setContentText("لقد قمت بحظر المستخدم")
                             .show();
+                    initiateRefresh();
                 }
             }, new Response.ErrorListener() {
 
@@ -629,6 +630,7 @@ public class MyChats extends Fragment {
                             .setTitleText("تم")
                             .setContentText("لقد قمت بإلغاء الحظر")
                             .show();
+                    initiateRefresh();
 
                 }
             }, new Response.ErrorListener() {

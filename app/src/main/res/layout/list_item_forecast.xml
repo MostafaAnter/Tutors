@@ -50,18 +50,18 @@
                 android:textColor="@color/colorPrimary"
                 android:text="0.5"/>
 
-            <TextView
-                android:id="@+id/rateStatic1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:text=" / "/>
+            <!--<TextView-->
+                <!--android:id="@+id/rateStatic1"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:text=" / "/>-->
             <TextView
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/rateStatic2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rate"/>
+                android:text="التقييم  "/>
         </LinearLayout>
         <TextView
             android:layout_marginLeft="5dp"
