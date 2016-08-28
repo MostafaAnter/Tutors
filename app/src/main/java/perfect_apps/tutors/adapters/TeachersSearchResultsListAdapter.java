@@ -56,7 +56,6 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.name)TextView name;
         @Bind(R.id.rate)TextView ratePerFive;
-        @Bind(R.id.rateStatic1)TextView rateStatic1;
         @Bind(R.id.rateStatic2)TextView rateStatic2;
         @Bind(R.id.ratingBar)RatingBar ratingBar;
         @Bind(R.id.desc) TextView describtion;
@@ -68,10 +67,6 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
 
         @Bind(R.id.hour) TextView hour;
         @Bind(R.id.avatar) ImageView userAvatar;
-
-        public TextView getRateStatic1() {
-            return rateStatic1;
-        }
 
         public TextView getRateStatic2() {
             return rateStatic2;
@@ -168,10 +163,8 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
             // rate section
             viewHolder.getRateStatic2().setText("التقييم");
             viewHolder.getRateStatic2().setTypeface(font);
-            viewHolder.getRateStatic1().setText("/");
-            viewHolder.getRateStatic1().setTypeface(font);
 
-            viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_per_5()));
+            viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_divide_count()));
             viewHolder.getRatePerFive().setTypeface(font);
             viewHolder.getRatingBar().setRating(mDataSet.get(position).getRating_per_5());
 

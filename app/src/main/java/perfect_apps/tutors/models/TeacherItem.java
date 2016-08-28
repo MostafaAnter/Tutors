@@ -10,6 +10,15 @@ public class TeacherItem {
     private String image_full_path;
     private float rating_per_5;
     private String hour_price;
+    private String rating_divide_count;
+
+    public String getRating_divide_count() {
+        return rating_divide_count;
+    }
+
+    public void setRating_divide_count(String rating_divide_count) {
+        this.rating_divide_count = rating_divide_count;
+    }
 
     public String getId() {
         return id;
@@ -59,12 +68,14 @@ public class TeacherItem {
         this.hour_price = hour_price;
     }
 
-    public TeacherItem(String id, String name, String desc, String image_full_path, float rating_per_5, String hour_price) {
+    public TeacherItem(String id, String name, String desc, String image_full_path, float rating_per_5, String hour_price,
+                       String rating_divide_count) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.image_full_path = image_full_path;
         this.rating_per_5 = rating_per_5;
         this.hour_price = hour_price;
+        this.rating_divide_count = rating_divide_count;
     }
 }

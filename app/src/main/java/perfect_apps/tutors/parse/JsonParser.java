@@ -33,7 +33,9 @@ public class JsonParser {
                 if (rating_per_5 != 0)
                     rating_per_5 = rating_per_5 / 5;
                 String hour_price = jsonObject.optString("hour_price");
-                teacherItems.add(new TeacherItem(id, name, desc, image_full_path, rating_per_5, hour_price));
+                String rating_count = jsonObject.optString("rating_count");
+                String rating_divid_count = rating_per_5 + " / " + rating_count + "  ";
+                teacherItems.add(new TeacherItem(id, name, desc, image_full_path, rating_per_5, hour_price, rating_divid_count));
             }
             return teacherItems;
         } catch (JSONException e) {
