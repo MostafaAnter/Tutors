@@ -131,11 +131,13 @@ public class TeachersHomeList extends Fragment {
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
-                if (!mAdapter.isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                    if (mAdapter.mOnLoadMoreListener != null) {
-                        mAdapter.mOnLoadMoreListener.onLoadMore();
+                if (lastVisibleItem == 20) {
+                    if (!mAdapter.isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                        if (mAdapter.mOnLoadMoreListener != null) {
+                            mAdapter.mOnLoadMoreListener.onLoadMore();
+                        }
+                        mAdapter.isLoading = true;
                     }
-                    mAdapter.isLoading = true;
                 }
             }
         });
