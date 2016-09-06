@@ -84,7 +84,7 @@
                 android:hint="@string/write_about_you"
                 android:imeOptions="actionUnspecified"
                 android:padding="5dp"
-                android:textSize="12sp"></EditText>
+                android:textSize="12sp"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -100,12 +100,15 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
+                    android:onClick="pickPhoto"
                     android:layout_weight="2">
 
                     <ImageView
+                        android:contentDescription="@null"
                         android:id="@+id/image1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="pickPhoto"
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/avatr" />
 
