@@ -230,11 +230,12 @@ public class LoginTeacherActivity extends LocalizationActivity {
                 new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_IMAGE_FULL_PATH, image_full_path);
 
                 new TutorsPrefStore(LoginTeacherActivity.this).addPreference(Constants.TEACHER_AUTHENTICATION_STATE, Constants.TEACHER);
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, HomeActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(Constants.COMMING_FROM, Constants.TEACHER_PAGE);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-                finish();
 
 
             } catch (JSONException e) {
