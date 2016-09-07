@@ -104,7 +104,16 @@
                     android:contentDescription="@null"
                     android:padding="8dp"
                     android:src="@drawable/down_arrow" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red_btn_bg_color"
+                    android:layout_toLeftOf="@+id/icon"
+                    android:layout_centerVertical="true"
+                    android:text="*"/>
+
                 <ImageView
+                    android:id="@+id/icon"
                     android:contentDescription="@null"
                     android:layout_width="30dp"
                     android:padding="3dp"
@@ -145,7 +154,16 @@
                 android:contentDescription="@null"
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:layout_toLeftOf="@+id/icon1"
+                android:layout_centerVertical="true"
+                android:text="*"/>
+
             <ImageView
+                android:id="@+id/icon1"
                 android:contentDescription="@null"
                 android:layout_width="30dp"
                 android:padding="3dp"
@@ -185,7 +203,16 @@
                 android:contentDescription="@null"
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:layout_toLeftOf="@+id/icon2"
+                android:layout_centerVertical="true"
+                android:text="*"/>
+
             <ImageView
+                android:id="@+id/icon2"
                 android:contentDescription="@null"
                 android:layout_width="30dp"
                 android:padding="3dp"
