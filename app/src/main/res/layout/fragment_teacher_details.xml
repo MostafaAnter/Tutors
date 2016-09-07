@@ -63,11 +63,11 @@
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:progressTint="#FFD700"
+                        android:layout_margin="5dp"
                         android:isIndicator="true"
                         android:numStars="1"
-                        android:stepSize="0.01"
-                        android:layout_margin="5dp"/>
+                        android:progressTint="#FFD700"
+                        android:stepSize="0.01" />
 
                     <TextView
                         android:id="@+id/rate"
@@ -77,11 +77,11 @@
                         android:textColor="@color/colorPrimary" />
 
                     <!--<TextView-->
-                        <!--android:id="@+id/rateStatic1"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text=" / "-->
-                        <!--android:textColor="@color/colorPrimary" />-->
+                    <!--android:id="@+id/rateStatic1"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text=" / "-->
+                    <!--android:textColor="@color/colorPrimary" />-->
 
                     <TextView
                         android:id="@+id/rateStatic2"
@@ -144,8 +144,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#fafafa">
+            android:background="#fafafa"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -232,9 +232,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#fafafa"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="#fafafa">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -255,7 +255,6 @@
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -287,9 +286,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#fafafa"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="#fafafa">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -342,9 +341,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#fafafa"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="#fafafa">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -367,89 +366,68 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/text9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="المواد التى أدرسها : " />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeightLarge"
             android:gravity="top"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:orientation="horizontal"
-            android:background="@drawable/border_shape_gray">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_school_ico" />
-
-            <TextView
-                android:id="@+id/text9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="المواد التى أدرسها : " />
-
-            <TextView
-                android:id="@+id/text10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_marginTop="8dp"
-                android:textColor="@color/colorPrimary" />
-
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:background="@drawable/border_shape"
+            android:minHeight="?android:attr/listPreferredItemHeightLarge"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/text19"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="#FBF9FA"
-                android:gravity="center"
-                android:maxLines="1"
+                android:id="@+id/text10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_shape_gray"
                 android:padding="5dp"
-                android:text="معلومات أضافية"
+                android:text=""
                 android:textColor="@color/colorPrimary" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/text20"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:padding="3dp"
-                android:textColor="@color/red_btn_bg_color"
-                android:text="@string/rates"
-                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/text21"
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="معلومات أضافية:" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text=""
-            android:textColor="@color/colorPrimary" />
+            android:gravity="top"
+            android:minHeight="?android:attr/listPreferredItemHeightLarge"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text21"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_shape_gray"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/text20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/rates"
+            android:textColor="@color/red_btn_bg_color"
+            android:textStyle="bold" />
+
 
         <LinearLayout
             android:id="@+id/viewForStudent"
