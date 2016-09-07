@@ -1103,10 +1103,10 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         password_confirmation = editText6.getText().toString().trim();
 
 
-        if (desc == null || desc.trim().isEmpty()) {
-            Utils.showErrorMessage(this, "الرجاء كتابة نبذة مختصرة عنك");
-            return false;
-        }
+//        if (desc == null || desc.trim().isEmpty()) {
+//            Utils.showErrorMessage(this, "الرجاء كتابة نبذة مختصرة عنك");
+//            return false;
+//        }
 
         if (name == null || name.trim().isEmpty()) {
             Utils.showErrorMessage(this, "الرجاء أدخال الاسم كامل");
