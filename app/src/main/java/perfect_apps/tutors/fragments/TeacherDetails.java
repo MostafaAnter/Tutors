@@ -90,8 +90,6 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     TextView textView17;
     @Bind(R.id.text18)
     TextView textView18;
-    @Bind(R.id.text19)
-    TextView textView19;
     @Bind(R.id.text20)
     Button textView20;
     @Bind(R.id.text21)
@@ -210,7 +208,6 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         textView16.setTypeface(font);
         textView17.setTypeface(font);
         textView18.setTypeface(font);
-        textView19.setTypeface(fontBold);
         textView20.setTypeface(fontBold);
         textView21.setTypeface(font);
         textView22.setTypeface(font);

@@ -75,8 +75,8 @@ public class HomeActivity extends LocalizationActivity
         toolbar.setTitle("");
         toolbar.setSubtitle("");
 
-        messageCountView = (LinearLayout)toolbar.findViewById(R.id.messageCountView);
-        messageCount = (TextView)toolbar.findViewById(R.id.messageCount);
+        messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
+        messageCount = (TextView) toolbar.findViewById(R.id.messageCount);
         messageCountView.setVisibility(View.GONE);
 
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
@@ -88,9 +88,9 @@ public class HomeActivity extends LocalizationActivity
             @Override
             public void onClick(View view) {
                 FragmentManager fm = getSupportFragmentManager();
-                if (fm.getBackStackEntryCount() == 1){
+                if (fm.getBackStackEntryCount() == 1) {
                     finish();
-                }else {
+                } else {
                     clearBackStack();
                 }
 
@@ -148,10 +148,28 @@ public class HomeActivity extends LocalizationActivity
 
         if (savedInstanceState == null) {
             if (getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
-                TeachersHomeList teachersListFragment = new TeachersHomeList();
-                teachersListFragment.setArguments(getIntent().getExtras());
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, teachersListFragment).addToBackStack(TeachersHomeList.TAG).commit();
+//                TeachersHomeList teachersListFragment = new TeachersHomeList();
+//                teachersListFragment.setArguments(getIntent().getExtras());
+//                getSupportFragmentManager().beginTransaction()
+//                        .add(R.id.fragment_container, teachersListFragment).addToBackStack(TeachersHomeList.TAG).commit();
+
+                TeacherDetails teacherDetails =
+                        new TeacherDetails();
+                Bundle b = new Bundle();
+                b.putString(Constants.COMMING_FROM, getIntent().getStringExtra(Constants.COMMING_FROM));
+                b.putString(Constants.DETAIL_USER_ID, new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_ID));
+
+                teacherDetails.setArguments(b);
+
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(TeacherDetails.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+
             } else {
                 SearchAboutTeacherFragment teachersListFragment =
                         new SearchAboutTeacherFragment();
@@ -297,37 +315,38 @@ public class HomeActivity extends LocalizationActivity
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_PASSWORD, "");
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_IMAGE_FULL_PATH, "");
             FragmentManager fm = getSupportFragmentManager();
-            for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                 fm.popBackStack();
             }
 
             Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
                     Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        } else if (id == R.id.teacherHome) {
-            if (addTeacherHomeListToBackstack()) {
-    //            clearBackStack();
-                TeachersHomeList teacherDetails =
-                        new TeachersHomeList();
-                Bundle b = new Bundle();
-                b.putString(Constants.COMMING_FROM, getIntent().getStringExtra(Constants.COMMING_FROM));
-
-                teacherDetails.setArguments(b);
-
-                FragmentTransaction transaction = getSupportFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.fragment_container, teacherDetails);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.addToBackStack(TeachersHomeList.TAG);
-                transaction.commit();
-                // to add to back stack
-                getSupportFragmentManager().executePendingTransactions();
-            }
-
-        } else if (id == R.id.teacherMessages) {
+//        } else if (id == R.id.teacherHome) {
+//            if (addTeacherHomeListToBackstack()) {
+//                //            clearBackStack();
+//                TeachersHomeList teacherDetails =
+//                        new TeachersHomeList();
+//                Bundle b = new Bundle();
+//                b.putString(Constants.COMMING_FROM, getIntent().getStringExtra(Constants.COMMING_FROM));
+//
+//                teacherDetails.setArguments(b);
+//
+//                FragmentTransaction transaction = getSupportFragmentManager()
+//                        .beginTransaction();
+//                transaction.replace(R.id.fragment_container, teacherDetails);
+//                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                transaction.addToBackStack(TeachersHomeList.TAG);
+//                transaction.commit();
+//                // to add to back stack
+//                getSupportFragmentManager().executePendingTransactions();
+//            }
+//
+//        }
+        }else if (id == R.id.teacherMessages) {
             if (addTeacherMessageToBackstack()) {
                 // clearBackStack();
                 MyChats teacherDetails =
@@ -374,11 +393,11 @@ public class HomeActivity extends LocalizationActivity
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_HOME_PAGE, "");
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_IMAGE_FULL_PATH, "");
             FragmentManager fm = getSupportFragmentManager();
-            for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                 fm.popBackStack();
             }
             Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
                     Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
@@ -394,10 +413,10 @@ public class HomeActivity extends LocalizationActivity
     private boolean addStudentDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
 
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(StudentDetails.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(StudentDetails.TAG)) {
                 fm.popBackStack(StudentDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -407,10 +426,10 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addTeacherDetailToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeacherDetails.TAG)) {
                 fm.popBackStack(TeacherDetails.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -419,10 +438,10 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addContactToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(ContactUs.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(ContactUs.TAG)) {
                 fm.popBackStack(ContactUs.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -431,10 +450,10 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addAboutToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(AboutFragment.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(AboutFragment.TAG)) {
                 fm.popBackStack(AboutFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -444,10 +463,10 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(MyChats.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(MyChats.TAG)) {
                 fm.popBackStack(MyChats.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -456,10 +475,10 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addTeacherHomeListToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeachersHomeList.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(TeachersHomeList.TAG)) {
                 fm.popBackStack(TeachersHomeList.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -468,10 +487,10 @@ public class HomeActivity extends LocalizationActivity
 
     private boolean addStudentHomeListToBackstack() {
         FragmentManager fm = getSupportFragmentManager();
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
             Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
 
-            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(SearchAboutTeacherFragment.TAG)){
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(SearchAboutTeacherFragment.TAG)) {
                 fm.popBackStack(SearchAboutTeacherFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
@@ -510,7 +529,7 @@ public class HomeActivity extends LocalizationActivity
         mi.setTitle(mNewTitle);
     }
 
-    private void getMessageCount(String email, String password , final TextView t){
+    private void getMessageCount(String email, String password, final TextView t) {
         String url = "http://services-apps.net/tutors/api/message/show/count?email=" + email + "&password=" + password;
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
@@ -527,7 +546,7 @@ public class HomeActivity extends LocalizationActivity
                     JSONObject jsonObject = new JSONObject(data);
                     String count = jsonObject.optString("count");
                     t.setText(count);
-                    if (Integer.valueOf(count) > 0){
+                    if (Integer.valueOf(count) > 0) {
                         messageCountView.setVisibility(View.VISIBLE);
                         messageCount.setText(count);
                     }
@@ -558,7 +577,7 @@ public class HomeActivity extends LocalizationActivity
                             JSONObject jsonObject = new JSONObject(response);
                             String count = jsonObject.optString("count");
                             t.setText(count);
-                            if (Integer.valueOf(count) > 0){
+                            if (Integer.valueOf(count) > 0) {
                                 messageCountView.setVisibility(View.VISIBLE);
                                 messageCount.setText(count);
                             }
