@@ -152,6 +152,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:text="*"/>
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
@@ -185,7 +191,16 @@
                     android:padding="8dp"
                     android:src="@drawable/down_arrow" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red_btn_bg_color"
+                    android:layout_toLeftOf="@+id/icon1"
+                    android:layout_centerVertical="true"
+                    android:text="*"/>
+
                 <ImageView
+                    android:id="@+id/icon1"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -226,8 +241,16 @@
                     android:contentDescription="@null"
                     android:padding="8dp"
                     android:src="@drawable/down_arrow" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red_btn_bg_color"
+                    android:layout_toLeftOf="@id/icon"
+                    android:layout_centerVertical="true"
+                    android:text="*"/>
 
                 <ImageView
+                    android:id="@+id/icon"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -269,7 +292,16 @@
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:layout_toLeftOf="@+id/icon2"
+                android:layout_centerVertical="true"
+                android:text="*"/>
+
             <ImageView
+                android:id="@+id/icon2"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -309,7 +341,16 @@
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:layout_toLeftOf="@+id/icon4"
+                android:layout_centerVertical="true"
+                android:text="*"/>
+
             <ImageView
+                android:id="@+id/icon4"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -349,7 +390,16 @@
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:layout_toLeftOf="@+id/icon5"
+                android:layout_centerVertical="true"
+                android:text="*"/>
+
             <ImageView
+                android:id="@+id/icon5"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -389,7 +439,16 @@
                 android:padding="8dp"
                 android:src="@drawable/down_arrow" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:layout_toLeftOf="@+id/icon6"
+                android:layout_centerVertical="true"
+                android:text="*"/>
+
             <ImageView
+                android:id="@+id/icon6"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
