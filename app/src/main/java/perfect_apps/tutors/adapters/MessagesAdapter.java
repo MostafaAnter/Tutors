@@ -102,16 +102,18 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     @Override
     public int getItemViewType(int position) {
 
-        if (new TutorsPrefStore(mContext).getPreferenceValue(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
-            if (mDataSet.get(position).getMessageOwnerEmail().equalsIgnoreCase(new TutorsPrefStore(mContext).getPreferenceValue(Constants.STUDENT_EMAIL))){
+
+            if (mDataSet.get(position)
+                    .getMessageOwnerEmail()
+                    .equalsIgnoreCase(new TutorsPrefStore(mContext)
+                            .getPreferenceValue(Constants.STUDENT_EMAIL))
+                    || mDataSet.get(position).getMessageOwnerEmail()
+                    .equalsIgnoreCase(new TutorsPrefStore(mContext)
+                    .getPreferenceValue(Constants.TEACHER_EMAIL))){
                 return SELF;
             }
 
-        }else if (new TutorsPrefStore(mContext).getPreferenceValue(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)){
-            if (mDataSet.get(position).getMessageOwnerEmail().equalsIgnoreCase(new TutorsPrefStore(mContext).getPreferenceValue(Constants.TEACHER_EMAIL))){
-                return SELF;
-            }
-        }
+
 
 
         return position;
