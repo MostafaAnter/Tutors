@@ -58,16 +58,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatRatingBar
-                        android:id="@+id/ratingBar"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:isIndicator="true"
-                        android:numStars="1"
-                        android:progressTint="#FFD700"
-                        android:stepSize="0.01" />
+
 
                     <TextView
                         android:id="@+id/rate"
@@ -83,12 +74,23 @@
                     <!--android:text=" / "-->
                     <!--android:textColor="@color/colorPrimary" />-->
 
-                    <TextView
-                        android:id="@+id/rateStatic2"
-                        android:layout_width="fill_parent"
+                    <!--<TextView-->
+                        <!--android:id="@+id/rateStatic2"-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="التقييم  "-->
+                        <!--android:textColor="@color/colorPrimary" />-->
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/ratingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="التقييم  "
-                        android:textColor="@color/colorPrimary" />
+                        android:layout_margin="5dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:progressTint="#FFD700"
+                        android:stepSize="0.01" />
                 </LinearLayout>
 
                 <TextView

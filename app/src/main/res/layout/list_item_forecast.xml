@@ -33,16 +33,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-            <android.support.v7.widget.AppCompatRatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:attr/ratingBarStyleSmall"
-                android:progressTint="#FFD700"
-                android:id="@+id/ratingBar"
-                android:numStars="1"
-                android:stepSize="0.01"
-                android:isIndicator="true"
-                android:layout_margin="5dp"/>
             <TextView
                 android:id="@+id/rate"
                 android:layout_width="wrap_content"
@@ -56,12 +46,23 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:textColor="@color/colorPrimary"-->
                 <!--android:text=" / "/>-->
-            <TextView
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/rateStatic2"
-                android:layout_width="fill_parent"
+            <!--<TextView-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:id="@+id/rateStatic2"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="التقييم  "/>-->
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="التقييم  "/>
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="#FFD700"
+                android:id="@+id/ratingBar"
+                android:numStars="5"
+                android:stepSize="0.01"
+                android:isIndicator="true"
+                android:layout_margin="5dp"/>
         </LinearLayout>
         <TextView
             android:layout_marginLeft="5dp"
