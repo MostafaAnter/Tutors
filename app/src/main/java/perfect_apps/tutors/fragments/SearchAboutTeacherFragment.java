@@ -194,10 +194,10 @@ public class SearchAboutTeacherFragment extends Fragment {
             Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار الدولة");
             return false;
         }
-        if (city_id.trim().isEmpty()){
-            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المدينة");
-            return false;
-        }
+//        if (city_id.trim().isEmpty()){
+//            Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المدينة");
+//            return false;
+//        }
         if (stage_id.trim().isEmpty()){
             Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار المرحلة الدراسية");
             return false;
@@ -206,14 +206,14 @@ public class SearchAboutTeacherFragment extends Fragment {
             Utils.showErrorMessage(getActivity(), "الرجاء قم بأختيار التخصص");
             return false;
         }
-        if (apply_service_id.trim().isEmpty()){
-            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع تقديم الخدمة");
-            return false;
-        }
-        if (gender_id.trim().isEmpty()){
-            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع المعلم");
-            return false;
-        }
+//        if (apply_service_id.trim().isEmpty()){
+//            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع تقديم الخدمة");
+//            return false;
+//        }
+//        if (gender_id.trim().isEmpty()){
+//            Utils.showErrorMessage(getActivity(), "الرجاء اختيار نوع المعلم");
+//            return false;
+//        }
         return true;
     }
 
