@@ -52,6 +52,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     public static final String TAG = "TeacherDetails";
     private static int mStackLevel = 0;
 
+    @Bind(R.id.text)
+    TextView textView;
     @Bind(R.id.text1)
     TextView textView1;
     @Bind(R.id.text2)
@@ -189,6 +191,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
 
+        textView.setTypeface(font);
         textView1.setTypeface(font);
         textView2.setTypeface(font);
         textView3.setTypeface(font);
@@ -208,7 +211,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         textView17.setTypeface(font);
         textView18.setTypeface(font);
         textView19.setTypeface(fontBold);
-        textView20.setTypeface(font);
+        textView20.setTypeface(fontBold);
         textView21.setTypeface(font);
         textView22.setTypeface(font);
         textView23.setTypeface(font);
