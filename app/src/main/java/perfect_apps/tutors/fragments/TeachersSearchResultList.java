@@ -408,7 +408,7 @@ public class TeachersSearchResultList extends Fragment {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
         TextView title = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        title.setText("نتائج البحث عن مدرس");
+        title.setText("نتائج البحث");
         title.setTypeface(font);
 
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
