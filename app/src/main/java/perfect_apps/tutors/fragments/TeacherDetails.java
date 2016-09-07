@@ -707,10 +707,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                         String rating_count = getArguments().getString("rating_count");
 
                         float rating_per_5 = Float.valueOf(rate);
-                        if (rating_per_5 != 0)
-                            rating_per_5 = rating_per_5 / 5;
+//                        if (rating_per_5 != 0)
+//                            rating_per_5 = rating_per_5 / 5;
 
-                        textView23.setText(rating_count);
+                        textView23.setText(rating_per_5 + " / 5");
                         ratingBar.setRating(rating_per_5);
 
 
