@@ -158,15 +158,15 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                         ratingValue.setText(String.valueOf(rate));
                         ratingValue1.setText((rate1 + rate2 + rate3 + rate4 + rate5)+" " + "تقييمات");
                         pb1.setMax((int) rate);
-                        pb1.setProgress((int)((1*rate1)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb1.setProgress((int)((1*rate1)/(rate2 + rate3 + rate4 + rate5)));
                         pb2.setMax((int) rate);
-                        pb2.setProgress((int)((2*rate2)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb2.setProgress((int)((2*rate2)/(rate1 + rate3 + rate4 + rate5)));
                         pb3.setMax((int) rate);
-                        pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate4 + rate5)));
                         pb4.setMax((int) rate);
-                        pb4.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb4.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate5)));
                         pb5.setMax((int) rate);
-                        pb5.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                        pb5.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4)));
                     }else {
                         rb.setRating(0);
                     }
