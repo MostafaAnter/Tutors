@@ -14,6 +14,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.activities.SplashActivity;
+import perfect_apps.tutors.store.TutorsPrefStore;
+import perfect_apps.tutors.utils.Constants;
 
 /**
  * Created by mostafa on 24/08/16.
@@ -54,7 +56,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        sendNotification(remoteMessage.getNotification().getBody());
+        if (new TutorsPrefStore(this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)||
+                new TutorsPrefStore(this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
+                        .equalsIgnoreCase(Constants.STUDENT)) {
+            sendNotification(remoteMessage.getNotification().getBody());
+        }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
