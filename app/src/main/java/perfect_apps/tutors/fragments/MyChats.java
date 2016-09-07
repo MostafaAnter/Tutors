@@ -373,6 +373,8 @@ public class MyChats extends Fragment {
 
                     @Override
                     public void onResponse(String response) {
+                        Log.d(TAG, response);
+
                         try {
                             response = URLDecoder.decode(response, "UTF-8");
                         } catch (UnsupportedEncodingException e) {

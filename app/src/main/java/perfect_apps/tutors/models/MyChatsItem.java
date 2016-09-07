@@ -11,6 +11,16 @@ public class MyChatsItem {
     private String time_stamp;
     private String chats_avatar;
 
+    public String getNew_count() {
+        return new_count;
+    }
+
+    public void setNew_count(String new_count) {
+        this.new_count = new_count;
+    }
+
+    private String new_count;
+
     public String getGroup_id() {
         return group_id;
     }
@@ -20,7 +30,8 @@ public class MyChatsItem {
     }
 
     private String group_id;
-    public MyChatsItem(String chats_name, String chat_id, String user_id, String chats_last_message, String time_stamp, String chats_avatar, String group_id) {
+    public MyChatsItem(String chats_name, String chat_id, String user_id, String chats_last_message, String time_stamp, String chats_avatar, String group_id,
+                       String new_count) {
         this.chats_name = chats_name;
         this.chat_id = chat_id;
         this.user_id = user_id;
@@ -28,6 +39,7 @@ public class MyChatsItem {
         this.time_stamp = time_stamp;
         this.chats_avatar = chats_avatar;
         this.group_id = group_id;
+        this.new_count = new_count;
     }
 
     public MyChatsItem(){

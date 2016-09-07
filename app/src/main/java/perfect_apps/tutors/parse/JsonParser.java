@@ -182,12 +182,15 @@ public class JsonParser {
                 String id = jsonObject.optString("id");
                 String message = jsonObject.optString("message");
                 String created_at = jsonObject.optString("created_at");
+                String new_count = jsonObject.optString("new_count");
                 JSONObject sender = jsonObject.optJSONObject("sender");
                 String name = sender.optString("name");
                 String group_id  = sender.optString("group_id");
                 String user_id = sender.optString("id");
                 String image_full_path = sender.optString("image_full_path");
-                teacherItems.add(new MyChatsItem(name, id, user_id, message, Utils.manipulateDateFormat(created_at),image_full_path , group_id));
+                teacherItems.add(new MyChatsItem(name, id, user_id, message,
+                        Utils.manipulateDateFormat(created_at),
+                        image_full_path , group_id, new_count));
             }
             return teacherItems;
         } catch (JSONException e) {

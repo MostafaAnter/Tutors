@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -49,6 +50,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         @Bind(R.id.timestamp) TextView timeStamp;
         @Bind(R.id.conversation_avatar)
         CircleImageView conversationAvatar;
+
+        public LinearLayout getContainer() {
+            return container;
+        }
+
+        @Bind(R.id.container)
+        LinearLayout container;
 
         public CircleImageView getConversationAvatar() {
             return conversationAvatar;
@@ -95,6 +103,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
         // Get element from your dataset at this position and replace the contents of the view
+        if (Integer.valueOf(mDataSet.get(position).getNew_count()) > 0){
+            viewHolder.getContainer().setBackgroundResource(R.color.gray_btn_bg_color);
+        }
         // with that element
         Typeface fontBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/bold.ttf");
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
