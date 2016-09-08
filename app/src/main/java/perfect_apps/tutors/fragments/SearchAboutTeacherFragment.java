@@ -567,7 +567,10 @@ public class SearchAboutTeacherFragment extends Fragment {
             try {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
-                populateSpinner6(JsonParser.parseSexFeed(data));
+                List<SpinnerItem> spinnerItemList = JsonParser.parseSexFeed(data);
+                if (spinnerItemList != null) {
+                    populateSpinner6(spinnerItemList);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -651,8 +654,11 @@ public class SearchAboutTeacherFragment extends Fragment {
             try {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
-                populateSpinner4(JsonParser.parseMajorsFeed(data));
+                List<SpinnerItem> spinnerItemList = JsonParser.parseMajorsFeed(data);
 
+                if (spinnerItemList != null) {
+                    populateSpinner4(spinnerItemList);
+                }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -735,7 +741,10 @@ public class SearchAboutTeacherFragment extends Fragment {
             try {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
-                populateSpinner5(JsonParser.parseApplyServicesFeed(data));
+                List<SpinnerItem> spinnerItemList = JsonParser.parseApplyServicesFeed(data);
+                if (spinnerItemList != null) {
+                    populateSpinner5(spinnerItemList);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -819,7 +828,10 @@ public class SearchAboutTeacherFragment extends Fragment {
             try {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
-                populateSpinner3(JsonParser.parseStageFeed(data));
+                List<SpinnerItem> spinnerItemList = JsonParser.parseStageFeed(data);
+                if (spinnerItemList != null) {
+                    populateSpinner3(spinnerItemList);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -903,7 +915,10 @@ public class SearchAboutTeacherFragment extends Fragment {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // do some thing
-                populateSpinner1(JsonParser.parseCountriesFeed(data));
+                List<SpinnerItem> spinnerItemList = JsonParser.parseCountriesFeed(data);
+                if (spinnerItemList != null) {
+                    populateSpinner1(spinnerItemList);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -985,7 +1000,10 @@ public class SearchAboutTeacherFragment extends Fragment {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // do some thing
-                populateSpinner2(JsonParser.parseCitiesFeed(data));
+                List<SpinnerItem> spinnerItemList = JsonParser.parseCitiesFeed(data);
+                if (spinnerItemList != null) {
+                    populateSpinner2(spinnerItemList);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

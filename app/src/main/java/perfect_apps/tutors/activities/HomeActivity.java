@@ -314,10 +314,6 @@ public class HomeActivity extends LocalizationActivity
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_EMAIL, "");
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_PASSWORD, "");
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.STUDENT_IMAGE_FULL_PATH, "");
-            FragmentManager fm = getSupportFragmentManager();
-            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                fm.popBackStack();
-            }
 
             Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
@@ -392,10 +388,7 @@ public class HomeActivity extends LocalizationActivity
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_PASSWORD, "");
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_HOME_PAGE, "");
             new TutorsPrefStore(HomeActivity.this).addPreference(Constants.TEACHER_IMAGE_FULL_PATH, "");
-            FragmentManager fm = getSupportFragmentManager();
-            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                fm.popBackStack();
-            }
+
             Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
                     Intent.FLAG_ACTIVITY_NEW_TASK);
