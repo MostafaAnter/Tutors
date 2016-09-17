@@ -4,8 +4,8 @@
     package="perfect_apps.tutors">
 
     <!-- for pick photo -->
+    <permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- for network connection -->
     <uses-permission android:name="android.permission.INTERNET" />

@@ -43,15 +43,20 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.BuildConfig;
+import perfect_apps.tutors.Manifest;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
 import perfect_apps.tutors.utils.VolleyMultipartRequest;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class RegisterStudentMembershipActivity extends LocalizationActivity {
     private String name;
     private String email;
@@ -75,7 +80,6 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
     @Bind(R.id.image1) ImageView imageView1;
 
 
-    private static final int REQUEST_CODE = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,22 +171,24 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
 
     }
 
-    public void pickPhoto(View view) {
-        PhotoPickerIntent intent = new PhotoPickerIntent(RegisterStudentMembershipActivity.this);
-        intent.setPhotoCount(1);
-        intent.setShowCamera(true);
-        intent.setShowGif(true);
-        startActivityForResult(intent, REQUEST_CODE);
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    void pickPhoto(View view) {
+        PhotoPicker.builder()
+                .setPhotoCount(1)
+                .setShowCamera(true)
+                .setShowGif(false)
+                .setPreviewEnabled(false)
+                .start(this, PhotoPicker.REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
             if (data != null) {
                 ArrayList<String> photos =
-                        data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                        data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
                 image = uri;
                 setSelectedPhotoInsideCircleShap(uri);
