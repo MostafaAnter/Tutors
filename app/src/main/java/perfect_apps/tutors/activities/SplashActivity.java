@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.splunk.mint.Mint;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,5 +72,7 @@ public class SplashActivity extends LocalizationActivity {
 
             }
         });
+
+        Mint.initAndStartSession(this.getApplication(), "74f29fe7");
     }
 }

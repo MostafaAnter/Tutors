@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.splunk.mint.Mint;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +59,8 @@ public class LoginTeacherActivity extends LocalizationActivity {
                 requestData();
             }
         }
+
+        Mint.initAndStartSession(this.getApplication(), "74f29fe7");
     }
 
     @Override

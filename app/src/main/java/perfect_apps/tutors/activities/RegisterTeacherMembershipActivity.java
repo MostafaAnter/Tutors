@@ -38,6 +38,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.splunk.mint.Mint;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,6 +127,8 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
         setContentView(R.layout.activity_register_teacher_membership);
         ButterKnife.bind(this);
         setToolbar();
+
+        Mint.initAndStartSession(this.getApplication(), "74f29fe7");
     }
 
     @Override

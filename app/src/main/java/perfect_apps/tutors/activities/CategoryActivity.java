@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.splunk.mint.Mint;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,6 +29,8 @@ public class CategoryActivity extends LocalizationActivity {
         setContentView(R.layout.activity_category);
         ButterKnife.bind(this);
         changeTextFont();
+
+        Mint.initAndStartSession(this.getApplication(), "74f29fe7");
     }
 
     private void changeTextFont(){

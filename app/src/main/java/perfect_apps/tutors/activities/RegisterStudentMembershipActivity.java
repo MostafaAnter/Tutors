@@ -28,6 +28,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.splunk.mint.Mint;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,8 @@ public class RegisterStudentMembershipActivity extends LocalizationActivity {
         setContentView(R.layout.activity_register_student_membership);
         ButterKnife.bind(this);
         setToolbar();
+
+        Mint.initAndStartSession(this.getApplication(), "74f29fe7");
     }
 
     @Override
