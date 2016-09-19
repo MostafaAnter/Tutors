@@ -1,16 +1,11 @@
 package perfect_apps.tutors.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.android.volley.Cache;
@@ -55,10 +49,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.BuildConfig;
-import perfect_apps.tutors.Manifest;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.adapters.CitiesSpinnerAdapter;
 import perfect_apps.tutors.adapters.CountriesSpinnerAdapter;
@@ -71,10 +62,7 @@ import perfect_apps.tutors.models.SpinnerItem;
 import perfect_apps.tutors.parse.JsonParser;
 import perfect_apps.tutors.utils.Utils;
 import perfect_apps.tutors.utils.VolleyMultipartRequest;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class RegisterTeacherMembershipActivity extends LocalizationActivity {
     // vars that i will post to service
 
@@ -211,8 +199,7 @@ public class RegisterTeacherMembershipActivity extends LocalizationActivity {
 
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void pickPhoto(View view) {
+    public void pickPhoto(View view) {
         PhotoPicker.builder()
                 .setPhotoCount(1)
                 .setShowCamera(true)

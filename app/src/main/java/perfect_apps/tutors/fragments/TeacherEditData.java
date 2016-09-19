@@ -33,7 +33,6 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
@@ -55,12 +54,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.tutors.BuildConfig;
-import perfect_apps.tutors.Manifest;
 import perfect_apps.tutors.R;
-import perfect_apps.tutors.activities.LoginTeacherActivity;
 import perfect_apps.tutors.adapters.CitiesSpinnerAdapter;
 import perfect_apps.tutors.adapters.CountriesSpinnerAdapter;
 import perfect_apps.tutors.adapters.MajorsSpinnerAdapter;
@@ -74,14 +69,11 @@ import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
 import perfect_apps.tutors.utils.VolleyMultipartRequest;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
 /**
  * Created by mostafa on 28/06/16.
  */
 
-@RuntimePermissions
 public class TeacherEditData extends Fragment implements View.OnClickListener {
     private static final String TAG = "TeacherEditData";
     private String name;
@@ -205,8 +197,8 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
         button3.setTypeface(fontBold);
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void pickPhoto() {
+
+    public void pickPhoto() {
         PhotoPicker.builder()
                 .setPhotoCount(1)
                 .setShowCamera(true)
