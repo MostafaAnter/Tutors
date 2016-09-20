@@ -757,7 +757,8 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
             } else {
                 textView28.setText("--");
             }
-            textView10.setText(teacherInfoObject.optString("subjects"));
+            if (!teacherInfoObject.optString("subjects").equalsIgnoreCase("null"))
+                textView10.setText(teacherInfoObject.optString("subjects"));
             if (!teacherInfoObject.optString("qualification").equalsIgnoreCase("null"))
                 textView16.setText(teacherInfoObject.optString("qualification"));
             if (!teacherInfoObject.optString("experience").equalsIgnoreCase("null"))
