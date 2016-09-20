@@ -632,6 +632,9 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
                 populateSpinner4(JsonParser.parseMajorsFeed(data));
+                if (majorName != null) {
+                    selectValue(spinner4, majorName);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -976,6 +979,9 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 String data = new String(entry.data, "UTF-8");
                 // do some thing
                 populateSpinner2(JsonParser.parseCitiesFeed(data));
+                if (cityName != null) {
+                    selectValue(spinner2, cityName);
+                }
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
