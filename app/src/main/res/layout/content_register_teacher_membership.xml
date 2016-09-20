@@ -84,7 +84,9 @@
                 android:hint="@string/write_about_you"
                 android:imeOptions="actionUnspecified"
                 android:padding="5dp"
-                android:textSize="12sp"/>
+                android:scrollHorizontally="true"
+                android:scrollbars="vertical"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -493,7 +495,9 @@
                 android:maxLines="1"
                 android:padding="5dp"
                 android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimary" />
+                android:textColorHint="@color/colorPrimary"
+                android:scrollHorizontally="true"
+                android:scrollbars="vertical"/>
 
             <ImageView
                 android:layout_width="30dp"
@@ -559,6 +563,8 @@
                 android:imeOptions="actionUnspecified"
                 android:maxLines="1"
                 android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:scrollbars="vertical"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary" />
         </LinearLayout>
@@ -584,6 +590,8 @@
                 android:imeOptions="actionUnspecified"
                 android:maxLines="1"
                 android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:scrollbars="vertical"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary" />
         </LinearLayout>
