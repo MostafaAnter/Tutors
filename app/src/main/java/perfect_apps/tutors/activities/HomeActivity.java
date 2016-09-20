@@ -219,7 +219,21 @@ public class HomeActivity extends LocalizationActivity
         int id = item.getItemId();
 
         if (id == R.id.home) {
-            // Handle the camera action
+            // call this section when coming from student
+            if (getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)
+                && addStudentHomeListToBackstack()) {
+                //clearBackStack();
+                SearchAboutTeacherFragment teacherDetails =
+                        new SearchAboutTeacherFragment();
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.fragment_container, teacherDetails);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
+                transaction.commit();
+                // to add to back stack
+                getSupportFragmentManager().executePendingTransactions();
+            }
         } else if (id == R.id.login) {
             // login student page
             Intent intent = new Intent(HomeActivity.this, LoginStudentActivity.class);
