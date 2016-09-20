@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#1e7faa</color>
     <color name="colorAccent">#2d92c0</color>
     <color name="green">#8cbf46</color>
+    <color name="grey">#C0C0C0</color>
 
     <!-- swipe colors -->
     <color name="swipe_color_1">#bf3026</color>

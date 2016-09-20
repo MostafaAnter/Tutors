@@ -104,7 +104,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         Log.d(TAG, "Element " + position + " set.");
         // Get element from your dataset at this position and replace the contents of the view
         if (Integer.valueOf(mDataSet.get(position).getNew_count()) > 0){
-            viewHolder.getContainer().setBackgroundResource(R.color.gray_btn_bg_color);
+            viewHolder.getContainer().setBackgroundResource(R.color.grey);
         }
         // with that element
         Typeface fontBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/bold.ttf");
