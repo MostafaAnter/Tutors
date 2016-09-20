@@ -133,6 +133,11 @@
                 android:inputType="text"
                 android:background="#00000000"
                 android:gravity="top" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:text="*"/>
             <ImageView
                 android:contentDescription="@null"
                 android:layout_width="30dp"
@@ -166,6 +171,11 @@
                 android:inputType="textEmailAddress"
                 android:background="#00000000"
                 android:gravity="top" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:text="*"/>
             <ImageView
                 android:tint="#7CB034"
                 android:contentDescription="@null"
@@ -199,6 +209,11 @@
                 android:inputType="textPassword"
                 android:background="#00000000"
                 android:gravity="right" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:text="*"/>
             <ImageView
                 android:tint="#7CB034"
                 android:contentDescription="@null"
