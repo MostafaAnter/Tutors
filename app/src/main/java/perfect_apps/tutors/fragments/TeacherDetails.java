@@ -149,15 +149,19 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, view);
         setTypeFace();
 
+        String userID = getArguments().getString(Constants.DETAIL_USER_ID);
+        String comingFrom = getArguments().getString(Constants.COMMING_FROM);
+
 
         // hide some view to suitable with context
-        if (getArguments().getString(Constants.DETAIL_USER_ID)
-                .equalsIgnoreCase(new TutorsPrefStore(getActivity())
+        if (userID != null && userID.equalsIgnoreCase(new TutorsPrefStore(getActivity())
                         .getPreferenceValue(Constants.TEACHER_ID))) {
             viewThatShowForStudent.setVisibility(View.GONE);
-        } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.TEACHER_PAGE)) {
+        } else if (comingFrom != null &&
+                comingFrom.equalsIgnoreCase(Constants.TEACHER_PAGE)) {
             viewThatShowForStudent.setVisibility(View.GONE);
-        } else if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
+        } else if (comingFrom != null &&
+                comingFrom.equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             viewThatShowForTeacher.setVisibility(View.GONE);
         } else {
             viewThatShowForTeacher.setVisibility(View.GONE);

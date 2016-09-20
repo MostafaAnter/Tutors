@@ -649,6 +649,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:text="*"/>
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
@@ -684,6 +690,12 @@
                 android:padding="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_btn_bg_color"
+                android:text="*"/>
 
             <ImageView
                 android:layout_width="30dp"
