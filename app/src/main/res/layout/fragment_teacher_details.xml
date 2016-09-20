@@ -59,7 +59,6 @@
                     android:orientation="horizontal">
 
 
-
                     <TextView
                         android:id="@+id/rate"
                         android:layout_width="wrap_content"
@@ -75,11 +74,11 @@
                     <!--android:textColor="@color/colorPrimary" />-->
 
                     <!--<TextView-->
-                        <!--android:id="@+id/rateStatic2"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="التقييم  "-->
-                        <!--android:textColor="@color/colorPrimary" />-->
+                    <!--android:id="@+id/rateStatic2"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="التقييم  "-->
+                    <!--android:textColor="@color/colorPrimary" />-->
 
                     <android.support.v7.widget.AppCompatRatingBar
                         android:id="@+id/ratingBar"
@@ -420,16 +419,24 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/text20"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="@string/rates"
-            android:textColor="@color/red_btn_bg_color"
-            android:textStyle="bold" />
+            android:background="@drawable/border_shape_blue"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/text20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="@string/rates"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/viewForStudent"
