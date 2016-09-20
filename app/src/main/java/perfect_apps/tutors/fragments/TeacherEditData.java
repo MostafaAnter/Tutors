@@ -721,6 +721,8 @@ public class TeacherEditData extends Fragment implements View.OnClickListener {
                 String data = new String(entry1.data, "UTF-8");
                 // do some thing
                 populateSpinner5(JsonParser.parseApplyServicesFeed(data));
+                // fetch data and select spinners program
+                fetchData();
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
