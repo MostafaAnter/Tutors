@@ -22,6 +22,7 @@ import perfect_apps.tutors.utils.Constants;
 public class CategoryActivity extends LocalizationActivity {
     @Bind(R.id.text1) TextView textView1;
     @Bind(R.id.text2) TextView textView2;
+    @Bind(R.id.textTitle) TextView textView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,10 @@ public class CategoryActivity extends LocalizationActivity {
 
     private void changeTextFont(){
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
+        Typeface fontNormal = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         textView1.setTypeface(font);
         textView2.setTypeface(font);
+        textView.setTypeface(fontNormal);
     }
 
     public void CateIsStudent(View view) {

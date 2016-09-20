@@ -13,6 +13,7 @@
     tools:context="perfect_apps.tutors.activities.CategoryActivity">
 
     <TextView
+        android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="النسخة التجريبية من تطبيق توترز"
