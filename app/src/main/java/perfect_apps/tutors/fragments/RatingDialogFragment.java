@@ -97,6 +97,8 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         close.setOnClickListener(this);
         button1.setOnClickListener(this);
 
+        callBack = (TeacherDetails) getTargetFragment();
+
     }
 
     private void changeTextFont() {
@@ -155,6 +157,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                             .setContentText("لقد قمت بتقييم المعلم")
                             .show();
+                    dismiss();
 
                     // TODO: 10/4/16 callback method
                     callBack.onRateComplete();
@@ -191,17 +194,5 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                     .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
                     .show();
         }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            callBack = (OnRateDone) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-
     }
 }

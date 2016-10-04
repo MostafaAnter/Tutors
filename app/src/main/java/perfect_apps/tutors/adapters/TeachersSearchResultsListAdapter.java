@@ -129,7 +129,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
                     ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(TeachersSearchResultsListAdapter.TAG)
+                            .addToBackStack(TeacherDetails.TAG)
                             .commit();
                 }
             });

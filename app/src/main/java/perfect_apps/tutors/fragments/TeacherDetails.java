@@ -48,7 +48,7 @@ import perfect_apps.tutors.utils.Utils;
 /**
  * Created by mostafa on 26/06/16.
  */
-public class TeacherDetails extends Fragment implements View.OnClickListener {
+public class TeacherDetails extends Fragment implements View.OnClickListener, RatingDialogFragment.OnRateDone {
     public static final String TAG = "TeacherDetails";
     private static int mStackLevel = 0;
 
@@ -377,6 +377,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment1.setArguments(bundle1);
+                    newFragment1.setTargetFragment(this, 1);
                     newFragment1.show(ft1, "dialog");
 
                 }
@@ -413,6 +414,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("user_id", getArguments().getString(Constants.DETAIL_USER_ID));
                     newFragment1.setArguments(bundle1);
+                    newFragment1.setTargetFragment(this, 1);
                     newFragment1.show(ft1, "dialog");
 
                 }
@@ -730,6 +732,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
 
                     }
                     float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
+                    rate = Math.round(rate * 10)/10;
                     textView23.setText(rate+ " / 5");
                     ratingBar.setRating(rate);
                 } catch (JSONException e) {
@@ -820,5 +823,10 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onRateComplete() {
+        fetchData();
     }
 }

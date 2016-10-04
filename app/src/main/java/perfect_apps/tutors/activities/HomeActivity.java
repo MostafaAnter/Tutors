@@ -56,7 +56,7 @@ import perfect_apps.tutors.utils.CustomTypefaceSpan;
 import perfect_apps.tutors.utils.Utils;
 
 public class HomeActivity extends LocalizationActivity
-        implements NavigationView.OnNavigationItemSelectedListener, RatingDialogFragment.OnRateDone {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "HomeActivity";
 
@@ -620,15 +620,5 @@ public class HomeActivity extends LocalizationActivity
         }
 
 
-    }
-
-    @Override
-    public void onRateComplete() {
-        TeacherDetails teacherDetails = (TeacherDetails) getSupportFragmentManager()
-                .findFragmentByTag(TeacherDetails.TAG);
-
-        if (teacherDetails != null){
-            teacherDetails.fetchData();
-        }
     }
 }
