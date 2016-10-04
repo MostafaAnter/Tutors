@@ -45,6 +45,7 @@ import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.fragments.AboutFragment;
 import perfect_apps.tutors.fragments.ContactUs;
 import perfect_apps.tutors.fragments.MyChats;
+import perfect_apps.tutors.fragments.RatingDialogFragment;
 import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.StudentDetails;
 import perfect_apps.tutors.fragments.TeacherDetails;
@@ -55,7 +56,7 @@ import perfect_apps.tutors.utils.CustomTypefaceSpan;
 import perfect_apps.tutors.utils.Utils;
 
 public class HomeActivity extends LocalizationActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RatingDialogFragment.OnRateDone {
 
     private static final String TAG = "HomeActivity";
 
@@ -621,4 +622,13 @@ public class HomeActivity extends LocalizationActivity
 
     }
 
+    @Override
+    public void onRateComplete() {
+        TeacherDetails teacherDetails = (TeacherDetails) getSupportFragmentManager()
+                .findFragmentByTag(TeacherDetails.TAG);
+
+        if (teacherDetails != null){
+            teacherDetails.fetchData();
+        }
+    }
 }

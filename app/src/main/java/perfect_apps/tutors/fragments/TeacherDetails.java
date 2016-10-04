@@ -625,7 +625,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
     }
 
 
-    private void fetchData() {
+    public void fetchData() {
         if (Utils.isOnline(getActivity())) {
             // first fetch rate
             fetchRate();
@@ -705,20 +705,33 @@ public class TeacherDetails extends Fragment implements View.OnClickListener {
                 try {
                     JSONObject jsonRootObject = new JSONObject(response);
                     JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
+
+                    float rate1 = 0;
+                    float rate2 = 0;
+                    float rate3 = 0;
+                    float rate4 = 0;
+                    float rate5 = 0;
+
                     for (int i = 0; i < jsonMoviesArray.length(); i++) {
                         JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
                         String rate = jsonObject.optString("rating");
-                        String rating_count = getArguments().getString("rating_count");
 
-                        float rating_per_5 = Float.valueOf(rate);
-//                        if (rating_per_5 != 0)
-//                            rating_per_5 = rating_per_5 / 5;
-
-                        textView23.setText(rating_per_5 + " / 5");
-                        ratingBar.setRating(rating_per_5);
-
+                        if (Integer.valueOf(rate) == 1){
+                            rate1++;
+                        }else if (Integer.valueOf(rate) == 2){
+                            rate2++;
+                        }else if (Integer.valueOf(rate) == 3){
+                            rate3++;
+                        }else if (Integer.valueOf(rate) == 4){
+                            rate4++;
+                        }else if (Integer.valueOf(rate) == 5){
+                            rate5++;
+                        }
 
                     }
+                    float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
+                    textView23.setText(rate+ " / 5");
+                    ratingBar.setRating(rate);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

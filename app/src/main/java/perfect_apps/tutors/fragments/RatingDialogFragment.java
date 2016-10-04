@@ -1,5 +1,6 @@
 package perfect_apps.tutors.fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -50,6 +51,13 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     @Bind(R.id.button1)
     Button button1;
 
+    // Container Activity must implement this interface
+    public interface OnRateDone {
+        public void onRateComplete();
+    }
+
+    OnRateDone callBack;
+
     /**
      * Create a new instance of MyDialogFragment, providing "num"
      * as an argument.
@@ -96,6 +104,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         Typeface fontBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bold.ttf");
         textView1.setTypeface(fontBold);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -147,6 +156,9 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                             .setContentText("لقد قمت بتقييم المعلم")
                             .show();
 
+                    // TODO: 10/4/16 callback method
+                    callBack.onRateComplete();
+
 
                 }
             }, new Response.ErrorListener() {
@@ -179,5 +191,17 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                     .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
                     .show();
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            callBack = (OnRateDone) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+
     }
 }
