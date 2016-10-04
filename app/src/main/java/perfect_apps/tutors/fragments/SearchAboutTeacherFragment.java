@@ -165,6 +165,13 @@ public class SearchAboutTeacherFragment extends Fragment {
 
                     teacherDetails.setArguments(b);
 
+                    resetSpinner(spinner1);
+                    resetSpinner(spinner2);
+                    resetSpinner(spinner3);
+                    resetSpinner(spinner4);
+                    resetSpinner(spinner5);
+                    resetSpinner(spinner6);
+
                     FragmentTransaction transaction = getFragmentManager()
                             .beginTransaction();
                     transaction.replace(R.id.fragment_container, teacherDetails);
@@ -1120,5 +1127,9 @@ public class SearchAboutTeacherFragment extends Fragment {
                     .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
                     .show();
         }
+    }
+
+    private void resetSpinner(Spinner spinner) {
+        spinner.setSelection(0);
     }
 }
