@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import perfect_apps.tutors.models.TeacherItem;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.OnLoadMoreListener;
+import perfect_apps.tutors.utils.SquaredImageView;
 
 /**
  * Created by mostafa on 24/06/16.
@@ -54,19 +56,33 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
 
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.name)TextView name;
-        @Bind(R.id.rate)TextView ratePerFive;
-       // @Bind(R.id.rateStatic2)TextView rateStatic2;
-        @Bind(R.id.ratingBar)RatingBar ratingBar;
-        @Bind(R.id.desc) TextView describtion;
-        @Bind(R.id.costPerHour) TextView costPerHour;
+        @Bind(R.id.name)
+        TextView name;
+        @Bind(R.id.rate)
+        TextView ratePerFive;
+        // @Bind(R.id.rateStatic2)TextView rateStatic2;
+        @Bind(R.id.ratingBar)
+        RatingBar ratingBar;
+        @Bind(R.id.desc)
+        TextView describtion;
+        @Bind(R.id.costPerHour)
+        TextView costPerHour;
+
+        public ProgressBar getProgressBar() {
+            return progressBar;
+        }
+
+        @Bind(R.id.progressBar)
+        ProgressBar progressBar;
 
         public TextView getHour() {
             return hour;
         }
 
-        @Bind(R.id.hour) TextView hour;
-        @Bind(R.id.avatar) ImageView userAvatar;
+        @Bind(R.id.hour)
+        TextView hour;
+        @Bind(R.id.avatar)
+        SquaredImageView userAvatar;
 
 //        public TextView getRateStatic2() {
 //            return rateStatic2;
@@ -92,7 +108,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
             return costPerHour;
         }
 
-        public ImageView getUserAvatar() {
+        public SquaredImageView getUserAvatar() {
             return userAvatar;
         }
 
@@ -110,7 +126,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
                     arguments.putString("rating_count", mDataSet.get(getPosition()).getRating_divide_count());
                     TeacherDetails fragment = new TeacherDetails();
                     fragment.setArguments(arguments);
-                    ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
+                    ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .addToBackStack(TeachersSearchResultsListAdapter.TAG)
@@ -155,27 +171,27 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
-            ItemViewHolder viewHolder = (ItemViewHolder) holder;
+            final ItemViewHolder viewHolder = (ItemViewHolder) holder;
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
             Typeface fontBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/bold.ttf");
             if (mDataSet.get(position).getName() != null &&
-                    !mDataSet.get(position).getName().equalsIgnoreCase("null")){
+                    !mDataSet.get(position).getName().equalsIgnoreCase("null")) {
 
                 viewHolder.getName().setText(mDataSet.get(position).getName());
                 viewHolder.getName().setTypeface(font);
-            }else {
+            } else {
                 viewHolder.getName().setText("__");
             }
 
             // rate section
-           // viewHolder.getRateStatic2().setText("التقييم");
+            // viewHolder.getRateStatic2().setText("التقييم");
             //viewHolder.getRateStatic2().setTypeface(font);
 
             if (mDataSet.get(position).getRating_divide_count() != null &&
                     !mDataSet.get(position).getRating_divide_count().equalsIgnoreCase("null")) {
                 viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_divide_count()));
                 viewHolder.getRatePerFive().setTypeface(font);
-            }else {
+            } else {
                 viewHolder.getRatePerFive().setText(" _ ");
             }
 
@@ -195,7 +211,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
                     !mDataSet.get(position).getDesc().equalsIgnoreCase("null")) {
                 viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
                 viewHolder.getDescribtion().setTypeface(font);
-            }else {
+            } else {
                 viewHolder.getDescribtion().setText("__");
             }
             viewHolder.getHour().setTypeface(font);
@@ -203,8 +219,22 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
             // populate mainImage
             Picasso.with(mContext)
                     .load(mDataSet.get(position).getImage_full_path())
-                    .placeholder(R.drawable.login_user_ico)
-                    .into(viewHolder.getUserAvatar());
+                    .placeholder(R.drawable.rectangle)
+                    .into(viewHolder.getUserAvatar(), new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            if (viewHolder.getProgressBar() != null) {
+                                viewHolder.getProgressBar().setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
+
+
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

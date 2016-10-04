@@ -4,15 +4,28 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-    
-    <ImageView
-        android:id="@+id/avatar"
-        android:contentDescription="@null"
+
+    <FrameLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
-        android:padding="5dp"
-        android:minHeight="?android:attr/listPreferredItemHeightLarge"
-        android:layout_height="match_parent" />
+        android:layout_height="?android:attr/listPreferredItemHeightLarge"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <perfect_apps.tutors.utils.SquaredImageView
+            android:id="@+id/avatar"
+            android:contentDescription="@null"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:minHeight="?android:attr/listPreferredItemHeightLarge"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="2.5"
