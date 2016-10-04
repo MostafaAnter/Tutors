@@ -70,7 +70,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/ratingBarStyleSmall"
-                android:progressTint="#FFD700"
                 android:id="@+id/ratingBar"
                 android:numStars="5"
                 android:stepSize="0.01"

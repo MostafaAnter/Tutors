@@ -30,7 +30,7 @@ public class JsonParser {
                 String desc = jsonObject.optString("desc");
                 String image_full_path = jsonObject.optString("image_full_path");
                 float rating_per_5 = Float.valueOf(jsonObject.optString("rating_per_5"));
-                rating_per_5 = Math.round(rating_per_5 * 10) /10;
+                rating_per_5 = (float) Math.round(rating_per_5 * 10) /10;
                 String hour_price = jsonObject.optString("hour_price");
                 String rating_count = jsonObject.optString("rating_count");
                 String rating_divid_count = rating_per_5 + " / " + /*rating_count +*/ "5  ";

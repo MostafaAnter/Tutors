@@ -732,7 +732,7 @@ public class TeacherDetails extends Fragment implements View.OnClickListener, Ra
 
                     }
                     float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
-                    rate = Math.round(rate * 10)/10;
+                    rate = (float) Math.round(rate * 10)/10;
                     textView23.setText(rate+ " / 5");
                     ratingBar.setRating(rate);
                 } catch (JSONException e) {
