@@ -12,7 +12,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/conversation_avatar"
         android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeightLarge"
         android:layout_gravity="center_vertical"
         android:layout_margin="4dp"
         android:src="@drawable/avatr"
@@ -33,7 +33,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
