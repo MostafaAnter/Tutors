@@ -32,6 +32,12 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
 
+            <TextView
+                android:id="@+id/pbt1"
+                style="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,6 +71,12 @@
                     android:text="5" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/pbt2"
+                style="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,6 +111,12 @@
                     android:text="4" />
             </LinearLayout>
 
+            <TextView
+                style="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pbt3"
+                android:text="" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,6 +150,12 @@
                     android:text="3" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/pbt4"
+                style="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -165,6 +189,12 @@
                     android:text="2" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/pbt5"
+                style="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

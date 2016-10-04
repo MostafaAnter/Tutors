@@ -52,6 +52,13 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
     @Bind(R.id.pb3)ProgressBar pb3;
     @Bind(R.id.pb4)ProgressBar pb4;
     @Bind(R.id.pb5)ProgressBar pb5;
+
+    @Bind(R.id.pbt1) TextView pbt1;
+    @Bind(R.id.pbt2) TextView pbt2;
+    @Bind(R.id.pbt3) TextView pbt3;
+    @Bind(R.id.pbt4) TextView pbt4;
+    @Bind(R.id.pbt5) TextView pbt5;
+
     @Bind(R.id.ratingValue) TextView ratingValue;
     @Bind(R.id.ratingValue1) TextView ratingValue1;
     @Bind(R.id.ratingBar) RatingBar rb;
@@ -157,16 +164,45 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                         rb.setRating(rate);
                         ratingValue.setText(String.valueOf(rate));
                         ratingValue1.setText((rate1 + rate2 + rate3 + rate4 + rate5)+" " + "تقييمات");
-                        pb1.setMax((int) rate);
-                        pb1.setProgress((int)((1*rate1)/(rate2 + rate3 + rate4 + rate5)));
-                        pb2.setMax((int) rate);
-                        pb2.setProgress((int)((2*rate2)/(rate1 + rate3 + rate4 + rate5)));
+
+                        if (rate < 10){
+                            rate = 10;
+                        }else if (rate > 10 && rate < 100){
+                            rate = 100;
+                        }else if (rate > 100 && rate < 1000){
+                            rate = 1000;
+                        }else if (rate > 1000 && rate < 10000){
+                            rate = 10000;
+                        }else if (rate > 10000 && rate < 50000){
+                            rate = 50000;
+                        }else if (rate > 50000 && rate < 100000){
+                            rate = 100000;
+                        }else if (rate > 100000 && rate < 500000){
+                            rate = 500000;
+                        }else if (rate > 500000 && rate < 1000000){
+                            rate = 1000000;
+                        }
+
+
+                        pb5.setMax((int) rate);
+                        pb5.setProgress((int)((rate1)/(rate2 + rate3 + rate4 + rate5)));
+                        pbt5.setText(rate1 + "");
+
+                        pb4.setMax((int) rate);
+                        pb4.setProgress((int)((2*rate2)/(rate1 + rate3 + rate4 + rate5)));
+                        pbt4.setText(rate2 + "");
+
                         pb3.setMax((int) rate);
                         pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate4 + rate5)));
-                        pb4.setMax((int) rate);
-                        pb4.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate5)));
-                        pb5.setMax((int) rate);
-                        pb5.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4)));
+                        pbt3.setText(rate3 + "");
+
+                        pb2.setMax((int) rate);
+                        pb2.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate5)));
+                        pbt2.setText(rate4 + "");
+
+                        pb1.setMax((int) rate);
+                        pb1.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4)));
+                        pbt1.setText(rate5 + "");
                     }else {
                         rb.setRating(0);
                     }
@@ -224,16 +260,45 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                                 rb.setRating(rate);
                                 ratingValue.setText(String.valueOf(rate));
                                 ratingValue1.setText((rate1 + rate2 + rate3 + rate4 + rate5) +" "+ "تقييمات");
-                                pb1.setMax((int) rate);
-                                pb1.setProgress((int)((1*rate1)/(rate1 + rate2 + rate3 + rate4 + rate5)));
-                                pb2.setMax((int) rate);
-                                pb2.setProgress((int)((2*rate2)/(rate1 + rate2 + rate3 + rate4 + rate5)));
-                                pb3.setMax((int) rate);
-                                pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate3 + rate4 + rate5)));
-                                pb4.setMax((int) rate);
-                                pb4.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+
+                                if (rate < 10){
+                                    rate = 10;
+                                }else if (rate > 10 && rate < 100){
+                                    rate = 100;
+                                }else if (rate > 100 && rate < 1000){
+                                    rate = 1000;
+                                }else if (rate > 1000 && rate < 10000){
+                                    rate = 10000;
+                                }else if (rate > 10000 && rate < 50000){
+                                    rate = 50000;
+                                }else if (rate > 50000 && rate < 100000){
+                                    rate = 100000;
+                                }else if (rate > 100000 && rate < 500000){
+                                    rate = 500000;
+                                }else if (rate > 500000 && rate < 1000000){
+                                    rate = 1000000;
+                                }
+
                                 pb5.setMax((int) rate);
-                                pb5.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5)));
+                                pb5.setProgress((int)((1*rate1)/(rate2 + rate3 + rate4 + rate5)));
+                                pbt5.setText(rate1 + "");
+
+                                pb4.setMax((int) rate);
+                                pb4.setProgress((int)((2*rate2)/(rate1 + rate3 + rate4 + rate5)));
+                                pbt4.setText(rate2 + "");
+
+                                pb3.setMax((int) rate);
+                                pb3.setProgress((int)((3*rate3)/(rate1 + rate2 + rate4 + rate5)));
+                                pbt3.setText(rate3 + "");
+
+                                pb2.setMax((int) rate);
+                                pb2.setProgress((int)((4*rate4)/(rate1 + rate2 + rate3 + rate5)));
+                                pbt2.setText(rate4 + "");
+
+                                pb1.setMax((int) rate);
+                                pb1.setProgress((int)((5*rate5)/(rate1 + rate2 + rate3 + rate4)));
+                                pbt1.setText(rate5 + "");
+
                             }else {
                                 rb.setRating(0);
                             }
