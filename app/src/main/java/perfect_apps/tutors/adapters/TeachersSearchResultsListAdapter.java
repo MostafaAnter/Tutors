@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -222,9 +225,23 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
                     .placeholder(R.drawable.rectangle)
                     .centerCrop()
                     .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
+                    .dontAnimate()
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            viewHolder.getProgressBar().setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
                     .into(viewHolder.getUserAvatar());
-            viewHolder.getProgressBar().setVisibility(View.GONE);
+
 
 
         } else if (holder instanceof LoadingViewHolder) {
