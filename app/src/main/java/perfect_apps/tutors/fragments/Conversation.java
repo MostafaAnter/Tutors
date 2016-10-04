@@ -410,7 +410,15 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                         }
 
-                        Messages item = new Messages(null, messageInput.getText().toString().trim(), false, null, -1, myEmail, null, null);
+                        String imageUrl;
+                        if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH).isEmpty()){
+                            imageUrl = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH);
+                        }else {
+                            imageUrl = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_IMAGE_FULL_PATH);
+                        }
+
+
+                        Messages item = new Messages(imageUrl, messageInput.getText().toString().trim(), false, null, -1, myEmail, null, null);
                         mDataSet.add(item);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
