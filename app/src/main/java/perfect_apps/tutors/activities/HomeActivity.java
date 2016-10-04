@@ -242,7 +242,15 @@ public class HomeActivity extends LocalizationActivity
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        } else if (id == R.id.about_app) {
+        }else if (id == R.id.signUp) {
+            // login student page
+            Intent intent = new Intent(HomeActivity.this, RegisterStudentMembershipActivity.class);
+            intent.putExtra("", "");
+            startActivity(intent
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+        }else if (id == R.id.about_app) {
             if (addAboutToBackstack()) {
                 // clearBackStack();
                 AboutFragment teacherDetails =

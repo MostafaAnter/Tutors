@@ -10,6 +10,10 @@
             android:title="@string/login"
             android:icon="@drawable/logout_ico"/>
         <item
+            android:id="@+id/signUp"
+            android:title="@string/register_student_membership"
+            android:icon="@drawable/reg_new_ico"/>
+        <item
             android:id="@+id/about_app"
             android:title="@string/about_app"
             android:icon="@drawable/about_app_ico"/>
