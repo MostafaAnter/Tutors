@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,6 +53,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         @Bind(R.id.timestamp) TextView timeStamp;
         @Bind(R.id.conversation_avatar)
         CircleImageView conversationAvatar;
+        public ProgressBar getProgressBar() {
+            return progressBar;
+        }
+
+        @Bind(R.id.progressBar)
+        ProgressBar progressBar;
 
         public LinearLayout getContainer() {
             return container;
@@ -124,10 +133,14 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>{
         viewHolder.getTimeStamp().setTypeface(font);
 
         // populate mainImage
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(mDataSet.get(position).getChats_avatar())
-                .placeholder(R.drawable.login_user_ico)
+                .placeholder(R.drawable.avatr)
+                .centerCrop()
+                .crossFade()
+                .thumbnail(0.1f)
                 .into(viewHolder.getConversationAvatar());
+        viewHolder.getProgressBar().setVisibility(View.GONE);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -10,16 +10,26 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/conversation_avatar"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/avatr"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#FFFFFF"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/conversation_avatar"
+            android:layout_width="?android:attr/listPreferredItemHeight"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/avatr"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#FFFFFF"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
 
     <LinearLayout
         android:layout_width="0dp"

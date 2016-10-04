@@ -760,9 +760,12 @@ public class TeacherDetails extends Fragment implements View.OnClickListener, Ra
             textView22.setText(itemObject.optString("name"));
             textView26.setText(itemObject.optString("desc"));
             // populate mainImage
-            Picasso.with(getActivity())
+            Glide.with(getActivity())
                     .load(itemObject.optString("image_full_path"))
                     .placeholder(R.drawable.login_user_ico)
+                    .centerCrop()
+                    .crossFade()
+                    .thumbnail(0.1f)
                     .into(imageAvatar);
 
             JSONObject teacherInfoObject = itemObject.optJSONObject("teacher_info");

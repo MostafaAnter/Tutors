@@ -217,22 +217,14 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
             viewHolder.getHour().setTypeface(font);
 
             // populate mainImage
-            Picasso.with(mContext)
+            Glide.with(mContext)
                     .load(mDataSet.get(position).getImage_full_path())
                     .placeholder(R.drawable.rectangle)
-                    .into(viewHolder.getUserAvatar(), new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            if (viewHolder.getProgressBar() != null) {
-                                viewHolder.getProgressBar().setVisibility(View.GONE);
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-                    });
+                    .centerCrop()
+                    .crossFade()
+                    .thumbnail(0.1f)
+                    .into(viewHolder.getUserAvatar());
+            viewHolder.getProgressBar().setVisibility(View.GONE);
 
 
         } else if (holder instanceof LoadingViewHolder) {

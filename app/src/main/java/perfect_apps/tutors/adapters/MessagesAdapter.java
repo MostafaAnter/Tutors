@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,6 +55,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         CircleImageView avatarImage;
         @Bind(R.id.timestamp) TextView authorAndTimestamp;
         @Bind(R.id.showFlag) ImageView showFlag;
+
+        public ProgressBar getProgressBar() {
+            return progressBar;
+        }
+
+        @Bind(R.id.progressBar)
+        ProgressBar progressBar;
 
         public TextView getMessage() {
             return message;
@@ -121,7 +131,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
 
         // Get element from your dataset at this position and replace the contents of the view
@@ -143,10 +153,14 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
 
         // populate mainImage
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(mDataSet.get(position).getUserAvatar())
-                .placeholder(R.drawable.login_user_ico)
+                .placeholder(R.drawable.avatr)
+                .centerCrop()
+                .crossFade()
+                .thumbnail(0.1f)
                 .into(viewHolder.getAvatarImage());
+        viewHolder.getProgressBar().setVisibility(View.GONE);
 
     }
 
