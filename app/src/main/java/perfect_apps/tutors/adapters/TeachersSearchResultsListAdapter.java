@@ -158,15 +158,28 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
             Typeface fontBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/bold.ttf");
-            viewHolder.getName().setText(mDataSet.get(position).getName());
-            viewHolder.getName().setTypeface(font);
+            if (mDataSet.get(position).getName() != null &&
+                    !mDataSet.get(position).getName().equalsIgnoreCase("null")){
+
+                viewHolder.getName().setText(mDataSet.get(position).getName());
+                viewHolder.getName().setTypeface(font);
+            }else {
+                viewHolder.getName().setText("__");
+            }
 
             // rate section
            // viewHolder.getRateStatic2().setText("التقييم");
             //viewHolder.getRateStatic2().setTypeface(font);
 
-            viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_divide_count()));
-            viewHolder.getRatePerFive().setTypeface(font);
+            if (mDataSet.get(position).getRating_divide_count() != null &&
+                    !mDataSet.get(position).getRating_divide_count().equalsIgnoreCase("null")) {
+                viewHolder.getRatePerFive().setText(String.valueOf(mDataSet.get(position).getRating_divide_count()));
+                viewHolder.getRatePerFive().setTypeface(font);
+            }else {
+                viewHolder.getRatePerFive().setText(" _ ");
+            }
+
+
             viewHolder.getRatingBar().setRating(mDataSet.get(position).getRating_per_5());
 
             if (mDataSet.get(position).getHour_price() != null &&
@@ -178,8 +191,13 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
             }
             viewHolder.getCostPerHour().setTypeface(fontBold);
 
-            viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
-            viewHolder.getDescribtion().setTypeface(font);
+            if (mDataSet.get(position).getDesc() != null &&
+                    !mDataSet.get(position).getDesc().equalsIgnoreCase("null")) {
+                viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
+                viewHolder.getDescribtion().setTypeface(font);
+            }else {
+                viewHolder.getDescribtion().setText("__");
+            }
             viewHolder.getHour().setTypeface(font);
 
             // populate mainImage
