@@ -239,7 +239,7 @@ public class HomeActivity extends LocalizationActivity
         if (id == R.id.home) {
             // call this section when coming from student
             if (getIntent().getStringExtra(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)
-                && addStudentHomeListToBackstack()) {
+                    && addStudentHomeListToBackstack()) {
                 //clearBackStack();
                 SearchAboutTeacherFragment teacherDetails =
                         new SearchAboutTeacherFragment();
@@ -260,7 +260,7 @@ public class HomeActivity extends LocalizationActivity
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        }else if (id == R.id.signUp) {
+        } else if (id == R.id.signUp) {
             // login student page
             Intent intent = new Intent(HomeActivity.this, RegisterStudentMembershipActivity.class);
             intent.putExtra("", "");
@@ -268,7 +268,7 @@ public class HomeActivity extends LocalizationActivity
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        }else if (id == R.id.about_app) {
+        } else if (id == R.id.about_app) {
             if (addAboutToBackstack()) {
                 // clearBackStack();
                 AboutFragment teacherDetails =
@@ -385,7 +385,7 @@ public class HomeActivity extends LocalizationActivity
 //            }
 //
 //        }
-        }else if (id == R.id.teacherMessages) {
+        } else if (id == R.id.teacherMessages) {
             if (addTeacherMessageToBackstack()) {
                 // clearBackStack();
                 MyChats teacherDetails =
@@ -567,88 +567,62 @@ public class HomeActivity extends LocalizationActivity
 
     private void getMessageCount(String email, String password, final TextView t) {
         String url = "http://services-apps.net/tutors/api/message/show/count?email=" + email + "&password=" + password;
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(url);
-        if (entry != null && !Utils.isOnline(this)) {
-            try {
-                String data = new String(entry.data, "UTF-8");
-                try {
-                    data = URLDecoder.decode(data, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                // to do some thing
-                try {
-                    JSONObject jsonObject = new JSONObject(data);
-                    String count = jsonObject.optString("count");
-                    t.setText(count);
-                    if (Integer.valueOf(count) > 0) {
-                        messageCountView.setVisibility(View.VISIBLE);
-                        messageCount.setText(count);
+
+
+        if (Utils.isOnline(this)) {
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url1 = "http://services-apps.net/tutors/api/message/show/count?email=" + email + "&password=" + password;
+
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url1, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        response = URLDecoder.decode(response, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        } else {
-            if (Utils.isOnline(this)) {
-                // Tag used to cancel the request
-                String tag_string_req = "string_req";
-                String url1 = "http://services-apps.net/tutors/api/message/show/count?email=" + email + "&password=" + password;
-
-                StringRequest strReq = new StringRequest(Request.Method.GET,
-                        url1, new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            response = URLDecoder.decode(response, "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+                    // do some thing here
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String count = jsonObject.optString("count");
+                        t.setText(count);
+                        if (Integer.valueOf(count) > 0) {
+                            messageCountView.setVisibility(View.VISIBLE);
+                            messageCount.setText(count);
                         }
-                        // do some thing here
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String count = jsonObject.optString("count");
-                            t.setText(count);
-                            if (Integer.valueOf(count) > 0) {
-                                messageCountView.setVisibility(View.VISIBLE);
-                                messageCount.setText(count);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        Log.e("teeest", response);
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                });
+                    Log.e("teeest", response);
 
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-            }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
-
-
     }
+
 
     @Subscribe
     public void onMessageEvent(NotificationEvent event) {
 
         if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
-                .equalsIgnoreCase(Constants.TEACHER)){
+                .equalsIgnoreCase(Constants.TEACHER)) {
 
             getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_EMAIL),
                     new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_PASSWORD), teacherMessageCount);
 
-        }else {
+        } else {
 
             getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_EMAIL),
                     new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_PASSWORD), studentMessageCount);
@@ -661,12 +635,12 @@ public class HomeActivity extends LocalizationActivity
     public void onUpdateCountMessageEvent(UpdateMessageCountEvent event) {
 
         if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
-                .equalsIgnoreCase(Constants.TEACHER)){
+                .equalsIgnoreCase(Constants.TEACHER)) {
 
             getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_EMAIL),
                     new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_PASSWORD), teacherMessageCount);
 
-        }else {
+        } else {
 
             getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_EMAIL),
                     new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_PASSWORD), studentMessageCount);

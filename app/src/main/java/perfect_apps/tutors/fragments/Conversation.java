@@ -149,12 +149,6 @@ public class Conversation extends Fragment implements View.OnClickListener {
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
         ImageView back = (ImageView) toolbar.findViewById(R.id.back);
         LinearLayout messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
-
-
-//        searchIc.setVisibility(View.GONE);
-//        profileIc.setVisibility(View.GONE);
-//        chatIc.setVisibility(View.GONE);
-        //  back.setVisibility(View.GONE);
         messageCountView.setVisibility(View.GONE);
 
     }
@@ -198,7 +192,11 @@ public class Conversation extends Fragment implements View.OnClickListener {
     }
 
     private void getConversationMessagesWhenOpen() {
-        EventBus.getDefault().post(new UpdateMessageCountEvent("message"));
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        LinearLayout messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
+        messageCountView.setVisibility(View.GONE);
+
+
         String url = "";
         if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             url = "http://services-apps.net/tutors/api/message/show/message?email="
@@ -248,6 +246,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
                         mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
 
                     }
+
+                    EventBus.getDefault().post(new UpdateMessageCountEvent("message"));
 
                 }
             }, new Response.ErrorListener() {
