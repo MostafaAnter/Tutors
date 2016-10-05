@@ -32,6 +32,10 @@ import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.NormalListDialog;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -47,6 +51,7 @@ import perfect_apps.tutors.adapters.ChatsAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.MyChatsItem;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.services.NotificationEvent;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.DividerItemDecoration;
@@ -235,6 +240,18 @@ public class MyChats extends Fragment {
         });
         setActionsOfToolBarIcons();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     private boolean addConversetionToBackstack() {
@@ -738,5 +755,10 @@ public class MyChats extends Fragment {
                     .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
                     .show();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(NotificationEvent event) {
+        initiateRefresh();
     }
 }

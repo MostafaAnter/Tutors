@@ -28,6 +28,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -44,6 +48,8 @@ import perfect_apps.tutors.adapters.MessagesAdapter;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.models.Messages;
 import perfect_apps.tutors.parse.JsonParser;
+import perfect_apps.tutors.services.NotificationEvent;
+import perfect_apps.tutors.services.UpdateMessageCountEvent;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
@@ -61,17 +67,20 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "Conversation";
 
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.messageInput) EditText messageInput;
-    @Bind(R.id.send_button) ImageView sendButton;
+    @Bind(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+    @Bind(R.id.messageInput)
+    EditText messageInput;
+    @Bind(R.id.send_button)
+    ImageView sendButton;
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.send_button:
-                if (getArguments().getString("flag").equalsIgnoreCase("last_chat_page")){
+                if (getArguments().getString("flag").equalsIgnoreCase("last_chat_page")) {
                     doReplyMessage();
-                }else {
+                } else {
                     doNewMessage();
                 }
                 break;
@@ -87,7 +96,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected List<Messages> mDataSet;
 
-    public Conversation(){
+    public Conversation() {
 
     }
 
@@ -115,6 +124,18 @@ public class Conversation extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
     private void setActionsOfToolBarIcons() {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
@@ -123,19 +144,17 @@ public class Conversation extends Fragment implements View.OnClickListener {
         title.setTypeface(font);
 
 
-
-
         ImageView searchIc = (ImageView) toolbar.findViewById(R.id.search);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
         ImageView chatIc = (ImageView) toolbar.findViewById(R.id.chat);
         ImageView back = (ImageView) toolbar.findViewById(R.id.back);
-        LinearLayout messageCountView = (LinearLayout)toolbar.findViewById(R.id.messageCountView);
+        LinearLayout messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
 
 
 //        searchIc.setVisibility(View.GONE);
 //        profileIc.setVisibility(View.GONE);
 //        chatIc.setVisibility(View.GONE);
-      //  back.setVisibility(View.GONE);
+        //  back.setVisibility(View.GONE);
         messageCountView.setVisibility(View.GONE);
 
     }
@@ -178,7 +197,8 @@ public class Conversation extends Fragment implements View.OnClickListener {
         mRecyclerView.scrollToPosition(scrollPosition);
     }
 
-    private void getConversationMessagesWhenOpen(){
+    private void getConversationMessagesWhenOpen() {
+        EventBus.getDefault().post(new UpdateMessageCountEvent("message"));
         String url = "";
         if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             url = "http://services-apps.net/tutors/api/message/show/message?email="
@@ -192,86 +212,59 @@ public class Conversation extends Fragment implements View.OnClickListener {
                     + "&message_id=" + getArguments().getString("message_id");
         }
 
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(url);
-        if (entry != null && !Utils.isOnline(getActivity())) {
-            try {
-                String data = new String(entry.data, "UTF-8");
-                try {
-                    data = URLDecoder.decode(data, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                // TODO: 13/07/16
-                clearDataSet();
-                for (Messages item :
-                        JsonParser.parseConversation(data)) {
-                    mDataSet.add(item);
-                    mAdapter.notifyDataSetChanged();
-                    mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
-
-                    //mDataSet.get(0).ge
-
-                }
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+        if (Utils.isOnline(getActivity())) {
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url1 = "";
+            if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
+                url1 = "http://services-apps.net/tutors/api/message/show/message?email="
+                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
+                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD)
+                        + "&message_id=" + getArguments().getString("message_id");
+            } else {
+                url1 = "http://services-apps.net/tutors/api/message/show/message?email="
+                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
+                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD)
+                        + "&message_id=" + getArguments().getString("message_id");
             }
-        } else {
-            if (Utils.isOnline(getActivity())) {
-                // Tag used to cancel the request
-                String tag_string_req = "string_req";
-                String url1 = "";
-                if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
-                    url1 = "http://services-apps.net/tutors/api/message/show/message?email="
-                            + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
-                            + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD)
-                            + "&message_id=" + getArguments().getString("message_id");
-                } else {
-                    url1 = "http://services-apps.net/tutors/api/message/show/message?email="
-                            + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
-                            + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD)
-                            + "&message_id=" + getArguments().getString("message_id");
-                }
 
 
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
 
-                StringRequest strReq = new StringRequest(Request.Method.GET,
-                        url, new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            response = URLDecoder.decode(response, "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                        // TODO: 13/07/16
-                        clearDataSet();
-                        for (Messages item :
-                                JsonParser.parseConversation(response)) {
-                            mDataSet.add(item);
-                            mAdapter.notifyDataSetChanged();
-                            mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
-
-                        }
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        response = URLDecoder.decode(response, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    // TODO: 13/07/16
+                    clearDataSet();
+                    for (Messages item :
+                            JsonParser.parseConversation(response)) {
+                        mDataSet.add(item);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
 
                     }
-                }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
 
-                    }
-                });
+                }
+            });
 
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-            }
+            strReq.setShouldCache(false);
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
-
     }
+
 
     // remove all item from RecyclerView
     private void clearDataSet() {
@@ -281,7 +274,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void doReplyMessage(){
+    private void doReplyMessage() {
         if (Utils.isOnline(getActivity())) {
             if (checkDataForReplyMessage()) {
                 // Set up a progress dialog
@@ -309,25 +302,25 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                         // add item to list here
                         String myEmail = "";
-                        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+                        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
                             myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
 
-                        }else {
+                        } else {
                             myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
 
                         }
 
                         String imageUrl;
-                        if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH).isEmpty()){
+                        if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH).isEmpty()) {
                             imageUrl = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH);
-                        }else {
+                        } else {
                             imageUrl = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_IMAGE_FULL_PATH);
                         }
 
-                        Messages item = new Messages(imageUrl, messageInput.getText().toString().trim(), false, null, -1, myEmail,null,null);
+                        Messages item = new Messages(imageUrl, messageInput.getText().toString().trim(), false, null, -1, myEmail, null, null);
                         mDataSet.add(item);
                         mAdapter.notifyDataSetChanged();
-                        mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
+                        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
 
                         //getConversationMessagesWhenOpen();
                         messageInput.setText("");
@@ -373,7 +366,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void doNewMessage(){
+    private void doNewMessage() {
 
         if (Utils.isOnline(getActivity())) {
             if (checkDataForNewMessage()) {
@@ -402,18 +395,18 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
                         // add item to list here
                         String myEmail = "";
-                        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+                        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
                             myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
 
-                        }else {
+                        } else {
                             myEmail = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
 
                         }
 
                         String imageUrl;
-                        if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH).isEmpty()){
+                        if (!new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH).isEmpty()) {
                             imageUrl = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_IMAGE_FULL_PATH);
-                        }else {
+                        } else {
                             imageUrl = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_IMAGE_FULL_PATH);
                         }
 
@@ -421,7 +414,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                         Messages item = new Messages(imageUrl, messageInput.getText().toString().trim(), false, null, -1, myEmail, null, null);
                         mDataSet.add(item);
                         mAdapter.notifyDataSetChanged();
-                        mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
+                        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
 
                         //getConversationMessagesWhenOpen();
                         messageInput.setText("");
@@ -464,11 +457,11 @@ public class Conversation extends Fragment implements View.OnClickListener {
         }
     }
 
-    private boolean checkDataForNewMessage(){
-        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+    private boolean checkDataForNewMessage() {
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
             password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
-        }else {
+        } else {
             email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
             password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
         }
@@ -484,11 +477,11 @@ public class Conversation extends Fragment implements View.OnClickListener {
         if (email != null && !email.trim().isEmpty()
                 && password != null && !password.trim().isEmpty()
                 && to != null && !to.trim().isEmpty()
-                && messageText != null && !messageText.trim().isEmpty()){
+                && messageText != null && !messageText.trim().isEmpty()) {
 
             return true;
 
-        }else {
+        } else {
             // show error message
             new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("نأسف !")
@@ -499,11 +492,11 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
     }
 
-    private boolean checkDataForReplyMessage(){
-        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)){
+    private boolean checkDataForReplyMessage() {
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
             email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
             password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
-        }else {
+        } else {
             email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL);
             password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD);
         }
@@ -521,11 +514,11 @@ public class Conversation extends Fragment implements View.OnClickListener {
                 && password != null && !password.trim().isEmpty()
                 && to != null && !to.trim().isEmpty()
                 && messageText != null && !messageText.trim().isEmpty()
-                && parentMessage != null && !parentMessage.trim().isEmpty()){
+                && parentMessage != null && !parentMessage.trim().isEmpty()) {
 
             return true;
 
-        }else {
+        } else {
             // show error message
             new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("نأسف !")
@@ -536,6 +529,10 @@ public class Conversation extends Fragment implements View.OnClickListener {
 
     }
 
+    @Subscribe
+    public void onMessageEvent(NotificationEvent event) {
+        getConversationMessagesWhenOpen();
+    }
 
     // to scroll to last item :)
 //    LinearLayoutManager llm = (LinearLayoutManager) mRecyclerView.getLayoutManager();

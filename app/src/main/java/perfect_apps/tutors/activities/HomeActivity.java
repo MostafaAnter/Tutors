@@ -33,6 +33,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.splunk.mint.Mint;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,6 +53,8 @@ import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.StudentDetails;
 import perfect_apps.tutors.fragments.TeacherDetails;
 import perfect_apps.tutors.fragments.TeachersHomeList;
+import perfect_apps.tutors.services.NotificationEvent;
+import perfect_apps.tutors.services.UpdateMessageCountEvent;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.CustomTypefaceSpan;
@@ -196,6 +201,18 @@ public class HomeActivity extends LocalizationActivity
         }
 
         Mint.initAndStartSession(this.getApplication(), "74f29fe7");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
@@ -617,6 +634,42 @@ public class HomeActivity extends LocalizationActivity
                 // Adding request to request queue
                 AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
             }
+        }
+
+
+    }
+
+    @Subscribe
+    public void onMessageEvent(NotificationEvent event) {
+
+        if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)){
+
+            getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_EMAIL),
+                    new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_PASSWORD), teacherMessageCount);
+
+        }else {
+
+            getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_EMAIL),
+                    new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_PASSWORD), studentMessageCount);
+        }
+
+
+    }
+
+    @Subscribe
+    public void onUpdateCountMessageEvent(UpdateMessageCountEvent event) {
+
+        if (new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
+                .equalsIgnoreCase(Constants.TEACHER)){
+
+            getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_EMAIL),
+                    new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.TEACHER_PASSWORD), teacherMessageCount);
+
+        }else {
+
+            getMessageCount(new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_EMAIL),
+                    new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_PASSWORD), studentMessageCount);
         }
 
 

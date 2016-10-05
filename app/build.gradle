@@ -66,6 +66,9 @@ dependencies {
 
     // splunk
     compile 'com.splunk.mint:mint:5.0.0'
+
+    // green bus
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
 
