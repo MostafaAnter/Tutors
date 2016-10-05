@@ -36,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ import perfect_apps.tutors.services.NotificationEvent;
 import perfect_apps.tutors.services.UpdateMessageCountEvent;
 import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
+import perfect_apps.tutors.utils.OnLoadMoreListener;
 import perfect_apps.tutors.utils.Utils;
 
 /**
@@ -73,6 +75,12 @@ public class Conversation extends Fragment implements View.OnClickListener {
     EditText messageInput;
     @Bind(R.id.send_button)
     ImageView sendButton;
+
+
+    private int pageCount = 1;
+    // add listener for loading more view
+    private int visibleThreshold = 5;
+    private int lastVisibleItem, totalItemCount;
 
     @Override
     public void onClick(View v) {
@@ -120,6 +128,39 @@ public class Conversation extends Fragment implements View.OnClickListener {
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
         mAdapter = new MessagesAdapter(getActivity(), mDataSet);
         mRecyclerView.setAdapter(mAdapter);
+
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+
+                if (lastVisibleItem == 0
+                        && !mAdapter.isLoading
+                        && totalItemCount > visibleThreshold) {
+                    if (mAdapter.mOnLoadMoreListener != null) {
+                        mAdapter.mOnLoadMoreListener.onLoadMore();
+                    }
+                    mAdapter.isLoading = true;
+                }
+            }
+        });
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                Log.e(TAG, "Load More");
+                pageCount++;
+                mDataSet.add(0, null);
+                mAdapter.notifyItemInserted(0);
+
+                // loadMoreData
+                getConversationMessagesWhenOpenPages();
+            }
+        });
         setActionsOfToolBarIcons();
         return view;
     }
@@ -202,30 +243,17 @@ public class Conversation extends Fragment implements View.OnClickListener {
             url = "http://services-apps.net/tutors/api/message/show/message?email="
                     + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
                     + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD)
-                    + "&message_id=" + getArguments().getString("message_id");
+                    + "&message_id=" + getArguments().getString("message_id") + "&page=" + 1;
         } else {
             url = "http://services-apps.net/tutors/api/message/show/message?email="
                     + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
                     + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD)
-                    + "&message_id=" + getArguments().getString("message_id");
+                    + "&message_id=" + getArguments().getString("message_id") + "&page=" + 1;
         }
 
         if (Utils.isOnline(getActivity())) {
             // Tag used to cancel the request
             String tag_string_req = "string_req";
-            String url1 = "";
-            if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
-                url1 = "http://services-apps.net/tutors/api/message/show/message?email="
-                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
-                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD)
-                        + "&message_id=" + getArguments().getString("message_id");
-            } else {
-                url1 = "http://services-apps.net/tutors/api/message/show/message?email="
-                        + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
-                        + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD)
-                        + "&message_id=" + getArguments().getString("message_id");
-            }
-
 
             StringRequest strReq = new StringRequest(Request.Method.GET,
                     url, new Response.Listener<String>() {
@@ -243,8 +271,74 @@ public class Conversation extends Fragment implements View.OnClickListener {
                             JsonParser.parseConversation(response)) {
                         mDataSet.add(item);
                         mAdapter.notifyDataSetChanged();
-                        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+                        mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
 
+                    }
+
+                    EventBus.getDefault().post(new UpdateMessageCountEvent("message"));
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                }
+            });
+
+            strReq.setShouldCache(false);
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        }
+    }
+
+    private void getConversationMessagesWhenOpenPages() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        LinearLayout messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
+        messageCountView.setVisibility(View.GONE);
+
+
+        String url = "";
+        if (getArguments().getString(Constants.COMMING_FROM).equalsIgnoreCase(Constants.STUDENT_PAGE)) {
+            url = "http://services-apps.net/tutors/api/message/show/message?email="
+                    + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL)
+                    + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD)
+                    + "&message_id=" + getArguments().getString("message_id") + "&page=" + pageCount;
+        } else {
+            url = "http://services-apps.net/tutors/api/message/show/message?email="
+                    + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_EMAIL)
+                    + "&password=" + new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.TEACHER_PASSWORD)
+                    + "&message_id=" + getArguments().getString("message_id") + "&page=" + pageCount;
+        }
+
+        if (Utils.isOnline(getActivity())) {
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        response = URLDecoder.decode(response, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    if(pageCount > 1 && mDataSet.size() != 0){
+                        mDataSet.remove(0);
+                        mAdapter.isLoading = false;
+                        mAdapter.notifyItemRemoved(0);
+                    }
+                    List<Messages> messagesList = JsonParser.parseConversation(response);
+                    if (messagesList != null) {
+                        for (Messages item : messagesList) {
+                            mDataSet.add(0, item);
+                            mAdapter.notifyDataSetChanged();
+                            mRecyclerView.smoothScrollToPosition(12);
+
+                        }
                     }
 
                     EventBus.getDefault().post(new UpdateMessageCountEvent("message"));

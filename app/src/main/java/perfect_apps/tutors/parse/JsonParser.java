@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import perfect_apps.tutors.models.Messages;
@@ -228,6 +229,7 @@ public class JsonParser {
 
                 teacherItems.add(new Messages(image_full_path, message, show, created_at, group_id, email, user_id, user_to_id));
             }
+            Collections.reverse(teacherItems);
             return teacherItems;
         } catch (JSONException e) {
             e.printStackTrace();
