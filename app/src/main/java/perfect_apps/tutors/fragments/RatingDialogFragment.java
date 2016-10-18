@@ -171,6 +171,11 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                 public void onErrorResponse(VolleyError error) {
                     pDialog.dismissWithAnimation();
                     dismiss();
+
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("نأسف")
+                            .setContentText("يبدو انك قمت بتقييم هذا المعلم من قبل")
+                            .show();
                 }
             }) {
 
