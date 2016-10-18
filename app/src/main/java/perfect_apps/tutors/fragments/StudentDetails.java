@@ -1,25 +1,32 @@
 package perfect_apps.tutors.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
@@ -28,33 +35,56 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import me.iwf.photopicker.PhotoPicker;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.app.AppController;
+import perfect_apps.tutors.store.TutorsPrefStore;
 import perfect_apps.tutors.utils.Constants;
 import perfect_apps.tutors.utils.Utils;
+import perfect_apps.tutors.utils.VolleyMultipartRequest;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by mostafa on 26/06/16.
  */
-public class StudentDetails extends Fragment {
+public class StudentDetails extends Fragment implements View.OnClickListener{
     public static final String TAG = "StudentDetails";
     private static int mStackLevel = 0;
 
-    @Bind(R.id.text1) TextView textView1;
+    private String email;
+    private String password;
+    private Uri image;
 
-    @Bind(R.id.editText1) EditText editText1;
-    @Bind(R.id.editText2) EditText editText2;
+    @Bind(R.id.text1)
+    TextView textView1;
+
+    @Bind(R.id.editText1)
+    EditText editText1;
+    @Bind(R.id.editText2)
+    EditText editText2;
 
 
-    @Bind(R.id.image1) ImageView imageView1;
+    @Bind(R.id.image1)
+    ImageView imageView1;
+
+
+    @Bind(R.id.frame_pick_image) FrameLayout frameLayout;
+    @Bind(R.id.pickPhoto) LinearLayout linearLayout;
+    @Bind(R.id.button1) Button buttonPickImage;
+    @Bind(R.id.editAccount) Button buttonEditAccount;
+
+
     public StudentDetails() {
 
     }
@@ -78,6 +108,11 @@ public class StudentDetails extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        frameLayout.setOnClickListener(this);
+        linearLayout.setOnClickListener(this);
+        buttonPickImage.setOnClickListener(this);
+        buttonEditAccount.setOnClickListener(this);
+
         fetchData();
     }
 
@@ -236,5 +271,201 @@ public class StudentDetails extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void pickPhoto() {
+        PhotoPicker.builder()
+                .setPhotoCount(1)
+                .setShowCamera(true)
+                .setShowGif(false)
+                .setPreviewEnabled(false)
+                .start(getActivity(), PhotoPicker.REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
+            if (data != null) {
+                ArrayList<String> photos =
+                        data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                Uri uri = Uri.fromFile(new File(photos.get(0)));
+                image = uri;
+                setSelectedPhotoInsideCircleShap(uri);
+            }
+        }
+    }
+
+    private void setSelectedPhotoInsideCircleShap(Uri uri) {
+        Glide.with(this)
+                .load(uri)
+                .centerCrop()
+                .thumbnail(0.1f)
+                .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+                .error(R.drawable.__picker_ic_broken_image_black_48dp)
+                .into(imageView1);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+
+        switch (v.getId()){
+            case R.id.frame_pick_image:
+                pickPhoto();
+                break;
+            case R.id.pickPhoto:
+                pickPhoto();
+                break;
+            case R.id.button1:
+                pickPhoto();
+                break;
+            case R.id.editAccount:
+                updateProfile();
+                break;
+        }
+    }
+
+    private void updateProfile() {
+        if (Utils.isOnline(getActivity())) {
+
+            if (checkValidation()) {
+                // Set up a progress dialog
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("أنتظر...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                // Tag used to cancel the request
+                String url = "http://services-apps.net/tutors/api/update/student";
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        pDialog.dismissWithAnimation();
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("عمل رأئع!")
+                                .setContentText("تم تحديث الحساب بنجاح")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                                        fm.popBackStack();
+
+                                    }
+                                })
+                                .show();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        String errorServerMessage = "";
+                        if (error.networkResponse.data != null) {
+                            errorServerMessage = new String(error.networkResponse.data);
+                            Log.e("errrror", errorServerMessage);
+                            try {
+                                JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                Log.e("server error", errorMessageObject.toString());
+                                JSONObject jsonObjectError = errorMessageObject.optJSONObject("errors");
+                                if (jsonObjectError != null) {
+                                    errorServerMessage = jsonObjectError.toString();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        // show error message
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("خطأ!")
+                                .setContentText(errorServerMessage)
+                                .show();
+
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message + " Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message + " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message + " Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("current_password", password);
+                        params.put("current_email", email);
+
+
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+
+                        if (image != null)
+                            params.put("image", new DataPart("file_avatar.jpg", Utils.getFileDataFromDrawable(getActivity(),
+                                    image), "image/jpeg"));
+
+                        return params;
+                    }
+                };
+
+                int socketTimeout = 30000;//30 seconds - change to what you want
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                multipartRequest.setRetryPolicy(policy);
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
+            }
+
+
+        } else {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("خطأ")
+                    .setContentText("تحقق من الأتصال بألأنترنت")
+                    .show();
+        }
+    }
+
+    private boolean checkValidation(){
+        email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
+        password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+        return true;
     }
 }

@@ -36,11 +36,11 @@
                 android:gravity="top" >
             </TextView>
             <LinearLayout
+                android:id="@+id/pickPhoto"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:clickable="false">
+                android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -48,7 +48,8 @@
                     android:layout_weight="2"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/frame_pick_image">
                     <ImageView
                         android:id="@+id/image1"
                         android:layout_width="match_parent"
@@ -140,6 +141,16 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_action_mail_ico"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/editAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="حفظ"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/blue_button_background"/>
 
     </LinearLayout>
 </ScrollView>

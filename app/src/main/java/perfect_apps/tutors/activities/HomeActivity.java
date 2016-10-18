@@ -1,11 +1,10 @@
 package perfect_apps.tutors.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -26,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
-import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,20 +33,18 @@ import com.splunk.mint.Mint;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.tutors.R;
 import perfect_apps.tutors.app.AppController;
 import perfect_apps.tutors.fragments.AboutFragment;
 import perfect_apps.tutors.fragments.ContactUs;
 import perfect_apps.tutors.fragments.MyChats;
-import perfect_apps.tutors.fragments.RatingDialogFragment;
 import perfect_apps.tutors.fragments.SearchAboutTeacherFragment;
 import perfect_apps.tutors.fragments.StudentDetails;
 import perfect_apps.tutors.fragments.TeacherDetails;
@@ -646,6 +642,20 @@ public class HomeActivity extends LocalizationActivity
                     new TutorsPrefStore(HomeActivity.this).getPreferenceValue(Constants.STUDENT_PASSWORD), studentMessageCount);
         }
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if(fragment instanceof StudentDetails) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                }
+            }
+        }
 
     }
 }
