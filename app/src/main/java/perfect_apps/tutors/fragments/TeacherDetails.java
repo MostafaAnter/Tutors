@@ -540,6 +540,19 @@ public class TeacherDetails extends Fragment implements View.OnClickListener, Ra
             @Override
             public void onClick(View v) {
 
+                if (addStudentHomeListToBackstack()) {
+                    clearBackStack();
+                    SearchAboutTeacherFragment teacherDetails =
+                            new SearchAboutTeacherFragment();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                            .beginTransaction();
+                    transaction.replace(R.id.fragment_container, teacherDetails);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.addToBackStack(SearchAboutTeacherFragment.TAG);
+                    transaction.commit();
+                    // to add to back stack
+                    getActivity().getSupportFragmentManager().executePendingTransactions();
+                }
             }
         });
 
@@ -587,6 +600,24 @@ public class TeacherDetails extends Fragment implements View.OnClickListener, Ra
             }
         });
     }
+
+    private void clearBackStack() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack();
+    }
+
+    private boolean addStudentHomeListToBackstack() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
+            Log.i(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getName());
+
+            if (fm.getBackStackEntryAt(entry).getName().equalsIgnoreCase(SearchAboutTeacherFragment.TAG)) {
+                fm.popBackStack(SearchAboutTeacherFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        }
+        return true;
+    }
+
 
     private boolean addTeacherMessageToBackstack() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
