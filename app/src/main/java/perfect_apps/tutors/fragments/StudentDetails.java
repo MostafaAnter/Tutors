@@ -354,9 +354,6 @@ public class StudentDetails extends Fragment implements View.OnClickListener{
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
                                         sDialog.dismissWithAnimation();
-                                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                                        fm.popBackStack();
-
                                     }
                                 })
                                 .show();
