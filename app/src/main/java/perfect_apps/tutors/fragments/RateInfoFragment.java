@@ -151,18 +151,19 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
                 try {
                     JSONObject jsonObject = new JSONObject(data);
                     JSONObject jsonObject1 = jsonObject.optJSONObject("rates");
-                    int rate1 = jsonObject1.optInt("1");
-                    int rate2 = jsonObject1.optInt("2");
-                    int rate3 = jsonObject1.optInt("3");
-                    int rate4 = jsonObject1.optInt("4");
-                    int rate5 = jsonObject1.optInt("5");
+                    double rate1 = jsonObject1.optDouble("1");
+                    double rate2 = jsonObject1.optDouble("2");
+                    double rate3 = jsonObject1.optDouble("3");
+                    double rate4 = jsonObject1.optDouble("4");
+                    double rate5 = jsonObject1.optDouble("5");
 
 
 
                     if ((rate1 + rate2 + rate3 + rate4 + rate5) != 0) {
-                        float rate = (1*rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
-                        rb.setRating(rate);
-                        ratingValue.setText(String.valueOf(rate));
+                        double rate = (rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
+                        float totalRate = (float) Math.round(rate * 10)/10;
+                        rb.setRating(totalRate);
+                        ratingValue.setText(String.valueOf(totalRate));
                         ratingValue1.setText((rate1 + rate2 + rate3 + rate4 + rate5)+" " + "تقييمات");
 
                         if (rate < 10){
@@ -185,23 +186,23 @@ public class RateInfoFragment extends DialogFragment implements View.OnClickList
 
 
                         pb1.setMax((int) rate);
-                        pb1.setProgress(rate1);
+                        pb1.setProgress((int) rate1);
                         pbt1.setText(rate1 + "");
 
                         pb2.setMax((int) rate);
-                        pb2.setProgress(rate2);
+                        pb2.setProgress((int) rate2);
                         pbt2.setText(rate2 + "");
 
                         pb3.setMax((int) rate);
-                        pb3.setProgress(rate3);
+                        pb3.setProgress((int) rate3);
                         pbt3.setText(rate3 + "");
 
                         pb4.setMax((int) rate);
-                        pb4.setProgress(rate4);
+                        pb4.setProgress((int) rate4);
                         pbt4.setText(rate4 + "");
 
                         pb5.setMax((int) rate);
-                        pb5.setProgress(rate5);
+                        pb5.setProgress((int) rate5);
                         pbt5.setText(rate5 + "");
                     }else {
                         rb.setRating(0);
