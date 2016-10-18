@@ -38,6 +38,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +66,7 @@ public class StudentDetails extends Fragment implements View.OnClickListener{
     private String email;
     private String password;
     private Uri image;
+    private String name;
 
     @Bind(R.id.text1)
     TextView textView1;
@@ -426,6 +428,8 @@ public class StudentDetails extends Fragment implements View.OnClickListener{
 
                         params.put("current_password", password);
                         params.put("current_email", email);
+                        params.put("email", email);
+                        params.put("name", name);
 
 
                         return params;
@@ -466,6 +470,11 @@ public class StudentDetails extends Fragment implements View.OnClickListener{
     private boolean checkValidation(){
         email = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_EMAIL);
         password = new TutorsPrefStore(getActivity()).getPreferenceValue(Constants.STUDENT_PASSWORD);
+        try {
+            name = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }
