@@ -429,7 +429,7 @@ public class Conversation extends Fragment implements View.OnClickListener {
                         // show error message
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("خطأ")
-                                .setContentText("حاول مره أخري")
+                                .setContentText("يبدو انه تم حظر المحادثة")
                                 .show();
                     }
                 }) {
