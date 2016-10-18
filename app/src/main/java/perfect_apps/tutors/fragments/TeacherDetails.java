@@ -758,7 +758,11 @@ public class TeacherDetails extends Fragment implements View.OnClickListener, Ra
             JSONObject jsonRootObject = new JSONObject(response);
             JSONObject itemObject = jsonRootObject.optJSONObject("item");
             textView22.setText(itemObject.optString("name"));
-            textView26.setText(itemObject.optString("desc"));
+            if (itemObject.optString("desc") != null &&! itemObject.optString("desc").equalsIgnoreCase("null")){
+                textView26.setText(itemObject.optString("desc"));
+            }else {
+                textView26.setText("  ");
+            }
             // populate mainImage
             Glide.with(getActivity())
                     .load(itemObject.optString("image_full_path"))

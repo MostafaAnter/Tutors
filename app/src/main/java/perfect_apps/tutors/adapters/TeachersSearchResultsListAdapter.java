@@ -215,7 +215,7 @@ public class TeachersSearchResultsListAdapter extends RecyclerView.Adapter<Recyc
                 viewHolder.getDescribtion().setText(mDataSet.get(position).getDesc());
                 viewHolder.getDescribtion().setTypeface(font);
             } else {
-                viewHolder.getDescribtion().setText("__");
+                viewHolder.getDescribtion().setText("  ");
             }
             viewHolder.getHour().setTypeface(font);
 
